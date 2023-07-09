@@ -33,6 +33,8 @@ class Youmu {
         this.speed = 3;
         this.dashSpeed = 4.5;
         this.jumpHeight = 10;
+
+        this.boxView = true;
     };
 
     updateBB() {
@@ -229,9 +231,11 @@ class Youmu {
     draw(ctx) {
         console.log(this.state);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        ctx.beginPath();
-        ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
-        ctx.strokeStyle = "yellow";
-        ctx.stroke();
+        if (this.boxView) {
+            ctx.beginPath();
+            ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
+            ctx.strokeStyle = "yellow";
+            ctx.stroke();
+        }
     };
 }
