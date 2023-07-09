@@ -44,17 +44,17 @@ class Youmu {
             case 2:
             case 3:
             case 5:
-                // if (this.facing == 0) {
-                //     this.BB = new BoundingBox(this.x + 84, this.y + 54, 27, 73); break;
-                // } else {
-                //     this.BB = new BoundingBox(this.x + 89, this.y + 54, 27, 73); break;
-                // }
+                if (this.facing == 0) {
+                    this.BB = new BoundingBox(this.x + 84, this.y + 84, 27, 43); break;
+                } else {
+                    this.BB = new BoundingBox(this.x + 89, this.y + 84, 27, 43); break;
+                }
             case 1:
             case 4:
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 94, this.y + 84, 27, 43); break;
+                    this.BB = new BoundingBox(this.x + 84, this.y + 84, 27, 43); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 99, this.y + 84, 27, 43); break;
+                    this.BB = new BoundingBox(this.x + 89, this.y + 84, 27, 43); break;
                 }
         } 
     };
@@ -127,9 +127,8 @@ class Youmu {
             }
             if (this.yVelocity != 0) this.airborne = true;
             if (this.airborne) {  //Airborne
-                if (this.jumpDuration > 0) {
-                    this.state = 2; // Jumping
-                } else this.state = 3; // Falling
+                if (this.jumpDuration > 0) this.state = 2; // Jumping
+                if (this.jumpDuration < 0) this.state = 3; // Falling
                 if (this.game.right) {
                     this.facing = 0;
                 } else if (this.game.left) {
@@ -230,5 +229,9 @@ class Youmu {
     draw(ctx) {
         console.log(this.state);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        ctx.beginPath();
+        ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
+        ctx.strokeStyle = "yellow";
+        ctx.stroke();
     };
 }
