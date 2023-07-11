@@ -9,11 +9,12 @@ class Player {
         this.loadAnimations();
 
         this.updateBB();
-        this.yBoxOffset = 127;
-        this.xBoxOffset = 84;
+        this.attackBox;
+        // this.yBoxOffset = 127;
+        // this.xBoxOffset = 84;
 
         this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack
-        this.facing = 0; //left or right
+        this.facing = 0; //right or left
 
         this.x = 15;
         this.y = 250;
@@ -37,6 +38,16 @@ class Player {
         this.boxView = true;
     };
 
+    updateAttackBox() {
+        if (this.attackDuration > 0 && this.attackDuration < 6) {
+            if (this.facing == 0) {
+                this.attackBox = new BoundingBox(this.x + 110, this.y, 90, 120);
+            } else {
+                this.attackBox = new BoundingBox(this.x, this.y, 90, 120);
+            }
+        } else this.attackBox = null;
+    }
+    
     updateBB() {
 
         this.lastBB = this.BB;
@@ -152,7 +163,8 @@ class Player {
         }
 
         //Logic
-        this.yVelocity += 0.2;
+        this.yVelocity += 0.2; //Gravity
+        this.updateAttackBox();
         if (this.dashing) {
             this.yVelocity = 0;
 
@@ -225,6 +237,11 @@ class Player {
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
             ctx.strokeStyle = "yellow";
             ctx.stroke();
+            if (this.attackBox != null) {
+                ctx.rect(this.attackBox.x, this.attackBox.y, this.attackBox.width, this.attackBox.height)
+                ctx.strokeStyle = "red";
+                ctx.stroke();
+            }
         }
     };
 }
