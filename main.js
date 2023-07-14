@@ -7,14 +7,12 @@ ASSET_MANAGER.queueDownload("./YoumuSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./room.png");
 
 
-
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-	
-	gameEngine.addEntity(new Player(gameEngine));
 
+	gameEngine.roomManager = new RoomManager();
+	gameEngine.addEntity(new Player(gameEngine));
 	gameEngine.init(ctx);
-	gameEngine.currentRoom = new RoomManager();
 	gameEngine.start();
 });

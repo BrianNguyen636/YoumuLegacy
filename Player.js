@@ -10,8 +10,8 @@ class Player {
 
         this.updateBB();
         this.attackBox;
-        // this.yBoxOffset = 127;
-        // this.xBoxOffset = 84;
+        this.yBoxOffset = 127;
+        this.xBoxOffset = 84;
 
         this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack
         this.facing = 0; //right or left
@@ -47,7 +47,7 @@ class Player {
             }
         } else this.attackBox = null;
     }
-    
+
     updateBB() {
 
         this.lastBB = this.BB;
@@ -179,15 +179,24 @@ class Player {
                 this.x -= this.speed;
             }
         }
-        this.updateBB();
-        for (let i = 0; i < this.game.currentRoom.boxes.length; i++) {
-            if (this.BB.collide(this.game.currentRoom.boxes[i])) this.handleXCollision();
-        }
+        // this.updateBB();     
+        // for (let i = 0; i < this.currentRoom.boxes.length; i++) {
+        //     if (this.BB.collide(this.currentRoom.boxes[i])) this.handleXCollision();
+        // }
+
+
         this.y += this.yVelocity / 2;
         this.updateBB(); 
-        for (let i = 0; i < this.game.currentRoom.boxes.length; i++) {
-            if (this.BB.collide(this.game.currentRoom.boxes[i])) this.handleYCollision();
+
+        if (this.y + this.yBoxOffset >= 700) { //GROUND COLLISION
+            this.y = 700 - this.yBoxOffset;
+            this.yVelocity = 0;
+            this.airborne = false;
         }
+
+        // for (let i = 0; i < this.currentRoom.boxes.length; i++) {
+        //     if (this.BB.collide(this.currentRoom.boxes[i])) this.handleYCollision();
+        // }
 
         if (this.x + this.xBoxOffset <= 0) { //LEFT COLLISION
             this.x = 0 - this.xBoxOffset;
