@@ -10,15 +10,18 @@ class Player {
 
         this.updateBB();
         this.attackBox;
-        this.yBoxOffset = 127;
-        this.xBoxOffset = 84;
+        
+        this.xBoxOffset = 84; //Distance between side and left collision box side
+        this.yBoxOffset = 127; //Distance between top and collision box bottom 
 
         this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack
         this.facing = 0; //right or left
 
         this.x = 15;
-        this.y = 250;
+        this.y = 600 - this.yBoxOffset;
         this.yVelocity = 0;
+
+        this.health = 5;
 
         this.airborne = true;
         this.doublejump = true;
@@ -35,7 +38,6 @@ class Player {
         this.dashSpeed = 4.5;
         this.jumpHeight = 10;
 
-        this.boxView = true;
     };
 
     updateAttackBox() {
@@ -46,7 +48,7 @@ class Player {
                 this.attackBox = new BoundingBox(this.x, this.y, 90, 120);
             }
         } else this.attackBox = null;
-    }
+    };
 
     updateBB() {
 
@@ -188,8 +190,8 @@ class Player {
         this.y += this.yVelocity / 2;
         this.updateBB(); 
 
-        if (this.y + this.yBoxOffset >= 700) { //GROUND COLLISION
-            this.y = 700 - this.yBoxOffset;
+        if (this.y + this.yBoxOffset >= 600) { //GROUND COLLISION
+            this.y = 600 - this.yBoxOffset;
             this.yVelocity = 0;
             this.airborne = false;
         }
@@ -207,7 +209,7 @@ class Player {
 
         if (this.airborne) { //Airborne
             if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
-                this.yVelocity -= 0.1;
+                this.yVelocity -= 0.08;
             }
             if (!(this.game.A || this.game.up)) {
                 this.jumpHold = false;
@@ -219,7 +221,7 @@ class Player {
                 this.doublejump = false;
                 this.jumpHold = true;
                 this.animations[this.facing][2].resetFrames();
-                this.jumpDuration = this.animations[this.facing][2].totalTime;
+                this.jumpDuration = this.animations[this.facing][2].totalTime - this.game.clockTick;
             }
         } else { //Grounded
             this.doublejump = true;
@@ -232,16 +234,15 @@ class Player {
                 this.airborne = true;
                 this.jumpHold = true;
                 this.animations[this.facing][2].resetFrames();
-                this.jumpDuration = this.animations[this.facing][2].totalTime;
+                this.jumpDuration = this.animations[this.facing][2].totalTime - this.game.clockTick;
             }   
         }
         
     };
 
     draw(ctx) {
-        console.log(this.state);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        if (this.boxView) {
+        if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
             ctx.strokeStyle = "yellow";

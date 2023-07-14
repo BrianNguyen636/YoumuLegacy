@@ -27,6 +27,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
+        this.boxView = true;
     };
 
     init(ctx) {
