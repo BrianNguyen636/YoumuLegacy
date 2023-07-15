@@ -12,10 +12,10 @@ ASSET_MANAGER.queueDownload("./room.png");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-
+	const player = new Player(gameEngine);
 	gameEngine.roomManager = new RoomManager();
-	gameEngine.addEntity(new Player(gameEngine));
-	gameEngine.addEntity(new Meiling(gameEngine));
+	gameEngine.addEntity(player);
+	gameEngine.addEntity(new Meiling(gameEngine, player));
 	gameEngine.init(ctx);
 	gameEngine.start();
 });
