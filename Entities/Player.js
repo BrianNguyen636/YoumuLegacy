@@ -1,5 +1,6 @@
 class Player {
-    constructor(game){
+    constructor(game) {
+        this.id = "player";
         this.game = game;
         this.spritesheet = ASSET_MANAGER.getAsset("./YoumuSpritesheet.png");
         this.spritesheetFlip = ASSET_MANAGER.getAsset("./YoumuSpritesheetFlip.png");
@@ -14,14 +15,16 @@ class Player {
         this.xBoxOffset = 84; //Distance between side and left collision box side
         this.yBoxOffset = 127; //Distance between top and collision box bottom 
 
-        this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack
+        this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack, 6 = hurt
         this.facing = 0; //right or left
 
         this.x = 15;
         this.y = 600 - this.yBoxOffset;
         this.yVelocity = 0;
+        this.xVelocity = 0;
 
         this.health = 5;
+        this.invuln = 0;
 
         this.airborne = true;
         this.doublejump = true;
@@ -40,6 +43,24 @@ class Player {
 
     };
 
+    hurt(other) {
+        if (this.invuln <= 0 ) {
+            this.health -= 1;
+            this.invuln = 60;
+            this.state = 6;
+            this.yVelocity = -6;
+            if (this.x < other.x) {
+                this.xVelocity = -3;
+            } else {
+                this.xVelocity = 3;
+            }
+        }
+    };
+
+    getAttackSpeed() {
+        return this.animations[this.facing][5].totalTime;
+    }
+
     updateAttackBox() {
         if (this.attackDuration > 0 && this.attackDuration < 6) {
             if (this.facing == 0) {
@@ -55,17 +76,7 @@ class Player {
         this.lastBB = this.BB;
 
         switch(this.state) {
-            case 0:
-            case 2:
-            case 3:
-            case 5:
-                if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 84, this.y + 84, 27, 43); break;
-                } else {
-                    this.BB = new BoundingBox(this.x + 89, this.y + 84, 27, 43); break;
-                }
-            case 1:
-            case 4:
+            default:
                 if (this.facing == 0) {
                     this.BB = new BoundingBox(this.x + 84, this.y + 84, 27, 43); break;
                 } else {
@@ -81,6 +92,7 @@ class Player {
         this.animations[0][3] = new Animator(this.spritesheet, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[0][4] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[0][5] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[0][6] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
 
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 8, 10); 
         this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
@@ -88,6 +100,7 @@ class Player {
         this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
     };
 
     handleYCollision() {
@@ -112,8 +125,15 @@ class Player {
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
         if (this.dashDuration > 0) this.dashDuration -= this.game.clockTick;
         if (this.jumpDuration > 0) this.jumpDuration -= this.game.clockTick;
-
-        if (this.attacking && this.attackDuration > 0) {
+        if (this.invuln > 0 && this.state != 6) this.invuln -= 1;
+        
+        if (this.state == 6) {
+            this.x += this.xVelocity;
+            this.airborne = true;
+            this.dashing = false;
+            if (this.yVelocity == 0) this.state = 0;
+            if (this.game.A || this.game.up) this.state = 2;
+        } else if (this.attacking && this.attackDuration > 0) {
             this.state = 5;
         } else if (this.dashing && this.dashDuration > 0) {
             this.state = 4;
@@ -166,6 +186,7 @@ class Player {
 
         //Logic
         this.yVelocity += 0.2; //Gravity
+
         this.updateAttackBox();
         if (this.dashing) {
             this.yVelocity = 0;
@@ -173,8 +194,7 @@ class Player {
             if (this.facing == 0) {
                 this.x += this.dashSpeed;
             } else this.x -= this.dashSpeed;
-        } else {
-
+        } else if (this.state != 6) {
             if (this.game.right) {
                 this.x += this.speed;
             } else if (this.game.left) {
@@ -187,9 +207,8 @@ class Player {
         // }
 
 
-        this.y += this.yVelocity / 2;
-        this.updateBB(); 
-
+        this.y += this.yVelocity / 2; 
+        this.updateBB();
         if (this.y + this.yBoxOffset >= 600) { //GROUND COLLISION
             this.y = 600 - this.yBoxOffset;
             this.yVelocity = 0;
@@ -240,8 +259,20 @@ class Player {
         
     };
 
+    drawHealth(ctx) {
+        let pHealth = this.health;
+        ctx.fillStyle = "white";
+        for (let i = 0; i < pHealth; i++) {
+            ctx.arc(100 + i * 50, 60, 20, 0, 360);
+        }
+        ctx.fill();
+        let healthLost = 5 - pHealth;
+        ctx.clearRect(320 - healthLost * 50, 40, healthLost * 50, 40);
+    }
+
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        this.drawHealth(ctx);
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)

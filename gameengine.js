@@ -27,7 +27,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = true;
+        this.boxView = false;
     };
 
     init(ctx) {
@@ -129,6 +129,7 @@ class GameEngine {
         // this.ctx.drawImage(this.roomManager.currentRoom.map,0,0);
 
 
+
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             this.entities[i].draw(this.ctx, this);
@@ -141,17 +142,35 @@ class GameEngine {
 
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
-
             if (!entity.removeFromWorld) {
                 entity.update();
+                if (entity.id == "player") {
+                    this.checkPlayerCollisions(entity);
+                }
             }
         }
-        for (let i = this.entities.length - 1; i >= 0; --i) {
+        for (let i = this.entitiesCount - 1; i >= 0; --i) {
             if (this.entities[i].removeFromWorld) {
                 this.entities.splice(i, 1);
             }
         }
     };
+
+    checkPlayerCollisions(player) {
+        for (let i = 0; i < this.entities.length; i++) {
+            let entity = this.entities[i];
+            if (!entity.removeFromWorld) {
+                if (entity.id != "player" && entity.BB.collide(player.BB)) {
+                    if (entity.id == "boss" || entity.id == "attack") {
+                        player.hurt(entity);
+                    }
+                }
+                if (player.attackBox != null && entity.id == "boss") {
+                    if (player.attackBox.collide(entity.BB)) entity.hurt(player);
+                }
+            }
+        }
+    }
 
     loop() {
         this.clockTick = this.timer.tick();

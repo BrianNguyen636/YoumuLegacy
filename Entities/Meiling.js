@@ -1,5 +1,6 @@
 class Meiling {
     constructor(game, player){
+        this.id = "boss";
         this.game = game;
         this.player = player;
         this.spritesheet = ASSET_MANAGER.getAsset("./MeilingSpritesheet.png");
@@ -9,6 +10,7 @@ class Meiling {
         this.animations = [[],[]];
         this.loadAnimations();
 
+
         this.xBoxOffset = 68; //Distance between side and left collision box side
         this.yBoxOffset = 123; //Distance between top and collision box bottom 
 
@@ -17,8 +19,18 @@ class Meiling {
 
         this.x = 600;
         this.y = 600 - this.yBoxOffset;
+        this.updateBB();
 
         this.health = 50;
+        this.invuln = 0;
+    };
+
+    hurt(other) {
+        if (this.invuln <= 0 ) {
+            this.health -= 1;
+            this.invuln = this.player.getAttackSpeed() / this.game.clockTick + 1;
+            console.log(this.player.getAttackSpeed());
+        }
     };
 
     updateBB() {
@@ -32,7 +44,7 @@ class Meiling {
                 } else {
                     this.BB = new BoundingBox(this.x + 68, this.y + 25, 64, 98); break;
                 }
-        } 
+        }
     };
 
 
@@ -59,6 +71,7 @@ class Meiling {
 
     update() {
         this.updateBB();
+        if (this.invuln > 0) this.invuln -= 1;
         if (this.x + this.xBoxOffset <= 0) { //LEFT COLLISION
             this.x = 0 - this.xBoxOffset;
         }
@@ -68,11 +81,25 @@ class Meiling {
         if (this.x < this.player.x) {
             this.facing = 0;
         } else this.facing = 1;
+
+        // if (this.BB.collide(this.player.BB)) {
+        //     this.player.hurt(this);
+        // }
+
         this.state = 0;
+    }
+
+    drawHealthBar(ctx) {
+        const healthPercent = this.health / 50;
+        ctx.fillStyle = "Green";
+        ctx.fillRect(240, 740, 800, 20);
+        ctx.fillStyle = "Red";
+        ctx.fillRect(1040 - 800*(1 - healthPercent), 740, 800*(1 - healthPercent), 20);
     }
 
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        this.drawHealthBar(ctx);
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
