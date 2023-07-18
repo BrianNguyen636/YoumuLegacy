@@ -2,8 +2,8 @@ class Player {
     constructor(game) {
         this.id = "player";
         this.game = game;
-        this.spritesheet = ASSET_MANAGER.getAsset("./YoumuSpritesheet.png");
-        this.spritesheetFlip = ASSET_MANAGER.getAsset("./YoumuSpritesheetFlip.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/YoumuSpritesheet.png");
+        this.spritesheetFlip = ASSET_MANAGER.getAsset("./assets/YoumuSpritesheetFlip.png");
         this.sWidth = 200;
         this.sHeight = 150;
         this.animations = [[],[]];
@@ -49,6 +49,7 @@ class Player {
             this.invuln = 60;
             this.state = 6;
             this.yVelocity = -6;
+            this.doublejump = true;
             if (this.x < other.x) {
                 this.xVelocity = -3;
             } else {
@@ -132,7 +133,7 @@ class Player {
             this.airborne = true;
             this.dashing = false;
             if (this.yVelocity == 0) this.state = 0;
-            if (this.game.A || this.game.up) this.state = 2;
+            if ((this.game.A || this.game.up) && !this.jumpHold) this.state = 2;
         } else if (this.attacking && this.attackDuration > 0) {
             this.state = 5;
         } else if (this.dashing && this.dashDuration > 0) {
@@ -259,20 +260,8 @@ class Player {
         
     };
 
-    drawHealth(ctx) {
-        let pHealth = this.health;
-        ctx.fillStyle = "white";
-        for (let i = 0; i < pHealth; i++) {
-            ctx.arc(100 + i * 50, 60, 20, 0, 360);
-        }
-        ctx.fill();
-        let healthLost = 5 - pHealth;
-        ctx.clearRect(320 - healthLost * 50, 40, healthLost * 50, 40);
-    }
-
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        this.drawHealth(ctx);
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)

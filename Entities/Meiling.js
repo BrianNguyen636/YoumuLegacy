@@ -3,8 +3,8 @@ class Meiling {
         this.id = "boss";
         this.game = game;
         this.player = player;
-        this.spritesheet = ASSET_MANAGER.getAsset("./MeilingSpritesheet.png");
-        this.spritesheetFlip = ASSET_MANAGER.getAsset("./MeilingSpritesheetFlip.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheet.png");
+        this.spritesheetFlip = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheetFlip.png");
         this.sWidth = 200;
         this.sHeight = 150;
         this.animations = [[],[]];
@@ -88,18 +88,9 @@ class Meiling {
 
         this.state = 0;
     }
-
-    drawHealthBar(ctx) {
-        const healthPercent = this.health / 50;
-        ctx.fillStyle = "Green";
-        ctx.fillRect(240, 740, 800, 20);
-        ctx.fillStyle = "Red";
-        ctx.fillRect(1040 - 800*(1 - healthPercent), 740, 800*(1 - healthPercent), 20);
-    }
-
+    
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        this.drawHealthBar(ctx);
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)

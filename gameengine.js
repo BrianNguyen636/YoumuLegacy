@@ -9,6 +9,7 @@ class GameEngine {
         // Everything that will be updated and drawn each frame
         this.entities = [];
         this.roomManager;
+        this.uiManager;
 
         // Information on the input
         this.click = null;
@@ -34,6 +35,8 @@ class GameEngine {
         this.ctx = ctx;
         this.startInput();
         this.timer = new Timer();
+        this.roomManager = new RoomManager();
+        this.uiManager = new UIManager(this.entities);
     };
 
     start() {
@@ -125,10 +128,8 @@ class GameEngine {
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-        // this.ctx.drawImage(this.roomManager.currentRoom.map,0,0);
-
-
+        this.roomManager.draw(this.ctx);
+        this.uiManager.draw(this.ctx);
 
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
@@ -138,8 +139,8 @@ class GameEngine {
     };
 
     update() {
+        this.uiManager.update();
         let entitiesCount = this.entities.length;
-
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             if (!entity.removeFromWorld) {
