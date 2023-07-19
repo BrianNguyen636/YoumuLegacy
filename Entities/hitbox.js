@@ -23,6 +23,9 @@ class hitbox {
         this.x += xVelocity;
         this.y += yVelocity;
         this.updateBB();
+        if (this.lifespan == 0) {
+            this.removeFromWorld = true;
+        } else this.lifespan -= 1;
     };
 
     draw() {

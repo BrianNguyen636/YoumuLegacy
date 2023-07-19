@@ -23,6 +23,8 @@ class Meiling {
 
         this.health = 50;
         this.invuln = 0;
+
+        this.meilingController = new MeilingController(this, game);
     };
 
     hurt(other) {
@@ -81,10 +83,6 @@ class Meiling {
         if (this.x < this.player.x) {
             this.facing = 0;
         } else this.facing = 1;
-
-        // if (this.BB.collide(this.player.BB)) {
-        //     this.player.hurt(this);
-        // }
 
         this.state = 0;
     }

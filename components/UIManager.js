@@ -25,7 +25,6 @@ class UIManager {
             ctx.arc(100 + i * 50, 60, 20, 0, 360);
         }
         ctx.fill();
-
     }
     
     drawBossHealthBar(ctx) {
