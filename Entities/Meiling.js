@@ -54,7 +54,7 @@ class Meiling {
         this.animations[0][0] = new Animator(this.spritesheet, 0, 0, this.sWidth, this.sHeight, 6, 10); 
         this.animations[0][1] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
         this.animations[0][2] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
-        this.animations[0][3] = new Animator(this.spritesheet, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
+        this.animations[0][3] = new Animator(this.spritesheet, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
         this.animations[0][4] = new Animator(this.spritesheet, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
         this.animations[0][5] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[0][6] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
@@ -63,7 +63,7 @@ class Meiling {
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 6, 10); 
         this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
         this.animations[1][2] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
-        this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
+        this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
         this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
         this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
@@ -80,11 +80,7 @@ class Meiling {
         if (this.x + this.xBoxOffset + this.BB.width >= 1280) { //RIGHT COLLISION
             this.x = 1280 - this.xBoxOffset - this.BB.width;
         }
-        if (this.x < this.player.x) {
-            this.facing = 0;
-        } else this.facing = 1;
-
-        this.state = 0;
+        this.meilingController.update();
     }
     
     draw(ctx) {

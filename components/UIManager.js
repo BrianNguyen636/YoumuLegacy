@@ -3,6 +3,7 @@ class UIManager {
         this.entities = entities;
         this.playerHealth;
         this.bossHealth;
+        this.healthIcon = ASSET_MANAGER.getAsset("./assets/Health.png");
     }
 
     update() {
@@ -19,12 +20,17 @@ class UIManager {
         }
     }
 
-    drawPlayerhealth(ctx) {
+    drawPause(ctx) {
+        ctx.font = "100px serif";
+        ctx.fillStyle = "Black"
+        ctx.fillText("PAUSED",450, 300);
+    }
+
+    drawPlayerHealth(ctx) {
         ctx.fillStyle = "white";
         for (let i = 0; i < this.playerHealth; i++) {
-            ctx.arc(100 + i * 50, 60, 20, 0, 360);
+            ctx.drawImage(this.healthIcon, 100 + i * 50, 40);
         }
-        ctx.fill();
     }
     
     drawBossHealthBar(ctx) {
@@ -37,6 +43,6 @@ class UIManager {
 
     draw(ctx) {
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);
-        // this.drawPlayerhealth(ctx);
+        this.drawPlayerHealth(ctx);
     }
 }

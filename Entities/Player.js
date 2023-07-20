@@ -102,6 +102,7 @@ class Player {
     };
 
     update() {
+        if (this.invuln > 0 && this.state != 6) this.invuln -= 1;
         this.playerController.update();
         this.updateBB();
         this.updateAttackBox();

@@ -23,6 +23,9 @@ class GameEngine {
         this.A = false;
         this.B = false;
         this.C = false;
+        this.Esc = false;
+
+        this.pause = false;
 
         // Options and the Details
         this.options = options || {
@@ -100,6 +103,9 @@ class GameEngine {
                 case "KeyC":
                     that.C = true;
                     break;
+                case "Escape":
+                    that.Esc = true;
+                    break;
             }
         });
         this.ctx.canvas.addEventListener("keyup", function(e) {
@@ -139,6 +145,10 @@ class GameEngine {
     };
 
     update() {
+        if (this.Esc) {
+            this.pause = true;
+            this.Esc = false;
+        }
         this.uiManager.update();
         let entitiesCount = this.entities.length;
         for (let i = 0; i < entitiesCount; i++) {
@@ -174,9 +184,17 @@ class GameEngine {
     }
 
     loop() {
-        this.clockTick = this.timer.tick();
-        this.update();
-        this.draw();
+        if (this.pause) {
+            this.uiManager.drawPause(this.ctx);
+            if (this.Esc) {
+                this.pause = false;
+                this.Esc = false;
+            }
+        } else {
+            this.clockTick = this.timer.tick();
+            this.update();
+            this.draw();
+        }
     };
 
 };
