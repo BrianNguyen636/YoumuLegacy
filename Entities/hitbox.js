@@ -1,6 +1,7 @@
-class hitbox {
-    constructor(x, y, width, height, xVelocity, yVelocity, lifespan) {
+class Hitbox {
+    constructor(x, y, width, height, xVelocity, yVelocity, lifespan, game) {
         this.id = "attack";
+        this.game = game;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -20,15 +21,16 @@ class hitbox {
     }
 
     update() {
-        this.x += xVelocity;
-        this.y += yVelocity;
+        this.x += this.xVelocity;
+        this.y += this.yVelocity;
         this.updateBB();
         if (this.lifespan == 0) {
             this.removeFromWorld = true;
         } else this.lifespan -= 1;
     };
 
-    draw() {
-
+    draw(ctx) {
+        // ctx.strokeStyle = "red";
+        // ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
     };
 }

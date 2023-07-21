@@ -14,7 +14,8 @@ class Meiling {
         this.xBoxOffset = 68; //Distance between side and left collision box side
         this.yBoxOffset = 123; //Distance between top and collision box bottom 
 
-        this.state = 0; //0 = idle, 1 = FlurryWait, 2 = Flurry, 3 = Zanko, 4 = Stomp, 5 = DragonkickHold, 6 = Dragonkick recover, 7 = fall
+        this.state = 0; 
+        //0 = idle, 1 = FlurryWait, 2 = Flurry, 3 = Zanko, 456 = Stomp123, 78 = DragonkickHold+recover, 9 = fall
         this.facing = 1; //right or left
 
         this.x = 600;
@@ -27,6 +28,30 @@ class Meiling {
         this.meilingController = new MeilingController(this, game);
     };
 
+    loadAnimations() {
+        this.animations[0][0] = new Animator(this.spritesheet, 0, 0, this.sWidth, this.sHeight, 6, 10); 
+        this.animations[0][1] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        this.animations[0][2] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
+        this.animations[0][3] = new Animator(this.spritesheet, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
+        this.animations[0][4] = new Animator(this.spritesheet, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 3, 15);
+        this.animations[0][5] = new Animator(this.spritesheet, 2 * this.sWidth, 3 * this.sHeight, this.sWidth, this.sHeight, 1, 15);
+        this.animations[0][6] = new Animator(this.spritesheet, 2 * this.sWidth, 3 * this.sHeight, this.sWidth, this.sHeight, 7, 15);
+        this.animations[0][7] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[0][8] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
+        this.animations[0][9] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+
+        this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 6, 10); 
+        this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        this.animations[1][2] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
+        this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
+        this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 3, 15);
+        this.animations[1][5] = new Animator(this.spritesheetFlip, 2 * this.sWidth, 3 * this.sHeight, this.sWidth, this.sHeight, 1, 15);
+        this.animations[1][6] = new Animator(this.spritesheetFlip, 2 * this.sWidth, 3 * this.sHeight, this.sWidth, this.sHeight, 7, 15);
+        this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[1][8] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
+        this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+
+    };
     hurt(other) {
         if (this.invuln <= 0 ) {
             this.health -= 1;
@@ -47,28 +72,6 @@ class Meiling {
                     this.BB = new BoundingBox(this.x + 68, this.y + 25, 64, 98); break;
                 }
         }
-    };
-
-
-    loadAnimations() {
-        this.animations[0][0] = new Animator(this.spritesheet, 0, 0, this.sWidth, this.sHeight, 6, 10); 
-        this.animations[0][1] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
-        this.animations[0][2] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
-        this.animations[0][3] = new Animator(this.spritesheet, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
-        this.animations[0][4] = new Animator(this.spritesheet, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
-        this.animations[0][5] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[0][6] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
-        this.animations[0][7] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-
-        this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 6, 10); 
-        this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
-        this.animations[1][2] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 15, 15);
-        this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 11, 15);
-        this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 9, 15);
-        this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
-        this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-
     };
 
     update() {

@@ -34,7 +34,7 @@ class Player {
             this.health -= 1;
             this.invuln = 60;
             this.state = 6;
-            this.playerController.knockback(this.x - other.x);
+            this.playerController.knockback(this.BB.x - other.BB.x);
         }
     };
 

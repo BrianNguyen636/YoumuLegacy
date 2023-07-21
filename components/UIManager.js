@@ -27,7 +27,6 @@ class UIManager {
     }
 
     drawPlayerHealth(ctx) {
-        ctx.fillStyle = "white";
         for (let i = 0; i < this.playerHealth; i++) {
             ctx.drawImage(this.healthIcon, 100 + i * 50, 40);
         }
