@@ -39,6 +39,7 @@ class Meiling {
         this.animations[0][7] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[0][8] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
         this.animations[0][9] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[0][10] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 10);
 
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 6, 10); 
         this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
@@ -50,6 +51,7 @@ class Meiling {
         this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         this.animations[1][8] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 4, 10);
         this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[1][10] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 10);
 
     };
     hurt(other) {

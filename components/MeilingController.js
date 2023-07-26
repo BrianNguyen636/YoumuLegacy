@@ -25,11 +25,12 @@ class MeilingController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Choose attack from Idle
             this.facePlayer();
 
-            this.boss.state = 4;
+            this.boss.state = 10;
 
             switch(this.boss.state) {
                 case(1): this.attackDuration = 60 * this.game.clockTick; break;
                 case(4): this.attack(4); break;
+                case(10): this.attack(10); break;
             }
         }
         if (this.attackDuration > 0) { //What happens during an attack
