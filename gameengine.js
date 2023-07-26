@@ -171,8 +171,8 @@ class GameEngine {
         for (let i = 0; i < this.entities.length; i++) {
             let entity = this.entities[i];
             if (!entity.removeFromWorld) {
-                if (entity.id != "player" && entity.BB.collide(player.BB)) {
-                    if (entity.id == "boss" || entity.id == "attack") {
+                if (entity.id == "boss" || entity.id == "attack") {
+                    if (entity.BB.collide(player.BB)) {
                         player.hurt(entity);
                     }
                 }

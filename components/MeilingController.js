@@ -3,8 +3,9 @@ class MeilingController {
         this.boss = boss;
         this.game = game;
         this.player = this.boss.player;
-        this.timer = 180;
+        this.timer = 0;
         this.attackDuration = 0;
+        this.effectSpawn = false;
     }
 
     facePlayer() {
@@ -16,12 +17,11 @@ class MeilingController {
     attack(state) {
         this.boss.state = state;
         this.boss.animations[this.boss.facing][state].resetFrames();
-        this.attackDuration = this.boss.animations[this.boss.facing][state].totalTime - this.game.clockTick;
+        this.attackDuration = this.boss.animations[this.boss.facing][state].totalTime - 2 * this.game.clockTick;
     }
     update() {
-        if (this.timer > 0) this.timer -= 1;
+        if (this.timer > 0) this.timer -= this.game.clockTick;
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
-
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Choose attack from Idle
             this.facePlayer();
 
@@ -43,12 +43,20 @@ class MeilingController {
                 }
                 case(3): {
                     if (this.attackDuration < (7/11) * this.boss.animations[this.boss.facing][3].totalTime &&
-                    this.attackDuration > (5/11) * this.boss.animations[this.boss.facing][3].totalTime)
+                    this.attackDuration > (6/11) * this.boss.animations[this.boss.facing][3].totalTime)
                         this.boss.x -= (-1 + this.boss.facing * 2) * 15; break;
                 }
                 case(6): {//STOMP
                     if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime &&
-                    this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][6].totalTime)
+                    this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][6].totalTime) { //Hitbox spawns
+                        this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y, 285, 120, 0, 0, 0, this.game));
+                        this.game.addEntity(new Hitbox(this.boss.x + 42, this.boss.y - 346, 100, 475, 0, 0, 0, this.game));
+                        this.game.addEntity(new Hitbox(this.boss.x, this.boss.y - 150, 200, 275, 0, 0, 0, this.game));
+                        if (this.effectSpawn == false) {
+                            this.game.addEntity(new Effect(this.boss.x - 163, this.boss.y - 366));
+                        }
+                        this.effectSpawn = true;
+                    }
 
                     break;
                 }
@@ -75,7 +83,8 @@ class MeilingController {
                     break;
                 }
                 default: {
-                    this.timer = 180;
+                    this.effectSpawn = false;
+                    this.timer = 180 * this.game.clockTick;
                     this.boss.state = 0;
                     break;
                 }
