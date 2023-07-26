@@ -46,10 +46,10 @@ class MeilingController {
                     this.attackDuration > (5/11) * this.boss.animations[this.boss.facing][3].totalTime)
                         this.boss.x -= (-1 + this.boss.facing * 2) * 15; break;
                 }
-                case(6): {
+                case(6): {//STOMP
                     if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime &&
                     this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][6].totalTime)
-                        this.game.addEntity(new Stomp(this.boss.x - 53, this.boss.y - 380, this.game));
+
                     break;
                 }
             }
