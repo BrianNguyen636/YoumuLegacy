@@ -53,12 +53,19 @@ class MeilingController {
                         this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y, 285, 120, 0, 0, 0, this.game));
                         this.game.addEntity(new Hitbox(this.boss.x + 42, this.boss.y - 346, 100, 475, 0, 0, 0, this.game));
                         this.game.addEntity(new Hitbox(this.boss.x, this.boss.y - 150, 200, 275, 0, 0, 0, this.game));
-                        if (this.effectSpawn == false) {
+                        if (!this.effectSpawn) {
                             this.game.addEntity(new Effect(this.boss.x - 163, this.boss.y - 366));
                         }
                         this.effectSpawn = true;
-                    }
+                    } else this.effectSpawn = false;
 
+                    break;
+                }
+                case(10): {
+                    if (this.attackDuration < (5/8) * this.boss.animations[this.boss.facing][6].totalTime &&
+                    !this.effectSpawn) {
+                        this.game.addEntity(new Hitbox)
+                    }
                     break;
                 }
             }

@@ -16,17 +16,13 @@ class Hitbox {
         this.BB = new BoundingBox(this.x,this.y,this.width,this.height);
     };
 
-    handleCollision(other) {
-        other.hurt(this);
-    }
-
     update() {
         this.x += this.xVelocity;
         this.y += this.yVelocity;
         this.updateBB();
         if (this.lifespan == 0) {
             this.removeFromWorld = true;
-        } else this.lifespan -= 1;
+        } else this.lifespan -= this.game.clockTick;
     };
 
     draw(ctx) {

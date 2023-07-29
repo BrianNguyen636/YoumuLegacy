@@ -6,6 +6,7 @@ ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheetFlip.png");
+ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");
 ASSET_MANAGER.queueDownload("./assets/lake.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Stomp.png");
