@@ -58,7 +58,6 @@ class Meiling {
         if (this.invuln <= 0 ) {
             this.health -= 1;
             this.invuln = this.player.getAttackSpeed() / this.game.clockTick + 1;
-            console.log(this.player.getAttackSpeed());
         }
     };
 

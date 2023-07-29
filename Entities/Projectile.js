@@ -1,37 +1,38 @@
 class Projectile {
     constructor(x, y, width, height, speed, angle, lifespan, boss, number, game) {
+        Object.assign(this, {x,y,width,height,speed,angle,lifespan,boss,number,game});
         this.id = "projectile"
-        this.game = game;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.angle = angle;
-        this.speed = speed;
         this.calculateVelocity();
-        this.lifespan = lifespan;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/"+ boss + "Projectiles.png");
-        this.number = number;
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingProjectiles.png");
+
     };
     calculateVelocity() {
         this.radians = this.angle * Math.PI / 180;
-        this.xVelocity = speed * Math.cos(radians);
-        this.yVelocity = -speed * Math.sin(radians);
+        this.xVelocity = this.speed * Math.cos(this.radians);
+        this.yVelocity = -this.speed * Math.sin(this.radians);
     };
     update() {
         this.x += this.xVelocity;
         this.y += this.yVelocity;
-        if (this.lifespan == 0) {
-            this.removeFromWorld = true;
-        } else this.lifespan -= this.game.clockTick;
+        if (this.lifespan == null) {
+            if (this.x < 0 || this.x > 1280) {
+                this.removeFromWorld = true;
+            }
+        } else {
+            if (this.lifespan <= 0) {
+                this.removeFromWorld = true;
+            } else this.lifespan -= this.game.clockTick;
+        }
     };
 
     draw(ctx) {
-        ctx.drawImage(this.spritesheet,
-            this.xStart, this.yStart + this.height * this.number,
-            this.width, this.height,
-            x, y, 
-            this.width, this.height,
+        if (!this.removeFromWorld) {
+            ctx.drawImage(this.spritesheet,
+                this.x, this.y + this.height * this.number,
+                this.width, this.height,
+                this.x, this.y, 
+                this.width, this.height,
             );
+        }
     };
 }

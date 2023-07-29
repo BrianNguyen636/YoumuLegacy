@@ -17,8 +17,8 @@ ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
 	const player = new Player(gameEngine);
+	gameEngine.init(ctx);
 	gameEngine.addEntity(player);
 	gameEngine.addEntity(new Meiling(gameEngine, player));
-	gameEngine.init(ctx);
 	gameEngine.start();
 });

@@ -1,8 +1,7 @@
 class Effect {
     constructor(x, y) {
+        Object.assign(this, {x,y});
         this.id = "effect";
-        this.x = x;
-        this.y = y;
         this.sprite = ASSET_MANAGER.getAsset("./assets/Stomp.png");
         this.removeFromWorld = false;
         this.alpha = 1;

@@ -1,14 +1,8 @@
 class Hitbox {
-    constructor(x, y, width, height, xVelocity, yVelocity, lifespan, game) {
+    constructor(x, y, width, height, lifespan, game) {
+        Object.assign(this, {x,y,width,height,lifespan,game});
         this.id = "attack";
-        this.game = game;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.xVelocity = xVelocity;
-        this.yVelocity = yVelocity;
-        this.lifespan = lifespan;
+        this.removeFromWorld = false;
         this.updateBB();
     };
 
@@ -20,7 +14,7 @@ class Hitbox {
         this.x += this.xVelocity;
         this.y += this.yVelocity;
         this.updateBB();
-        if (this.lifespan == 0) {
+        if (this.lifespan <= 0) {
             this.removeFromWorld = true;
         } else this.lifespan -= this.game.clockTick;
     };

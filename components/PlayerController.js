@@ -33,7 +33,6 @@ class PlayerController {
     };
 
     knockback(side) {
-        console.log(side);
         this.yVelocity = -6;
         this.doublejump = true;
         if (side < 0) this.xVelocity = -3;

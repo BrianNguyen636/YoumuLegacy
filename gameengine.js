@@ -139,7 +139,15 @@ class GameEngine {
 
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
-            this.entities[i].draw(this.ctx, this);
+            let entity = this.entities[i];
+            entity.draw(this.ctx, this);
+            if (this.boxView && entity.id == "attack") {
+                let box = entity.BB;
+                this.ctx.beginPath();
+                this.ctx.rect(box.x, box.y, box.width, box.height)
+                this.ctx.strokeStyle = "yellow";
+                this.ctx.stroke();
+            }
         }
         
     };
@@ -160,8 +168,9 @@ class GameEngine {
                 }
             }
         }
-        for (let i = this.entitiesCount - 1; i >= 0; --i) {
-            if (this.entities[i].removeFromWorld) {
+        for (let i = entitiesCount - 1; i >= 0; --i) {
+            let entity = this.entities[i];
+            if (entity.removeFromWorld) {
                 this.entities.splice(i, 1);
             }
         }
