@@ -4,6 +4,7 @@ class Projectile {
         this.id = "projectile"
         this.calculateVelocity();
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingProjectiles.png");
+        this.updateHitbox();
 
     };
     calculateVelocity() {
@@ -11,9 +12,13 @@ class Projectile {
         this.xVelocity = this.speed * Math.cos(this.radians);
         this.yVelocity = -this.speed * Math.sin(this.radians);
     };
+    updateHitbox(){
+        this.game.addEntity(new Hitbox(this.x,this.y,this.width,this.height,0,this.game));
+    };
     update() {
         this.x += this.xVelocity;
         this.y += this.yVelocity;
+        this.updateHitbox();
         if (this.lifespan == null) {
             if (this.x < 0 || this.x > 1280) {
                 this.removeFromWorld = true;
@@ -27,12 +32,16 @@ class Projectile {
 
     draw(ctx) {
         if (!this.removeFromWorld) {
+            ctx.save();
+            ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+            ctx.rotate(-this.radians);
             ctx.drawImage(this.spritesheet,
-                this.x, this.y + this.height * this.number,
+                0, this.height * this.number,
                 this.width, this.height,
-                this.x, this.y, 
+                -this.width / 2, -this.height / 2, 
                 this.width, this.height,
             );
+            ctx.restore();
         }
     };
 }

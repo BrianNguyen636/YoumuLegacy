@@ -24,11 +24,14 @@ class MeilingController {
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Choose attack from Idle
             this.facePlayer();
-
-            this.boss.state = 4;
-
+            const roll = Math.floor(Math.random() * 3);
+            switch(roll) {
+                case(0): this.boss.state = 1; break;
+                case(1): this.boss.state = 4; break;
+                case(2): this.boss.state = 10; break;
+            }
             switch(this.boss.state) {
-                case(1): this.attackDuration = 60 * this.game.clockTick; break;
+                case(1): this.attackDuration = 50 * this.game.clockTick; break;
                 case(4): this.attack(4); break;
                 case(10): this.attack(10); break;
             }
@@ -62,9 +65,20 @@ class MeilingController {
                     break;
                 }
                 case(10): {//Projectiles
-                    if (this.attackDuration < (5/8) * this.boss.animations[this.boss.facing][10].totalTime) {
+                    if (this.attackDuration < (3/8) * this.boss.animations[this.boss.facing][10].totalTime) {
+                        
                         if (!this.effectSpawn) {
-                            this.game.addEntity(new Projectile(this.boss.x, this.boss.y, 64, 32, 0.1, 180, null, "Meiling", 0, this.game));
+                            if (this.boss.facing == 0) {
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 80, null, "Meiling", 3, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 40, null, "Meiling", 2, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 0, null, "Meiling", 1, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, -40, null, "Meiling", 0, this.game));
+                            } else {
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 100, null, "Meiling", 3, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 140, null, "Meiling", 2, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 180, null, "Meiling", 1, this.game));
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY, 64, 32, 2, 220, null, "Meiling", 0, this.game));
+                            }
                             this.effectSpawn = true;
                         }
                     } else this.effectSpawn = false;
