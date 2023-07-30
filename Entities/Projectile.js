@@ -3,7 +3,7 @@ class Projectile {
         Object.assign(this, {x,y,width,height,speed,angle,lifespan,boss,number,game});
         this.id = "projectile"
         this.calculateVelocity();
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingProjectiles.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/" + this.boss + "Projectiles.png");
         this.updateHitbox();
 
     };

@@ -32,7 +32,7 @@ class Player {
     hurt(other) {
         if (this.invuln <= 0 ) {
             this.health -= 1;
-            this.invuln = 60;
+            this.invuln = 200 * this.game.clockTick;
             this.state = 6;
             this.playerController.knockback(this.BB.midX - other.BB.midX);
         }
@@ -102,7 +102,7 @@ class Player {
     };
 
     update() {
-        if (this.invuln > 0 && this.state != 6) this.invuln -= 1;
+        if (this.invuln > 0 && this.state != 6) this.invuln -= this.game.clockTick;
         this.playerController.update();
         this.updateBB();
         this.updateAttackBox();

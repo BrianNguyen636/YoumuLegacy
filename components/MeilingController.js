@@ -6,6 +6,9 @@ class MeilingController {
         this.timer = 0;
         this.attackDuration = 0;
         this.effectSpawn = false;
+        this.lastRoll = null;
+        this.yVelocity = 0;
+        this.xVelocity = 0;
     }
 
     facePlayer() {
@@ -22,37 +25,64 @@ class MeilingController {
     update() {
         if (this.timer > 0) this.timer -= this.game.clockTick;
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
+
+        this.yVelocity += 0.1; //Gravity
+        this.boss.y += this.yVelocity / 2; 
+        this.boss.x += this.xVelocity / 2;
+        if (this.boss.y + this.boss.yBoxOffset >= 600) { //GROUND COLLISION
+            this.boss.y = 600 - this.boss.yBoxOffset;
+            this.yVelocity = 0;
+        }
+
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Choose attack from Idle
             this.facePlayer();
-            const roll = Math.floor(Math.random() * 3);
-            switch(roll) {
-                case(0): this.boss.state = 1; break;
-                case(1): this.boss.state = 4; break;
-                case(2): this.boss.state = 10; break;
+
+            let roll = this.lastRoll;
+            while (roll == this.lastRoll) {
+                roll = Math.floor(Math.random() * 5);
             }
+            this.lastRoll = roll;
+            switch(roll) {
+                case(0): this.boss.state = 2; break;
+                case(1): this.boss.state = 4; break;
+                case(2): this.boss.state = 7; break;
+                case(3): this.boss.state = 10; break;
+                case(4): this.boss.state = 16; break;
+            }
+
+            // this.boss.state = 4;
+
             switch(this.boss.state) {
-                case(1): this.attackDuration = 50 * this.game.clockTick; break;
+                case(2): this.attackDuration = 40 * this.game.clockTick; break;
                 case(4): this.attack(4); break;
+                case(7): this.attack(7); break;
                 case(10): this.attack(10); break;
+                case(16): this.attack(16); break;
             }
         }
+
         if (this.attackDuration > 0) { //What happens during an attack
             switch(this.boss.state) {
-                case(2): {
+                case(3): { //Flurry
                     this.boss.x -= (-1 + this.boss.facing * 2) * 1; 
                     if (this.boss.facing == 0) {
                         this.game.addEntity(new Hitbox(this.boss.x + 120, this.boss.y + 30, 50, 80, 0, this.game));
                     } else this.game.addEntity(new Hitbox(this.boss.x + 30, this.boss.y + 30, 50, 80, 0, this.game));
                     break;
                 }
-                case(3): {
-                    if (this.attackDuration < (7/11) * this.boss.animations[this.boss.facing][3].totalTime &&
-                    this.attackDuration > (6/11) * this.boss.animations[this.boss.facing][3].totalTime)
-                        this.boss.x -= (-1 + this.boss.facing * 2) * 15; break;
+                case(5): { //Tetsuzanko
+                    if (this.attackDuration < 40 * this.game.clockTick)
+                        this.xVelocity -= (-1 + this.boss.facing * 2) * 1.2;
+                    break;
                 }
-                case(6): {//STOMP
-                    if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime &&
-                    this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][6].totalTime) { //Hitbox spawns
+                case(6): { //Tetsuzanko
+                    if (this.attackDuration < (6/7) * this.boss.animations[this.boss.facing][6].totalTime)
+                        this.xVelocity = 0;
+                    break;
+                }
+                case(9): {//STOMP
+                    if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][9].totalTime &&
+                    this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][9].totalTime) { //Hitbox spawns
                         if (!this.effectSpawn) {
                             this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y, 285, 120, 0, this.game));
                             this.game.addEntity(new Hitbox(this.boss.x + 42, this.boss.y - 346, 100, 475, 0, this.game));
@@ -64,8 +94,12 @@ class MeilingController {
 
                     break;
                 }
-                case(10): {//Projectiles
-                    if (this.attackDuration < (3/8) * this.boss.animations[this.boss.facing][10].totalTime) {
+                case(14,15): {
+                    if (this.yVelocity == 0) this.attackDuration = 0;
+                    break;
+                }
+                case(16): {//Projectiles
+                    if (this.attackDuration < (3/8) * this.boss.animations[this.boss.facing][16].totalTime) {
                         
                         if (!this.effectSpawn) {
                             if (this.boss.facing == 0) {
@@ -88,17 +122,18 @@ class MeilingController {
         }
         if (this.attackDuration <= 0 && this.boss.state != 0) { //What happens after attack
             switch(this.boss.state) {
-                case(1): {
-                    this.attack(2);
-                    break;
-                }
                 case(2): {
-                    this.facePlayer();
                     this.attack(3);
                     break;
                 }
+                case(3): {
+                    this.facePlayer();
+                    this.boss.state = 0;
+                    this.timer = 0;
+                    break;
+                }
                 case(4): {
-                    this.attackDuration = 60 * this.game.clockTick;
+                    this.attackDuration = 70 * this.game.clockTick;
                     this.boss.state = 5;
                     break;
                 }
@@ -106,10 +141,46 @@ class MeilingController {
                     this.attack(6);
                     break;
                 }
+                case(7): {
+                    this.attackDuration = 40 * this.game.clockTick;
+                    this.boss.state = 8;
+                    break;
+                }
+                case(8): {
+                    this.attack(9);
+                    break;
+                }
+                case(10): {
+                    this.attackDuration = 40 * this.game.clockTick;
+                    this.boss.state = 11;
+                    break;
+                }
+                case(11): {
+                    this.attack(12);
+                    break;
+                }
+                case(12): {
+                    this.attackDuration = 100 * this.game.clockTick;
+                    this.boss.state = 13;
+                    this.xVelocity -= (-1 + this.boss.facing * 2) * 15; 
+                    this.yVelocity -= 10; 
+                    break;
+                }
+                case(13): {
+                    this.xVelocity = this.xVelocity / 2;
+                    this.attack(14);
+                    break;
+                }
+                case(14): {
+                    this.attackDuration = 1000 * this.game.clockTick;
+                    this.boss.state = 15;
+                    break;
+                }
                 default: {
                     this.effectSpawn = false;
                     this.timer = 180 * this.game.clockTick;
                     this.boss.state = 0;
+                    this.xVelocity = 0;
                     break;
                 }
             }

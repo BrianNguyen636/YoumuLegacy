@@ -35,8 +35,8 @@ class PlayerController {
     knockback(side) {
         this.yVelocity = -6;
         this.doublejump = true;
-        if (side < 0) this.xVelocity = -3;
-        else this.xVelocity = 3
+        if (side < 0) this.xVelocity = -5;
+        else this.xVelocity = 5;
     }
 
     updateState() {
@@ -113,7 +113,10 @@ class PlayerController {
             }
         }
 
-        if (this.player.state == 6 )this.player.x += this.xVelocity / 2;
+        if (this.player.state == 6 ) {
+            this.player.x += this.xVelocity / 2;
+            this.yVelocity -= this.highJumpGrav;
+        }
         this.player.y += this.yVelocity / 2; 
 
         if (this.player.y + this.player.yBoxOffset >= 600) { //GROUND COLLISION
