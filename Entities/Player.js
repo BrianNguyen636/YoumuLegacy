@@ -20,8 +20,8 @@ class Player {
 
 
 
-        this.x = 15;
-        this.y = 600 - this.yBoxOffset;
+        this.x = 400;
+        this.y = 700 - this.yBoxOffset;
 
         this.health = 5;
         this.invuln = 0;

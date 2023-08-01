@@ -29,8 +29,8 @@ class MeilingController {
         this.yVelocity += 0.1; //Gravity
         this.boss.y += this.yVelocity / 2; 
         this.boss.x += this.xVelocity / 2;
-        if (this.boss.y + this.boss.yBoxOffset >= 600) { //GROUND COLLISION
-            this.boss.y = 600 - this.boss.yBoxOffset;
+        if (this.boss.y + this.boss.yBoxOffset >= 700) { //GROUND COLLISION
+            this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
         }
 
@@ -72,7 +72,7 @@ class MeilingController {
                 }
                 case(5): { //Tetsuzanko
                     if (this.attackDuration < 40 * this.game.clockTick)
-                        this.xVelocity -= (-1 + this.boss.facing * 2) * 1.2;
+                        this.xVelocity -= (-1 + this.boss.facing * 2) * 1;
                     break;
                 }
                 case(6): { //Tetsuzanko

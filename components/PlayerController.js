@@ -17,7 +17,7 @@ class PlayerController {
         this.jumpHold = false;
         this.dashHold = false;
 
-        this.speed = 3;
+        this.speed = 2.5;
         this.dashSpeed = 4.5;
         this.jumpHeight = 10;
         this.gravity = 0.2;
@@ -105,7 +105,7 @@ class PlayerController {
             if (this.player.facing == 0) {
                 this.player.x += this.dashSpeed;
             } else this.player.x -= this.dashSpeed;
-        } else if (this.player.state != 6) {
+        } else if (this.player.state < 6) {
             if (this.game.right) {
                 this.player.x += this.speed;
             } else if (this.game.left) {
@@ -119,8 +119,8 @@ class PlayerController {
         }
         this.player.y += this.yVelocity / 2; 
 
-        if (this.player.y + this.player.yBoxOffset >= 600) { //GROUND COLLISION
-            this.player.y = 600 - this.player.yBoxOffset;
+        if (this.player.y + this.player.yBoxOffset >= 700) { //GROUND COLLISION
+            this.player.y = 700 - this.player.yBoxOffset;
             this.yVelocity = 0;
             this.airborne = false;
         }

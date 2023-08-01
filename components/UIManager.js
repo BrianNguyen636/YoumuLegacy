@@ -22,7 +22,7 @@ class UIManager {
 
     drawPause(ctx) {
         ctx.font = "100px serif";
-        ctx.fillStyle = "Black"
+        ctx.fillStyle = "Green"
         ctx.fillText("PAUSED",450, 300);
     }
 

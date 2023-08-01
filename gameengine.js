@@ -26,6 +26,7 @@ class GameEngine {
         this.Esc = false;
 
         this.pause = false;
+        this.combat = false;
 
         // Options and the Details
         this.options = options || {
@@ -34,12 +35,16 @@ class GameEngine {
         this.boxView = false;
     };
 
-    init(ctx) {
+    init(ctx, player) {
         this.ctx = ctx;
         this.startInput();
         this.timer = new Timer();
-        this.roomManager = new RoomManager();
+        this.entities = [];
+        this.addEntity(player);
+        this.player = player;
+        this.roomManager = new RoomManager(this);
         this.uiManager = new UIManager(this.entities);
+
     };
 
     start() {
@@ -177,6 +182,10 @@ class GameEngine {
     };
 
     checkPlayerCollisions(player) {
+        if (this.player.x + this.player.xBoxOffset + this.player.BB.width >= 1280 && !this.combat) { //RIGHT COLLISION
+            this.roomManager.stageTransition(this.roomManager.stage + 1);
+        }
+
         for (let i = 0; i < this.entities.length; i++) {
             let entity = this.entities[i];
             if (!entity.removeFromWorld) {

@@ -1,8 +1,8 @@
 class Meiling {
-    constructor(game, player){
+    constructor(game){
         this.id = "boss";
         this.game = game;
-        this.player = player;
+        this.player = game.player;
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheet.png");
         this.spritesheetFlip = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheetFlip.png");
         this.sWidth = 200;
@@ -18,7 +18,7 @@ class Meiling {
         this.facing = 1; //right or left
 
         this.x = 600;
-        this.y = 600 - this.yBoxOffset;
+        this.y = 700 - this.yBoxOffset;
         this.updateBB();
 
         this.health = 50;
