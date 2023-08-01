@@ -3,6 +3,7 @@ class MeilingController {
         this.boss = boss;
         this.game = game;
         this.player = this.boss.player;
+        boss.state = 1;
         this.timer = 0;
         this.attackDuration = 0;
         this.effectSpawn = false;
@@ -33,8 +34,11 @@ class MeilingController {
             this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
         }
-
-        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Choose attack from Idle
+        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
+            this.boss.state = 1;
+            this.timer = 150 * this.game.clockTick;
+        }
+        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
             this.facePlayer();
 
             let roll = this.lastRoll;
@@ -61,8 +65,13 @@ class MeilingController {
             }
         }
 
-        if (this.attackDuration > 0) { //What happens during an attack
+        if (this.attackDuration > 0 || this.timer > 0) { //What happens during an attack
             switch(this.boss.state) {
+                case(1): { //Walking
+                    this.facePlayer();
+                    this.boss.x -= (-1 + this.boss.facing * 2) * .75; 
+                    break;
+                }
                 case(3): { //Flurry
                     this.boss.x -= (-1 + this.boss.facing * 2) * 1; 
                     if (this.boss.facing == 0) {
@@ -120,7 +129,7 @@ class MeilingController {
                 }
             }
         }
-        if (this.attackDuration <= 0 && this.boss.state != 0) { //What happens after attack
+        if (this.attackDuration <= 0 && this.boss.state > 1) { //What happens after attack
             switch(this.boss.state) {
                 case(2): {
                     this.attack(3);
@@ -128,7 +137,7 @@ class MeilingController {
                 }
                 case(3): {
                     this.facePlayer();
-                    this.boss.state = 0;
+                    this.boss.state = 1;
                     this.timer = 0;
                     break;
                 }
@@ -178,7 +187,7 @@ class MeilingController {
                 }
                 default: {
                     this.effectSpawn = false;
-                    this.timer = 180 * this.game.clockTick;
+                    this.timer = 30 * this.game.clockTick;
                     this.boss.state = 0;
                     this.xVelocity = 0;
                     break;
