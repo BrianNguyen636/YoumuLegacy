@@ -23,7 +23,18 @@ class UIManager {
     drawPause(ctx) {
         ctx.font = "100px serif";
         ctx.fillStyle = "Green"
-        ctx.fillText("PAUSED",450, 300);
+        ctx.fillText("PAUSED", 450, 300);
+        ctx.font = "60px serif";
+        ctx.fillStyle = "Green"
+        ctx.fillText("[R] to restart", 470, 400);
+    }
+
+    drawGameOver(ctx) {
+        ctx.font = "100px serif";
+        ctx.fillStyle = "Red"
+        ctx.fillText("GAME OVER", 450, 300);
+        ctx.font = "60px serif";
+        ctx.fillText("[R] to restart", 470, 400);
     }
 
     drawPlayerHealth(ctx) {

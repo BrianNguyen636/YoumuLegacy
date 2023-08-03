@@ -40,11 +40,31 @@ class PlayerController {
     }
 
     updateState() {
-        if (this.player.state == 6) {
-            this.airborne = true;
-            this.dashing = false;
-            if (this.yVelocity == 0) this.player.state = 0;
-            if ((this.game.A || this.game.up) && !this.jumpHold) this.player.state = 2;
+        if (this.player.state == 10) this.game.pause = true;
+        if (this.player.state == 9) {
+            if (this.jumpDuration <= 0) {
+                this.player.state = 10;
+            }
+        } else if (this.player.state == 7 || this.player.state == 8) {
+            if (this.jumpDuration <= 0) {
+                this.player.state = 8;
+            }
+            if (this.yVelocity == 0) {
+                this.player.state = 9;
+                this.player.animations[this.player.facing][9].resetFrames();
+                this.jumpDuration = this.player.animations[this.player.facing][9].totalTime - this.game.clockTick;
+            }
+        } else if (this.player.state == 6) {
+            if (this.player.health <= 0) {
+                this.player.state = 7;
+                this.player.animations[this.player.facing][7].resetFrames();
+                this.jumpDuration = this.player.animations[this.player.facing][7].totalTime - this.game.clockTick;
+            } else {
+                this.airborne = true;
+                this.dashing = false;
+                if (this.yVelocity == 0) this.player.state = 0;
+                if ((this.game.A || this.game.up) && !this.jumpHold) this.player.state = 2;
+            }
         } else if (this.attacking && this.attackDuration > 0) {
             this.player.state = 5;
         } else if (this.dashing && this.dashDuration > 0) {
@@ -53,7 +73,7 @@ class PlayerController {
                 this.dashDuration = 0;
                 this.dashing = false;
             }
-        } else {
+        } else if (this.player.state < 7) {
             this.dashing = false;
             if (!this.game.C) this.dashHold = false;
             if (this.game.C && !this.dashHold) {
@@ -113,7 +133,7 @@ class PlayerController {
             }
         }
 
-        if (this.player.state == 6 ) {
+        if (this.player.state >= 6 ) {
             this.player.x += this.xVelocity / 2;
             this.yVelocity -= this.highJumpGrav;
         }
@@ -122,6 +142,7 @@ class PlayerController {
         if (this.player.y + this.player.yBoxOffset >= 700) { //GROUND COLLISION
             this.player.y = 700 - this.player.yBoxOffset;
             this.yVelocity = 0;
+            this.xVelocity = 0;
             this.airborne = false;
         }
 
@@ -131,28 +152,29 @@ class PlayerController {
         if (this.player.x + this.player.xBoxOffset + this.player.BB.width >= 1280) { //RIGHT COLLISION
             this.player.x = 1280 - this.player.xBoxOffset - this.player.BB.width;
         }
-
-        if (this.airborne) { //Airborne
-            if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
-                this.yVelocity -= this.highJumpGrav;
+        //JUMPING
+        if (this.player.state < 7) {
+            if (this.airborne) { //Airborne
+                if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
+                    this.yVelocity -= this.highJumpGrav;
+                }
+                if (!(this.game.A || this.game.up)) {
+                    this.jumpHold = false;
+                }
+                
+                if (this.yVelocity > 0 && (this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Double Jumping
+                    this.doublejump = false;
+                    this.jump();
+                }
+            } else { //Grounded
+                this.doublejump = true;
+                if (!(this.game.A || this.game.up)) {
+                    this.jumpHold = false;
+                }
+                if ((this.game.A || this.game.up) && !this.jumpHold) { 
+                    this.jump();
+                }   
             }
-            if (!(this.game.A || this.game.up)) {
-                this.jumpHold = false;
-            }
-            
-            if (this.yVelocity > 0 && (this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Double Jumping
-                this.doublejump = false;
-                this.jump();
-            }
-        } else { //Grounded
-            this.doublejump = true;
-            this.xVelocity = 0;
-            if (!(this.game.A || this.game.up)) {
-                this.jumpHold = false;
-            }
-            if ((this.game.A || this.game.up) && !this.jumpHold) { 
-                this.jump();
-            }   
         }
     };
 

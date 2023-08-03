@@ -15,15 +15,13 @@ class Player {
         this.xBoxOffset = 84; //Distance between side and left collision box side
         this.yBoxOffset = 127; //Distance between top and collision box bottom 
 
-        this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack, 6 = hurt
+        this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack, 6 = hurt, 7 = dead, 8 = fall hold, 9 = ground, 10 = ground hold
         this.facing = 0; //right or left
-
-
 
         this.x = 400;
         this.y = 700 - this.yBoxOffset;
 
-        this.health = 5;
+        this.health = 1;
         this.invuln = 0;
 
         this.playerController = new PlayerController(this, game);
@@ -74,6 +72,10 @@ class Player {
         this.animations[0][4] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[0][5] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[0][6] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        this.animations[0][7] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[0][8] = new Animator(this.spritesheet, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[0][9] = new Animator(this.spritesheet, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[0][10] = new Animator(this.spritesheet, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
 
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 8, 10); 
         this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
@@ -82,27 +84,31 @@ class Player {
         this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[1][8] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[1][10] = new Animator(this.spritesheetFlip, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
     };
 
-    handleYCollision() {
-        this.yVelocity = 0;
-        if (this.BB.y > this.lastBB.y) {
-            this.y -= this.BB.y - this.lastBB.y;
-            this.airborne = false;
-        } else {
-            this.y += this.lastBB.y - this.BB.y;
-        }
-    };
-    handleXCollision() {
-        if (this.BB.x > this.lastBB.x) {
-            this.x -= (this.BB.x - this.lastBB.x);
-        } else {
-            this.x += (this.lastBB.x - this.BB.x);
-        }
-    };
+    // handleYCollision() {
+    //     this.yVelocity = 0;
+    //     if (this.BB.y > this.lastBB.y) {
+    //         this.y -= this.BB.y - this.lastBB.y;
+    //         this.airborne = false;
+    //     } else {
+    //         this.y += this.lastBB.y - this.BB.y;
+    //     }
+    // };
+    // handleXCollision() {
+    //     if (this.BB.x > this.lastBB.x) {
+    //         this.x -= (this.BB.x - this.lastBB.x);
+    //     } else {
+    //         this.x += (this.lastBB.x - this.BB.x);
+    //     }
+    // };
 
     update() {
-        if (this.invuln > 0 && this.state != 6) this.invuln -= this.game.clockTick;
+        if (this.invuln > 0 && this.state < 6) this.invuln -= this.game.clockTick;
         this.playerController.update();
         this.updateBB();
         this.updateAttackBox();

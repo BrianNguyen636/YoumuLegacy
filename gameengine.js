@@ -23,6 +23,7 @@ class GameEngine {
         this.A = false;
         this.B = false;
         this.C = false;
+        this.R = false;
         this.Esc = false;
 
         this.pause = false;
@@ -32,7 +33,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = true;
+        this.boxView = false;
     };
 
     init(ctx, player) {
@@ -55,6 +56,13 @@ class GameEngine {
         };
         gameLoop();
     };
+
+    reset() {
+        this.pause = false;
+        this.combat = false;
+        this.entities = [];
+        this.init(this.ctx, new Player(this));
+    }
 
     startInput() {
         var that = this;
@@ -95,39 +103,28 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keydown", function(e) {
             switch(e.code) {
-                case "ArrowLeft": that.left = true;break;
-                case "ArrowRight": that.right = true;break;
-                case "ArrowUp": that.up = true;break;
-                case "ArrowDown": that.down = true;break;
-                case "KeyZ":
-                    that.A = true;
-                    break;
-                case "KeyX":
-                    that.B = true;
-                    break;
-                case "KeyC":
-                    that.C = true;
-                    break;
-                case "Escape":
-                    that.Esc = true;
-                    break;
+                case "ArrowLeft": that.left = true; break;
+                case "ArrowRight": that.right = true; break;
+                case "ArrowUp": that.up = true; break;
+                case "ArrowDown": that.down = true; break;
+                case "KeyZ": that.A = true; break;
+                case "KeyX": that.B = true; break;
+                case "KeyC": that.C = true; break;
+                case "Escape": that.Esc = true; break;
+                case "KeyR": that.R = true; break;
             }
         });
         this.ctx.canvas.addEventListener("keyup", function(e) {
             switch(e.code) {
-                case "ArrowLeft": that.left = false;break;
-                case "ArrowRight": that.right = false;break;
-                case "ArrowUp": that.up = false;break;
-                case "ArrowDown": that.down = false;break;
-                case "KeyZ":
-                    that.A = false;
-                    break;
-                case "KeyX":
-                    that.B = false;
-                    break;
-                case "KeyC":
-                    that.C = false;
-                    break;
+                case "ArrowLeft": that.left = false; break;
+                case "ArrowRight": that.right = false; break;
+                case "ArrowUp": that.up = false; break;
+                case "ArrowDown": that.down = false; break;
+                case "KeyZ": that.A = false; break;
+                case "KeyX": that.B = false; break;
+                case "KeyC": that.C = false; break;
+                case "Escape": that.Esc = false; break;
+                case "KeyR": that.R = false; break;
             }
         });
     };
@@ -203,10 +200,16 @@ class GameEngine {
 
     loop() {
         if (this.pause) {
-            this.uiManager.drawPause(this.ctx);
-            if (this.Esc) {
-                this.pause = false;
-                this.Esc = false;
+            if (this.player.health > 0) {
+                this.uiManager.drawPause(this.ctx);
+                if (this.Esc) {
+                    this.pause = false;
+                    this.Esc = false;
+                }
+            } else this.uiManager.drawGameOver(this.ctx);
+            if (this.R) {
+                this.R = false;
+                this.reset();
             }
         } else {
             this.clockTick = this.timer.tick();
