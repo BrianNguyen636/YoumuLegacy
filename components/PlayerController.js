@@ -17,9 +17,9 @@ class PlayerController {
         this.jumpHold = false;
         this.dashHold = false;
 
-        this.speed = 2.5;
+        this.speed = 3;
         this.dashSpeed = 4.5;
-        this.jumpHeight = 10;
+        this.jumpHeight = 11;
         this.gravity = 0.2;
         this.highJumpGrav = 0.08;
     };

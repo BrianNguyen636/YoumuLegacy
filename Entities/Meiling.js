@@ -11,8 +11,8 @@ class Meiling {
         this.loadAnimations();
 
 
-        this.xBoxOffset = 68; //Distance between side and left collision box side
-        this.yBoxOffset = 123; //Distance between top and collision box bottom 
+        this.xBoxOffset = 82* 1.5; //Distance between side and left collision box side
+        this.yBoxOffset = 123* 1.5; //Distance between top and collision box bottom 
 
         this.state = 0; 
         this.facing = 1; //right or left
@@ -92,9 +92,9 @@ class Meiling {
         switch(this.state) {
             default: 
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 68, this.y + 25, 64, 98); break;
+                    this.BB = new BoundingBox(this.x + 72* 1.5, this.y + 25* 1.5, 36* 1.5, 98* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 68, this.y + 25, 64, 98); break;
+                    this.BB = new BoundingBox(this.x + 72* 1.5, this.y + 25* 1.5, 36* 1.5, 98* 1.5); break;
                 }
         }
     };

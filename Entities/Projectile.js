@@ -1,9 +1,9 @@
 class Projectile {
-    constructor(x, y, width, height, speed, angle, lifespan, boss, number, game) {
-        Object.assign(this, {x,y,width,height,speed,angle,lifespan,boss,number,game});
+    constructor(x, y, width, height, speed, angle, lifespan, name, number, game) {
+        Object.assign(this, {x,y,width,height,speed,angle,lifespan,name,number,game});
         this.id = "projectile"
         this.calculateVelocity();
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/" + this.boss + "Projectiles.png");
+        this.spritesheet = ASSET_MANAGER.getAsset("./assets/" + this.name + "Projectiles.png");
         this.updateHitbox();
 
     };

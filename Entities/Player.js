@@ -12,8 +12,8 @@ class Player {
         this.updateBB();
         this.attackBox;
         
-        this.xBoxOffset = 84; //Distance between side and left collision box side
-        this.yBoxOffset = 127; //Distance between top and collision box bottom 
+        this.xBoxOffset = 84* 1.5; //Distance between side and left collision box side
+        this.yBoxOffset = 127* 1.5; //Distance between top and collision box bottom 
 
         this.state = 0; //0 = idle, 1 = run, 2 = jump, 3 = fall, 4 = dash, 5 = attack, 6 = hurt, 7 = dead, 8 = fall hold, 9 = ground, 10 = ground hold
         this.facing = 0; //right or left
@@ -21,7 +21,7 @@ class Player {
         this.x = 400;
         this.y = 700 - this.yBoxOffset;
 
-        this.health = 1;
+        this.health = 5;
         this.invuln = 0;
 
         this.playerController = new PlayerController(this, game);
@@ -43,9 +43,9 @@ class Player {
     updateAttackBox() {
         if (this.playerController.attackDuration > 0 && this.playerController.attackDuration < 6) {
             if (this.facing == 0) {
-                this.attackBox = new BoundingBox(this.x + 110, this.y, 90, 120);
+                this.attackBox = new BoundingBox(this.x + 110* 1.5, this.y, 90* 1.5, 120* 1.5);
             } else {
-                this.attackBox = new BoundingBox(this.x, this.y, 90, 120);
+                this.attackBox = new BoundingBox(this.x, this.y, 90* 1.5, 120* 1.5);
             }
         } else this.attackBox = null;
     };
@@ -57,9 +57,9 @@ class Player {
         switch(this.state) {
             default:
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 84, this.y + 84, 27, 43); break;
+                    this.BB = new BoundingBox(this.x + 84 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 89, this.y + 84, 27, 43); break;
+                    this.BB = new BoundingBox(this.x + 89 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5); break;
                 }
         } 
     };
