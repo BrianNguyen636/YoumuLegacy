@@ -1,30 +1,12 @@
-class Meiling {
+class Meiling extends Character {
     constructor(game){
-        this.id = "boss";
-        this.game = game;
-        this.player = game.player;
-        this.spritesheet = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheet.png");
-        this.spritesheetFlip = ASSET_MANAGER.getAsset("./assets/MeilingSpritesheetFlip.png");
-        this.sWidth = 200;
-        this.sHeight = 150;
-        this.animations = [[],[]];
-        this.loadAnimations();
-
-
-        this.xBoxOffset = 82* 1.5; //Distance between side and left collision box side
-        this.yBoxOffset = 123* 1.5; //Distance between top and collision box bottom 
-
-        this.state = 0; 
-        this.facing = 1; //right or left
-
-        this.x = 600;
-        this.y = 700 - this.yBoxOffset;
-        this.updateBB();
-
-        this.health = 50;
-        this.invuln = 0;
-
-        this.meilingController = new MeilingController(this, game);
+        super("boss", "Meiling", game, 
+            200, 150, 
+            82*1.5, 123*1.5, 
+            600, 700 - 123*1.5, 
+            50);
+        this.player = game.player
+        this.setController(new MeilingController(this, game));
     };
 
     loadAnimations() {
@@ -90,19 +72,8 @@ class Meiling {
         this.animations[1][19] = new Animator(this.spritesheetFlip, 0, 8 * this.sHeight, this.sWidth, this.sHeight, 7, 15);
         this.animations[1][20] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 8 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
     };
-    hurt(other) {
-        if (this.invuln <= 0 ) {
-            this.health -= 1;
-            this.invuln = this.player.getAttackSpeed() / this.game.clockTick + 1;
-        }
-    };
-
-    dead() {return this.health <= 0};
 
     updateBB() {
-
-        this.lastBB = this.BB;
-
         switch(this.state) {
             default: 
                 if (this.facing == 0) {
@@ -114,16 +85,9 @@ class Meiling {
     };
 
     update() {
-        this.updateBB();
         if (this.invuln > 0 && !this.dead()) this.invuln -= 1;
-        if (this.x + this.xBoxOffset <= 0) { //LEFT COLLISION
-            this.x = 0 - this.xBoxOffset;
-        }
-        if (this.x + this.xBoxOffset + this.BB.width >= 1280) { //RIGHT COLLISION
-            this.x = 1280 - this.xBoxOffset - this.BB.width;
-        }
-
-        this.meilingController.update();
+        this.controller.update();
+        this.updateBB();
     }
     
     draw(ctx) {

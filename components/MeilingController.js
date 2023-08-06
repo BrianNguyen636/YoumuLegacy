@@ -12,8 +12,6 @@ class MeilingController {
         this.xVelocity = 0;
     }
 
-    
-
     facePlayer() {
         if (this.boss.x < this.player.x) {
             this.boss.facing = 0;
@@ -35,6 +33,12 @@ class MeilingController {
         if (this.boss.y + this.boss.yBoxOffset >= 700) { //GROUND COLLISION
             this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
+        }
+        if (this.boss.x + this.boss.xBoxOffset <= 0) { //LEFT COLLISION
+            this.boss.x = 0 - this.boss.xBoxOffset;
+        }
+        if (this.boss.x + this.boss.xBoxOffset + this.boss.BB.width >= 1280) { //RIGHT COLLISION
+            this.boss.x = 1280 - this.boss.xBoxOffset - this.boss.BB.width;
         }
         if (!this.boss.dead()) {
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer

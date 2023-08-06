@@ -28,7 +28,8 @@ class PlayerController {
         this.yVelocity = -this.jumpHeight;
         this.airborne = true;
         this.jumpHold = true;
-        this.player.animations[this.player.facing][2].resetFrames();
+        this.player.animations[0][2].resetFrames();
+        this.player.animations[1][2].resetFrames();
         this.jumpDuration = this.player.animations[this.player.facing][2].totalTime - this.game.clockTick;
     };
 
