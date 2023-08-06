@@ -21,7 +21,7 @@ class Meiling {
         this.y = 700 - this.yBoxOffset;
         this.updateBB();
 
-        this.health = 50;
+        this.health = 5;
         this.invuln = 0;
 
         this.meilingController = new MeilingController(this, game);
@@ -52,6 +52,12 @@ class Meiling {
         this.animations[0][15] = new Animator(this.spritesheet, 8 * this.sWidth, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         //PROJECTILE
         this.animations[0][16] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 10);
+        //KNOCKBACK
+        this.animations[0][17] = new Animator(this.spritesheet, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[0][18] = new Animator(this.spritesheet, 6 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        //DEAD
+        this.animations[0][19] = new Animator(this.spritesheet, 0, 8 * this.sHeight, this.sWidth, this.sHeight, 7, 15);
+        this.animations[0][20] = new Animator(this.spritesheet, 6 * this.sWidth, 8 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
 
         //IDLE
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 6, 10); 
@@ -77,6 +83,12 @@ class Meiling {
         this.animations[1][15] = new Animator(this.spritesheetFlip, 8 * this.sWidth, 5 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
         //PROJECTILE
         this.animations[1][16] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 10);
+        //KNOCKBACK
+        this.animations[1][17] = new Animator(this.spritesheetFlip, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[1][18] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
+        //DEAD
+        this.animations[1][19] = new Animator(this.spritesheetFlip, 0, 8 * this.sHeight, this.sWidth, this.sHeight, 7, 15);
+        this.animations[1][20] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 8 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
     };
     hurt(other) {
         if (this.invuln <= 0 ) {
@@ -84,6 +96,8 @@ class Meiling {
             this.invuln = this.player.getAttackSpeed() / this.game.clockTick + 1;
         }
     };
+
+    dead() {return this.health <= 0};
 
     updateBB() {
 
@@ -101,7 +115,7 @@ class Meiling {
 
     update() {
         this.updateBB();
-        if (this.invuln > 0) this.invuln -= 1;
+        if (this.invuln > 0 && !this.dead()) this.invuln -= 1;
         if (this.x + this.xBoxOffset <= 0) { //LEFT COLLISION
             this.x = 0 - this.xBoxOffset;
         }

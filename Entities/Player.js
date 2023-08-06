@@ -72,9 +72,10 @@ class Player {
         this.animations[0][4] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[0][5] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[0][6] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        //DEAD
         this.animations[0][7] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[0][8] = new Animator(this.spritesheet, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[0][9] = new Animator(this.spritesheet, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[0][9] = new Animator(this.spritesheet, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 15);
         this.animations[0][10] = new Animator(this.spritesheet, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
 
         this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 8, 10); 
@@ -84,9 +85,10 @@ class Player {
         this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
         this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        //DEAD
         this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
         this.animations[1][8] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
+        this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 15);
         this.animations[1][10] = new Animator(this.spritesheetFlip, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
     };
 
