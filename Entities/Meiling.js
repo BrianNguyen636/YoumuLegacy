@@ -21,7 +21,7 @@ class Meiling {
         this.y = 700 - this.yBoxOffset;
         this.updateBB();
 
-        this.health = 5;
+        this.health = 50;
         this.invuln = 0;
 
         this.meilingController = new MeilingController(this, game);

@@ -214,14 +214,15 @@ class MeilingController {
                 if (this.attackDuration <= 0) this.boss.state = 18;
                 if (this.yVelocity == 0) {
                     this.attack(19);
+                    this.xVelocity = 0;
                 }
             } else if (this.boss.state == 19 && this.attackDuration <= 0) {
                 this.boss.state = 20;
             } else if (this.boss.state < 17) { //initial knockback
                 this.facePlayer();
                 this.attack(17);
-                this.boss.xVelocity = (-1 + this.boss.facing * 2) * 5; 
-                this.boss.yVelocity = -6;
+                this.xVelocity = (-1 + this.boss.facing * 2) * 5; 
+                this.yVelocity = -6;
             }
 
         }
