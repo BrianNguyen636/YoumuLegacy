@@ -9,41 +9,28 @@ class Player extends Character{
     };
 
     loadAnimations() {
-        this.animations[0][0] = new Animator(this.spritesheet, 0, 0, this.sWidth, this.sHeight, 8, 10); 
-        this.animations[0][1] = new Animator(this.spritesheet, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        this.animations[0][2] = new Animator(this.spritesheet, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
-        this.animations[0][3] = new Animator(this.spritesheet, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[0][4] = new Animator(this.spritesheet, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
-        this.animations[0][5] = new Animator(this.spritesheet, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        this.animations[0][6] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
-        //DEAD
-        this.animations[0][7] = new Animator(this.spritesheet, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        this.animations[0][8] = new Animator(this.spritesheet, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        this.animations[0][9] = new Animator(this.spritesheet, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 15);
-        this.animations[0][10] = new Animator(this.spritesheet, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
-
-        // this.animations[1][0] = new Animator(this.spritesheetFlip, 0, 0, this.sWidth, this.sHeight, 8, 10); 
-        // this.animations[1][1] = new Animator(this.spritesheetFlip, 0, 1 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        // this.animations[1][2] = new Animator(this.spritesheetFlip, 0, 2 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
-        // this.animations[1][3] = new Animator(this.spritesheetFlip, 0, 3 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        // this.animations[1][4] = new Animator(this.spritesheetFlip, 0, 4 * this.sHeight, this.sWidth, this.sHeight, 10, 20);
-        // this.animations[1][5] = new Animator(this.spritesheetFlip, 0, 5 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        // this.animations[1][6] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
-        // //DEAD
-        // this.animations[1][7] = new Animator(this.spritesheetFlip, 0, 6 * this.sHeight, this.sWidth, this.sHeight, 8, 20);
-        // this.animations[1][8] = new Animator(this.spritesheetFlip, 6 * this.sWidth, 6 * this.sHeight, this.sWidth, this.sHeight, 2, 10);
-        // this.animations[1][9] = new Animator(this.spritesheetFlip, 0, 7 * this.sHeight, this.sWidth, this.sHeight, 8, 15);
-        // this.animations[1][10] = new Animator(this.spritesheetFlip, 7 * this.sWidth, 7 * this.sHeight, this.sWidth, this.sHeight, 1, 20);
+        this.makeAnimation(0, 0, 0, 8, 10); //IDLE
+        this.makeAnimation(1, 1, 0, 8, 20); //WALK
+        this.makeAnimation(2, 2, 0, 10, 20); //JUMP
+        this.makeAnimation(3, 3, 0, 2, 10); //FALL
+        this.makeAnimation(4, 4, 0, 10, 20); //ATTACK
+        this.makeAnimation(5, 5, 0, 8, 20); //DASH
+        this.makeAnimation(6, 6, 0, 1, 20); //HURT
+        this.makeAnimation(7, 6, 0, 8, 20); //DEAD
+        this.makeAnimation(8, 6, 6, 1, 10); //DEAD FALL
+        this.makeAnimation(9, 7, 0, 8, 15); //GROUND BOUNCE
+        this.makeAnimation(10, 7, 7, 1, 20); //GAME OVER
     };
 
     updateBB() {
         switch(this.state) {
             default:
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 84 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 84 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5);
                 } else {
-                    this.BB = new BoundingBox(this.x + 89 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 89 * 1.5, this.y + 84 * 1.5, 27* 1.5, 43* 1.5);
                 }
+            break;
         } 
     };
 

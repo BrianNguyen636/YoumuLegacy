@@ -10,7 +10,6 @@ class Character {
         this.spritesheetFlip = ASSET_MANAGER.getAsset("./assets/" + name + "SpritesheetFlip.png");
         this.animations = [[],[]];
         this.loadAnimations();
-        this.loadAnimationsFlipped();
         this.updateBB();
         this.state = 0; 
         this.facing = 0;
@@ -20,6 +19,13 @@ class Character {
 
     dead() {return this.health <= 0};
 
+    hurt(other) {
+        if (this.invuln <= 0 ) {
+            this.health -= 1;
+            this.invuln = this.game.player.getAttackSpeed();
+        }
+    }
+
     updateBB() {
         console.log("Update BB");
     };
@@ -27,11 +33,9 @@ class Character {
         console.log("Load Animations");
     };
 
-    loadAnimationsFlipped() {
-        for (let i = 0; i < this.animations[0].length; i++) {
-            let a = this.animations[0][i];
-            this.animations[1][i] = new Animator(this.spritesheetFlip, a.xStart, a.yStart, a.width, a.height, a.frameCount, a.fps);
-            // console.log(a.yStart);
-        }
+    makeAnimation(number, row, column, frameCount, fps) {
+        this.animations[0][number] = new Animator(this.spritesheet, column * this.sWidth, row * this.sHeight, this.sWidth, this.sHeight, frameCount, fps); 
+        this.animations[1][number] = new Animator(this.spritesheetFlip, column * this.sWidth, row * this.sHeight, this.sWidth, this.sHeight, frameCount, fps); 
     };
+
 }

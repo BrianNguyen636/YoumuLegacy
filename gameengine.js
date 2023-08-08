@@ -186,8 +186,8 @@ class GameEngine {
         for (let i = 0; i < this.entities.length; i++) {
             let entity = this.entities[i];
             if (!entity.removeFromWorld) {
-                if ((entity.id == "boss" && !entity.dead) || entity.id == "attack") {
-                    if (entity.BB.collide(player.BB))  player.hurt(entity);
+                if ((entity.id == "boss" && !entity.dead()) || entity.id == "attack") {
+                    if (entity.BB.collide(player.BB)) player.hurt(entity);
                 }
                 if (player.attackBox != null && entity.id == "boss") {
                     if (player.attackBox.collide(entity.BB)) entity.hurt(player);

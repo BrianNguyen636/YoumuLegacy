@@ -2,7 +2,7 @@ class MeilingController {
     constructor(boss, game) {
         this.boss = boss;
         this.game = game;
-        this.player = this.boss.player;
+        this.player = this.game.player;
         this.boss.state = 1;
         this.timer = 0;
         this.attackDuration = 1;
@@ -214,7 +214,12 @@ class MeilingController {
                 }
             }
         } else {
-            if (this.boss.state == 17 || this.boss.state == 18) {
+            if (this.boss.state < 17) { //initial knockback
+                this.facePlayer();
+                this.attack(17);
+                this.xVelocity = (-1 + this.boss.facing * 2) * 5; 
+                this.yVelocity = -6;
+            } else if (this.boss.state == 17 || this.boss.state == 18) {
                 if (this.attackDuration <= 0) this.boss.state = 18;
                 if (this.yVelocity == 0) {
                     this.attack(19);
@@ -222,13 +227,7 @@ class MeilingController {
                 }
             } else if (this.boss.state == 19 && this.attackDuration <= 0) {
                 this.boss.state = 20;
-            } else if (this.boss.state < 17) { //initial knockback
-                this.facePlayer();
-                this.attack(17);
-                this.xVelocity = (-1 + this.boss.facing * 2) * 5; 
-                this.yVelocity = -6;
-            }
-
+            } else this.game.combat = false;
         }
     }
 }

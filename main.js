@@ -11,9 +11,6 @@ ASSET_MANAGER.queueDownload("./assets/MeilingEffects.png");
 ASSET_MANAGER.queueDownload("./assets/Stages.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 
-
-
-
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");

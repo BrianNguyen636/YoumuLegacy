@@ -18,6 +18,14 @@ class RoomManager {
                 this.game.player.x = 0;
                 break;
             }
+            default: {
+                this.game.player.x = 0;
+                this.stage = 0;
+                this.game.entities.forEach(element => {
+                    if (element.id != "player") element.removeFromWorld = true;
+                });
+                break;
+            }
         }
     }
     
