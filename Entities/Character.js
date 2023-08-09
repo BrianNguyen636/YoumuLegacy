@@ -23,7 +23,9 @@ class Character {
         if (this.invuln <= 0 ) {
             this.health -= 1;
             this.invuln = this.game.player.getAttackSpeed();
+            this.game.audioManager.playSound("Slash.wav");
         }
+        
     }
 
     updateBB() {

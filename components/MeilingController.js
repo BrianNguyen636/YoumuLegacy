@@ -214,7 +214,9 @@ class MeilingController {
                 }
             }
         } else {
-            if (this.boss.state < 17) { //initial knockback
+            if (this.boss.state < 17) { //initial death
+                this.game.meilingTime = Math.round((this.game.timer.gameTime - this.game.startTime) * 100) / 100;
+                this.game.timer.timerRun = false;
                 this.facePlayer();
                 this.attack(17);
                 this.xVelocity = (-1 + this.boss.facing * 2) * 5; 

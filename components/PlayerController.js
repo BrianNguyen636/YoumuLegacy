@@ -92,6 +92,7 @@ class PlayerController {
                 this.player.state = 5;
                 this.player.animations[this.player.facing][5].resetFrames();
                 this.attackDuration = this.player.animations[this.player.facing][5].totalTime;
+                this.game.audioManager.playSound("Swing.wav");
             }
             if (this.yVelocity != 0) this.airborne = true;
             if (this.airborne) {  //Airborne

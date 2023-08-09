@@ -12,22 +12,37 @@ class RoomManager {
                 break;
             }
             case(1): {
+                this.game.startTime = this.game.timer.gameTime;
                 this.game.addEntity(new Meiling(this.game));
-                this.game.combat = true;
-                this.stage = stage;
-                this.game.player.x = 0;
+                this.game.audioManager.playBGM("MeilingTheme");
+                this.game.uiManager.bgmTitle = "Snug Space - Dragon Kick!!"
+                this.newStage(stage);
                 break;
             }
             default: {
-                this.game.player.x = 0;
-                this.stage = 0;
-                this.game.entities.forEach(element => {
-                    if (element.id != "player") element.removeFromWorld = true;
-                });
+                this.game.pause = true;
+                this.game.victory = true;
+                this.game.audioManager.playBGM("EndTheme");
+                this.game.uiManager.bgmTitle = "TH15.5 The Eternal Steam Engine"
+                // this.game.player.x = 0;
+                // this.stage = 0;
+                // this.game.entities.forEach(element => {
+                //     if (element.id != "player") element.removeFromWorld = true;
+                // });
+                // this.game.player.health = 5;
+                // this.game.startTime = 0;
+                // this.game.uiManager = new UIManager(this.game);
                 break;
             }
         }
     }
+
+    newStage(stage) {
+        this.game.combat = true;
+        this.stage = stage;
+        this.game.player.x = 0;
+        this.game.timer.timerRun = true;
+    };
     
     draw(ctx) {
         ctx.drawImage(this.stageSheet,

@@ -8,8 +8,6 @@ class GameEngine {
 
         // Everything that will be updated and drawn each frame
         this.entities = [];
-        this.roomManager;
-        this.uiManager;
 
         // Information on the input
         this.click = null;
@@ -28,6 +26,11 @@ class GameEngine {
 
         this.pause = false;
         this.combat = false;
+        this.victory = false;
+        this.startTime = 0;
+        this.meilingTime = 0;
+        this.tenshiTime = 0;
+        this.reisenTime = 0;
 
         // Options and the Details
         this.options = options || {
@@ -44,8 +47,9 @@ class GameEngine {
         this.addEntity(player);
         this.player = player;
         this.roomManager = new RoomManager(this);
-        this.uiManager = new UIManager(this.entities);
-
+        this.uiManager = new UIManager(this);
+        this.audioManager = new AudioManager(this);
+        this.audioManager.playBGM("StartTheme");
     };
 
     start() {
@@ -60,7 +64,10 @@ class GameEngine {
     reset() {
         this.pause = false;
         this.combat = false;
+        this.victory = false;
         this.entities = [];
+        this.startTime = 0;
+        this.audioManager.music.stop();
         this.init(this.ctx, new Player(this));
     }
 
@@ -135,6 +142,7 @@ class GameEngine {
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
+        this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.roomManager.draw(this.ctx);
         this.uiManager.draw(this.ctx);
@@ -198,7 +206,9 @@ class GameEngine {
 
     loop() {
         if (this.pause) {
-            if (this.player.health > 0) {
+            if (this.victory) {
+                this.uiManager.drawVictory(this.ctx);
+            } else if (this.player.health > 0) {
                 this.uiManager.drawPause(this.ctx);
                 if (this.Esc) {
                     this.pause = false;
