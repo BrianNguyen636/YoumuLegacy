@@ -37,7 +37,7 @@ class Player extends Character{
     hurt(other) {
         if (this.invuln <= 0 ) {
             this.health -= 1;
-            this.invuln = 200;
+            this.invuln = 2;
             this.state = 6;
             this.controller.knockback(this.BB.midX - other.BB.midX);
         }
@@ -58,7 +58,8 @@ class Player extends Character{
     };
 
     update() {
-        if (this.invuln > 0 && this.state < 6) this.invuln -= 1;
+        if (this.invuln > 0 && this.state < 6) this.invuln -= this.game.clockTick;
+        console.log(this.invuln);
         this.controller.update();
         this.updateBB();
         this.updateAttackBox();
