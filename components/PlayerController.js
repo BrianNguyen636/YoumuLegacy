@@ -38,6 +38,7 @@ class PlayerController {
         this.doublejump = true;
         if (side < 0) this.xVelocity = -5;
         else this.xVelocity = 5;
+        this.game.audioManager.playSound("Hurt.wav");
     }
 
     updateState() {
@@ -54,9 +55,11 @@ class PlayerController {
                 this.player.state = 9;
                 this.player.animations[this.player.facing][9].resetFrames();
                 this.jumpDuration = this.player.animations[this.player.facing][9].totalTime - this.game.clockTick;
+                this.game.audioManager.playSound("Thud.wav");
             }
         } else if (this.player.state == 6) {
             if (this.player.health <= 0) {
+                this.game.audioManager.playSound("KO.wav");
                 this.player.state = 7;
                 this.player.animations[this.player.facing][7].resetFrames();
                 this.jumpDuration = this.player.animations[this.player.facing][7].totalTime - this.game.clockTick;
@@ -85,6 +88,7 @@ class PlayerController {
                     this.player.state = 4;
                     this.player.animations[this.player.facing][4].resetFrames();
                     this.dashDuration = this.player.animations[this.player.facing][4].totalTime;
+                    this.game.audioManager.playSound("Whoosh.wav");
                 }
             }
             if (this.game.B) {

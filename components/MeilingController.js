@@ -87,8 +87,13 @@ class MeilingController {
                         break;
                     }
                     case(5): { //Tetsuzanko
-                        if (this.attackDuration < 40 * this.game.clockTick)
+                        if (this.attackDuration < 40 * this.game.clockTick) {
                             this.xVelocity -= (-1 + this.boss.facing * 2) * 1;
+                        }
+                        if (!this.effectSpawn) {
+                            this.game.audioManager.playSound("Swish.wav");
+                            this.effectSpawn = true;
+                        }
                         break;
                     }
                     case(6): { //Tetsuzanko
@@ -116,6 +121,7 @@ class MeilingController {
                                     this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0));
                                     this.game.addEntity(new Effect(this.boss.x - 258, this.boss.y, "Meiling", 1));
                                 }
+                                this.game.audioManager.playSound("Stomp.wav");
                                 this.effectSpawn = true;
                             }
                         } else this.effectSpawn = false;
@@ -141,6 +147,7 @@ class MeilingController {
                                     this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 180, null, "Meiling", 1, this.game));
                                     this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 210, null, "Meiling", 0, this.game));
                                 }
+                                this.game.audioManager.playSound("Spray.wav");
                                 this.effectSpawn = true;
                             }
                         } else this.effectSpawn = false;
@@ -151,6 +158,7 @@ class MeilingController {
             if (this.attackDuration <= 0 && this.boss.state > 1) { //What happens after attack
                 switch(this.boss.state) {
                     case(2): {
+                        this.game.audioManager.playSound("Flurry.wav");
                         this.attack(3);
                         break;
                     }
@@ -166,6 +174,7 @@ class MeilingController {
                         break;
                     }
                     case(5): {
+                        this.game.audioManager.playSound("Whoosh.wav");
                         this.attack(6);
                         break;
                     }
@@ -192,6 +201,7 @@ class MeilingController {
                         this.boss.state = 13;
                         this.xVelocity -= (-1 + this.boss.facing * 2) * 20; 
                         this.yVelocity -= 10; 
+                        this.game.audioManager.playSound("Fly.wav");
                         break;
                     }
                     case(13): {
@@ -217,6 +227,7 @@ class MeilingController {
             if (this.boss.state < 17) { //initial death
                 this.game.meilingTime = Math.round((this.game.timer.gameTime - this.game.startTime) * 100) / 100;
                 this.game.timer.timerRun = false;
+                this.game.audioManager.playSound("KO.wav");
                 this.facePlayer();
                 this.attack(17);
                 this.xVelocity = (-1 + this.boss.facing * 2) * 5; 
@@ -224,6 +235,7 @@ class MeilingController {
             } else if (this.boss.state == 17 || this.boss.state == 18) {
                 if (this.attackDuration <= 0) this.boss.state = 18;
                 if (this.yVelocity == 0) {
+                    this.game.audioManager.playSound("Thud.wav");
                     this.attack(19);
                     this.xVelocity = 0;
                 }

@@ -24,6 +24,7 @@ class GameEngine {
         this.R = false;
         this.Esc = false;
 
+        this.startMenu = true;
         this.pause = false;
         this.combat = false;
         this.victory = false;
@@ -53,7 +54,6 @@ class GameEngine {
     };
 
     start() {
-        this.running = true;
         const gameLoop = () => {
             this.loop();
             requestAnimFrame(gameLoop, this.ctx.canvas);
@@ -165,6 +165,8 @@ class GameEngine {
     update() {
         if (this.Esc) {
             this.pause = true;
+            this.audioManager.playSound("Pause.wav");
+            this.audioManager.music.stop();
             this.Esc = false;
         }
         this.uiManager.update();
@@ -205,21 +207,32 @@ class GameEngine {
     }
 
     loop() {
-        if (this.pause) {
-            if (this.victory) {
+        if (this.startMenu) { //START MENU
+            this.uiManager.drawStartMenu(this.ctx);
+            if (this.A) { //END START MENU
+                this.A = false;
+                this.audioManager.playSound("Select.wav");
+                this.audioManager.playBGM("StartTheme");
+                this.startMenu = false;
+            }
+        } else if (this.pause) {
+            if (this.victory) { 
                 this.uiManager.drawVictory(this.ctx);
-            } else if (this.player.health > 0) {
+            } else if (this.player.health > 0) { //IF PAUSED
                 this.uiManager.drawPause(this.ctx);
                 if (this.Esc) {
+                    this.audioManager.playSound("Select.wav");
                     this.pause = false;
                     this.Esc = false;
+                    this.audioManager.music.play();
                 }
-            } else this.uiManager.drawGameOver(this.ctx);
-            if (this.R) {
+            } else this.uiManager.drawGameOver(this.ctx); //IF GAME OVER
+            if (this.R) { //RESTART
                 this.R = false;
                 this.reset();
+                this.audioManager.playSound("Select.wav");
             }
-        } else {
+        } else { //NORMAL GAMELOOP
             this.clockTick = this.timer.tick();
             this.update();
             this.draw();

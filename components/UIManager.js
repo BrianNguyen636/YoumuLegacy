@@ -96,6 +96,21 @@ class UIManager {
         ctx.strokeText("BGM: " + this.bgmTitle, 700, 30);
     }
 
+    drawStartMenu(ctx) {
+        let screen = ASSET_MANAGER.getAsset("./assets/CirnoReaction.jpg");
+        ctx.drawImage(screen, 0, 0);
+        ctx.font = "bold 100px serif"
+        ctx.fillStyle = "white";
+        ctx.fillText("Press Z to start!", 0, 700);
+
+        ctx.font = "50px serif"
+        ctx.fillStyle = "white";
+        ctx.fillText("Z - Jump (or Up)", 800, 400);
+        ctx.fillText("X - Attack", 800, 450);
+        ctx.fillText("C - Dash", 800, 500);
+        ctx.fillText("Arrows to Move", 800, 550);
+    }
+
     draw(ctx) {
         this.drawTimer(ctx);
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);

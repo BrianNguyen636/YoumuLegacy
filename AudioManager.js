@@ -6,11 +6,11 @@ class AudioManager {
 
     playBGM(src) {
         if (this.music != null) this.music.stop();
-        this.music = new Sound("./assets/" + src + ".mp3");
+        this.music = new Sound("./assets/Audio/" + src + ".mp3");
         this.music.play();
     }
     playSound(src) {
-      let sound = new Sound("./assets/" + src);
+      let sound = new Sound("./assets/Audio/" + src);
       sound.play();
     }
 }    
