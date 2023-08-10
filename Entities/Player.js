@@ -15,11 +15,11 @@ class Player extends Character{
         this.makeAnimation(3, 3, 0, 2, 10); //FALL
         this.makeAnimation(4, 4, 0, 10, 20); //ATTACK
         this.makeAnimation(5, 5, 0, 8, 20); //DASH
-        this.makeAnimation(6, 6, 0, 1, 20); //HURT
+        this.makeAnimation(6, 6, 0, 1, 1); //HURT
         this.makeAnimation(7, 6, 0, 8, 20); //DEAD
-        this.makeAnimation(8, 6, 6, 1, 10); //DEAD FALL
+        this.makeAnimation(8, 6, 6, 1, 1); //DEAD FALL
         this.makeAnimation(9, 7, 0, 8, 15); //GROUND BOUNCE
-        this.makeAnimation(10, 7, 7, 1, 20); //GAME OVER
+        this.makeAnimation(10, 7, 7, 1, 1); //GAME OVER
     };
 
     updateBB() {
@@ -66,6 +66,11 @@ class Player extends Character{
 
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+        if (this.invuln > 0 && this.state < 6) {
+            ctx.font = "20px arial"
+            ctx.fillStyle = "cyan";
+            ctx.fillText("*INVULN*", this.x + 60*1.5, this.y + 46*1.5);
+        }
         if (this.game.boxView) {
             ctx.strokeStyle = "yellow";
             ctx.beginPath();

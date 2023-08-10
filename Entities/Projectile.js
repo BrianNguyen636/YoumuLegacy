@@ -16,8 +16,8 @@ class Projectile {
         this.game.addEntity(new Hitbox(this.x,this.y,this.width,this.height,0,this.game));
     };
     update() {
-        this.x += this.xVelocity;
-        this.y += this.yVelocity;
+        this.x += this.xVelocity * this.game.clockTick;
+        this.y += this.yVelocity * this.game.clockTick;
         this.updateHitbox();
         if (this.lifespan == null) {
             if (this.x < 0 || this.x > 1280) {

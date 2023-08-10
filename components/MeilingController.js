@@ -27,9 +27,9 @@ class MeilingController {
         if (this.timer > 0) this.timer -= this.game.clockTick;
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
 
-        this.yVelocity += 0.1; //Gravity
-        this.boss.y += this.yVelocity / 2; 
-        this.boss.x += this.xVelocity / 2;
+        this.yVelocity += 2000 * this.game.clockTick; //Gravity
+        this.boss.y += this.yVelocity * this.game.clockTick; 
+        this.boss.x += this.xVelocity * this.game.clockTick;
         if (this.boss.y + this.boss.yBoxOffset >= 700) { //GROUND COLLISION
             this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
@@ -76,11 +76,11 @@ class MeilingController {
                 switch(this.boss.state) {
                     case(1): { //Walking
                         this.facePlayer();
-                        this.boss.x -= (-1 + this.boss.facing * 2) * .75; 
+                        this.boss.x -= (-1 + this.boss.facing * 2) * 120 * this.game.clockTick; 
                         break;
                     }
                     case(3): { //Flurry
-                        this.boss.x -= (-1 + this.boss.facing * 2) * 1.5; 
+                        this.boss.x -= (-1 + this.boss.facing * 2) * 300 * this.game.clockTick; 
                         if (this.boss.facing == 0) {
                             this.game.addEntity(new Hitbox(this.boss.x + 120* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));
                         } else this.game.addEntity(new Hitbox(this.boss.x + 30* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));
@@ -88,7 +88,7 @@ class MeilingController {
                     }
                     case(5): { //Tetsuzanko
                         if (this.attackDuration < 40 * this.game.clockTick) {
-                            this.xVelocity -= (-1 + this.boss.facing * 2) * 1;
+                            this.xVelocity -= (-1 + this.boss.facing * 2) * 12000 * this.game.clockTick;
                         }
                         if (!this.effectSpawn) {
                             this.game.audioManager.playSound("Swish.wav");
@@ -134,7 +134,7 @@ class MeilingController {
                     }
                     case(16): {//Projectiles
                         if (this.attackDuration < (3/8) * this.boss.animations[this.boss.facing][16].totalTime) {
-                            let projSpeed = 4.5;
+                            let projSpeed = 750;
                             if (!this.effectSpawn) {
                                 if (this.boss.facing == 0) {
                                     this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 60, null, "Meiling", 3, this.game));
@@ -199,8 +199,8 @@ class MeilingController {
                     case(12): { //DRAGONKICK
                         this.attackDuration = 100 * this.game.clockTick;
                         this.boss.state = 13;
-                        this.xVelocity -= (-1 + this.boss.facing * 2) * 20; 
-                        this.yVelocity -= 10; 
+                        this.xVelocity = -(-1 + this.boss.facing * 2) * 1500; 
+                        this.yVelocity = -1000; 
                         this.game.audioManager.playSound("Fly.wav");
                         break;
                     }
@@ -230,8 +230,8 @@ class MeilingController {
                 this.game.audioManager.playSound("KO.wav");
                 this.facePlayer();
                 this.attack(17);
-                this.xVelocity = (-1 + this.boss.facing * 2) * 5; 
-                this.yVelocity = -6;
+                this.xVelocity = (-1 + this.boss.facing * 2) * 400; 
+                this.yVelocity = -800;
             } else if (this.boss.state == 17 || this.boss.state == 18) {
                 if (this.attackDuration <= 0) this.boss.state = 18;
                 if (this.yVelocity == 0) {

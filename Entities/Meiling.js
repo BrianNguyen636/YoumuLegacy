@@ -14,19 +14,19 @@ class Meiling extends Character {
         //WALK
         this.makeAnimation(1, 1, 0, 6, 10);
         //FLURRY
-        this.makeAnimation(2, 2, 0, 1, 15);
+        this.makeAnimation(2, 2, 0, 1, 1);
         this.makeAnimation(3, 2, 0, 15, 15);
         //TETSUZANKO
         this.makeAnimation(4, 3, 0, 4, 10);
-        this.makeAnimation(5, 3, 4, 1, 10);
+        this.makeAnimation(5, 3, 4, 1, 1);
         this.makeAnimation(6, 3, 4, 7, 10);
         //STOMP
         this.makeAnimation(7, 4, 0, 3, 15);
-        this.makeAnimation(8, 4, 2, 1, 15);
+        this.makeAnimation(8, 4, 2, 1, 1);
         this.makeAnimation(9, 4, 2, 7, 15);
         //DRAGONKICK
         this.makeAnimation(10, 5, 0, 2, 10);
-        this.makeAnimation(11, 5, 1, 1, 10);
+        this.makeAnimation(11, 5, 1, 1, 1);
         this.makeAnimation(12, 5, 2, 1, 10);
         this.makeAnimation(13, 5, 4, 2, 10);
         this.makeAnimation(14, 5, 6, 3, 10);
@@ -38,7 +38,7 @@ class Meiling extends Character {
         this.makeAnimation(18, 7, 6, 2, 10);
         //DEAD
         this.makeAnimation(19, 8, 0, 7, 15);
-        this.makeAnimation(20, 8, 6, 1, 15);
+        this.makeAnimation(20, 8, 6, 1, 1);
     };
 
     updateBB() {
