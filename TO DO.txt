@@ -1,0 +1,7 @@
+IMPLEMENT
+- Game loop locked to 60fps
+- Add lifetime to Effects
+- Make init call stageTransition(0) from Room Manager
+FIX
+- Death while dashing not causing gravity
+- Game speed differing on refresh rate

@@ -5,7 +5,7 @@ class UIManager {
         this.playerHealth;
         this.bossHealth;
         this.healthIcon = ASSET_MANAGER.getAsset("./assets/Health.png");
-        this.bgmTitle = "TH13.5 An Unpopular Location";
+        this.bgmTitle = "Kuroneko Lounge - Ancient Temple";
     }
 
     update() {
