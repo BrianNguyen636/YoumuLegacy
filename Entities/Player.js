@@ -67,13 +67,16 @@ class Player extends Character{
     draw(ctx) {
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         if (this.game.boxView) {
-            ctx.beginPath();
-            ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
             ctx.strokeStyle = "yellow";
+            ctx.beginPath();
+            
+            ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
+            
             ctx.stroke();
             if (this.attackBox != null) {
-                ctx.rect(this.attackBox.x, this.attackBox.y, this.attackBox.width, this.attackBox.height)
+                ctx.beginPath();
                 ctx.strokeStyle = "red";
+                ctx.rect(this.attackBox.x, this.attackBox.y, this.attackBox.width, this.attackBox.height)
                 ctx.stroke();
             }
         }

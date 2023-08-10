@@ -45,9 +45,9 @@ class Meiling extends Character {
         switch(this.state) {
             default: 
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 72* 1.5, this.y + 25* 1.5, 36* 1.5, 98* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 76* 1.5, this.y + 25* 1.5, 45* 1.5, 98* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 72* 1.5, this.y + 25* 1.5, 36* 1.5, 98* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 76* 1.5, this.y + 25* 1.5, 45* 1.5, 98* 1.5); break;
                 }
         }
     };

@@ -24,7 +24,8 @@ class UIManager {
 
     drawPause(ctx) {
         ctx.font = "bold 100px serif";
-        ctx.fillStyle = "white"
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
         ctx.fillText("PAUSED", 450, 300);
         ctx.strokeText("PAUSED", 450, 300);
         ctx.font = "60px serif";
@@ -76,6 +77,7 @@ class UIManager {
             let time = Math.round((this.game.timer.gameTime - this.game.startTime) * 100) / 100;
             ctx.font = "40px arial";
             ctx.fillStyle = "white";
+            ctx.strokeStyle = "black";
             ctx.fillText(time, 600, 100);
             ctx.strokeText(time, 600, 100);
         
@@ -91,6 +93,7 @@ class UIManager {
 
     drawBGM(ctx) {
         ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
         ctx.font = "30px arial";
         ctx.fillText("BGM: " + this.bgmTitle, 700, 30);
         ctx.strokeText("BGM: " + this.bgmTitle, 700, 30);

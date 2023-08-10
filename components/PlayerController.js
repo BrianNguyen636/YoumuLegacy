@@ -17,11 +17,11 @@ class PlayerController {
         this.jumpHold = false;
         this.dashHold = false;
 
-        this.speed = 3;
-        this.dashSpeed = 4.5;
-        this.jumpHeight = 11;
-        this.gravity = 0.2;
-        this.highJumpGrav = 0.08;
+        this.speed = 400;
+        this.dashSpeed = 600;
+        this.jumpHeight = 1800;
+        this.highJumpBonus = 1500;
+        this.gravity = 28;
     };
     
     jump() {
@@ -34,10 +34,10 @@ class PlayerController {
     };
 
     knockback(side) {
-        this.yVelocity = -6;
+        this.yVelocity = -1200;
         this.doublejump = true;
-        if (side < 0) this.xVelocity = -5;
-        else this.xVelocity = 5;
+        if (side < 0) this.xVelocity = -800;
+        else this.xVelocity = 800;
         this.game.audioManager.playSound("Hurt.wav");
     }
 
@@ -131,21 +131,21 @@ class PlayerController {
         if (this.dashing) {
             this.yVelocity = 0;
             if (this.player.facing == 0) {
-                this.player.x += this.dashSpeed;
-            } else this.player.x -= this.dashSpeed;
+                this.player.x += this.dashSpeed * this.game.clockTick;
+            } else this.player.x -= this.dashSpeed * this.game.clockTick;
         } else if (this.player.state < 6) {
             if (this.game.right) {
-                this.player.x += this.speed;
+                this.player.x += this.speed * this.game.clockTick;
             } else if (this.game.left) {
-                this.player.x -= this.speed;
+                this.player.x -= this.speed * this.game.clockTick;
             }
         }
 
         if (this.player.state >= 6 ) {
-            this.player.x += this.xVelocity / 2;
-            this.yVelocity -= this.highJumpGrav;
+            this.player.x += this.xVelocity / 2 * this.game.clockTick;
+            this.yVelocity -= this.highJumpBonus * this.game.clockTick;
         }
-        this.player.y += this.yVelocity / 2; 
+        this.player.y += this.yVelocity / 2 * this.game.clockTick; 
 
         if (this.player.y + this.player.yBoxOffset >= 700) { //GROUND COLLISION
             this.player.y = 700 - this.player.yBoxOffset;
@@ -164,7 +164,7 @@ class PlayerController {
         if (this.player.state < 7) {
             if (this.airborne) { //Airborne
                 if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
-                    this.yVelocity -= this.highJumpGrav;
+                    this.yVelocity -= this.highJumpBonus * this.game.clockTick;
                 }
                 if (!(this.game.A || this.game.up)) {
                     this.jumpHold = false;
@@ -190,7 +190,7 @@ class PlayerController {
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
         if (this.dashDuration > 0) this.dashDuration -= this.game.clockTick;
         if (this.jumpDuration > 0) this.jumpDuration -= this.game.clockTick;
-        
+        console.log(this.player.state);
         this.updateState();
         this.updateMovement();
     };

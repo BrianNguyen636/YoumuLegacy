@@ -37,7 +37,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = false;
+        this.boxView = true;
     };
 
     init(ctx, player) {
@@ -154,8 +154,8 @@ class GameEngine {
             if (this.boxView && entity.id == "attack") {
                 let box = entity.BB;
                 this.ctx.beginPath();
-                this.ctx.rect(box.x, box.y, box.width, box.height)
                 this.ctx.strokeStyle = "yellow";
+                this.ctx.rect(box.x, box.y, box.width, box.height);
                 this.ctx.stroke();
             }
         }
