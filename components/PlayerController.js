@@ -190,7 +190,6 @@ class PlayerController {
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
         if (this.dashDuration > 0) this.dashDuration -= this.game.clockTick;
         if (this.jumpDuration > 0) this.jumpDuration -= this.game.clockTick;
-        console.log(this.player.state);
         this.updateState();
         this.updateMovement();
     };
