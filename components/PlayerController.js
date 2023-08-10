@@ -18,10 +18,10 @@ class PlayerController {
         this.dashHold = false;
 
         this.speed = 400;
-        this.dashSpeed = 600;
+        this.dashSpeed = 700;
         this.jumpHeight = 1800;
-        this.highJumpBonus = 1500;
-        this.gravity = 28;
+        this.highJumpBonus = 1200;
+        this.gravity = 4200;
     };
     
     jump() {
@@ -126,7 +126,7 @@ class PlayerController {
     };
 
     updateMovement() {
-        this.yVelocity += this.gravity; //Gravity
+        this.yVelocity += this.gravity * this.game.clockTick; //Gravity
 
         if (this.dashing) {
             this.yVelocity = 0;
