@@ -97,7 +97,7 @@ class UIManager {
     }
 
     drawStartMenu(ctx) {
-        let screen = ASSET_MANAGER.getAsset("./assets/CirnoReaction.jpg");
+        let screen = ASSET_MANAGER.getAsset("./assets/StartMenu.jpg");
         ctx.drawImage(screen, 0, 0);
         ctx.font = "bold 100px serif"
         ctx.fillStyle = "white";
