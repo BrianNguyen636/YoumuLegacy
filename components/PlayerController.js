@@ -61,6 +61,7 @@ class PlayerController {
             if (this.player.health <= 0) {
                 this.game.audioManager.playSound("KO.wav");
                 this.player.state = 7;
+                this.dashing = false;
                 this.player.animations[this.player.facing][7].resetFrames();
                 this.jumpDuration = this.player.animations[this.player.facing][7].totalTime - this.game.clockTick;
             } else {
@@ -71,6 +72,7 @@ class PlayerController {
             }
         } else if (this.attacking && this.attackDuration > 0) {
             this.player.state = 5;
+            this.dashing = false;
         } else if (this.dashing && this.dashDuration > 0) {
             this.player.state = 4;
             if ((this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Cancel into jump
