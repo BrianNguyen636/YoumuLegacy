@@ -1,6 +1,6 @@
 class Effect {
-    constructor(x, y, name, number) {
-        Object.assign(this, {x,y, name, number});
+    constructor(x, y, name, number, game) {
+        Object.assign(this, {x,y, name, number, game});
         this.id = "effect";
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/" + this.name + "Effects.png");
         this.removeFromWorld = false;
@@ -10,7 +10,7 @@ class Effect {
     };
 
     update() {
-        this.alpha -= 0.02;
+        this.alpha -= 1.5 * this.game.clockTick;
         if (this.alpha <= 0) {
             this.removeFromWorld = true;
         } 

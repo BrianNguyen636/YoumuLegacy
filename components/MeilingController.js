@@ -4,12 +4,13 @@ class MeilingController {
         this.game = game;
         this.player = this.game.player;
         this.boss.state = 1;
-        this.timer = 0;
-        this.attackDuration = 0.1;
+        this.timer = 1;
+        this.attackDuration = 0.5;
         this.effectSpawn = false;
         this.lastRoll = null;
         this.yVelocity = 0;
         this.xVelocity = 0;
+        this.facePlayer();
     }
 
     facePlayer() {
@@ -110,16 +111,16 @@ class MeilingController {
                                     this.game.addEntity(new Hitbox(this.boss.x + 13, this.boss.y - 307, 289, 307, 0, this.game));
                                     this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y - 109, 400, 300, 0, this.game));
                                     this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
-                                    this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 0));
-                                    this.game.addEntity(new Effect(this.boss.x - 238, this.boss.y, "Meiling", 1));
+                                    this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 0, this.game));
+                                    this.game.addEntity(new Effect(this.boss.x - 238, this.boss.y, "Meiling", 1, this.game));
                                     
                                 } else {
                                     this.game.addEntity(new Hitbox(this.boss.x + 66 , this.boss.y - 478, 142, 478, 0, this.game));
                                     this.game.addEntity(new Hitbox(this.boss.x - 7, this.boss.y - 307, 289, 307, 0, this.game));
                                     this.game.addEntity(new Hitbox(this.boss.x - 68, this.boss.y - 109, 400, 300, 0, this.game));
                                     this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
-                                    this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0));
-                                    this.game.addEntity(new Effect(this.boss.x - 258, this.boss.y, "Meiling", 1));
+                                    this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0, this.game));
+                                    this.game.addEntity(new Effect(this.boss.x - 258, this.boss.y, "Meiling", 1, this.game));
                                 }
                                 this.game.audioManager.playSound("Stomp.wav");
                                 this.effectSpawn = true;
@@ -231,7 +232,7 @@ class MeilingController {
                 this.facePlayer();
                 this.attack(17);
                 this.xVelocity = (-1 + this.boss.facing * 2) * 400; 
-                this.yVelocity = -800;
+                this.yVelocity = -700;
             } else if (this.boss.state == 17 || this.boss.state == 18) {
                 if (this.attackDuration <= 0) this.boss.state = 18;
                 if (this.yVelocity == 0) {
