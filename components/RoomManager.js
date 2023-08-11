@@ -9,6 +9,8 @@ class RoomManager {
         switch(stage) {
             case(0): {
                 this.stage = stage;
+                this.game.uiManager.bgmTitle = "Kuroneko Lounge - Ancient Temple";
+                this.game.audioManager.playBGM("StartTheme");
                 break;
             }
             case(1): {

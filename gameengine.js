@@ -47,10 +47,9 @@ class GameEngine {
         this.entities = [];
         this.addEntity(player);
         this.player = player;
-        this.roomManager = new RoomManager(this);
         this.uiManager = new UIManager(this);
         this.audioManager = new AudioManager(this);
-        this.audioManager.playBGM("StartTheme");
+        this.roomManager = new RoomManager(this);
     };
 
     start() {
@@ -69,6 +68,7 @@ class GameEngine {
         this.startTime = 0;
         this.audioManager.music.stop();
         this.init(this.ctx, new Player(this));
+        this.roomManager.stageTransition(0);
     }
 
     startInput() {
@@ -205,8 +205,8 @@ class GameEngine {
             if (this.A) { //END START MENU
                 this.A = false;
                 this.audioManager.playSound("Select.wav");
-                this.audioManager.playBGM("StartTheme");
                 this.startMenu = false;
+                this.roomManager.stageTransition(0);
             }
         } else if (this.pause) {
             if (this.victory) { 

@@ -16,6 +16,8 @@ class PlayerController {
         this.attackDuration = 0;
         this.jumpHold = false;
         this.dashHold = false;
+        this.leftHold = false;
+        this.rightHold = false;
 
         this.speed = 400;
         this.dashSpeed = 700;
@@ -75,6 +77,10 @@ class PlayerController {
             this.dashing = false;
         } else if (this.dashing && this.dashDuration > 0) {
             this.player.state = 4;
+            if (this.game.down && this.game.A && !this.fastFall && !this.jumpHold) { //FASTFALL cancel
+                this.dashDuration = 0;
+                this.dashing = false;
+            }
             if ((this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Cancel into jump
                 this.dashDuration = 0;
                 this.dashing = false;
@@ -104,15 +110,24 @@ class PlayerController {
             if (this.airborne) {  //Airborne
                 if (this.jumpDuration > 0) this.player.state = 2; // Jumping
                 if (this.jumpDuration < 0) this.player.state = 3; // Falling
-                if (this.game.right) {
-                    this.player.facing = 0;
-                } else if (this.game.left) {
-                    this.player.facing = 1;
+                if (!this.game.right || !this.game.left) { //SOCD
+                    if (this.game.right) {
+                        this.player.facing = 0;
+                    } else if (this.game.left) {
+                        this.player.facing = 1;
+                    }
+                }
+                if (this.game.down && this.game.A && !this.fastFall && !this.jumpHold) { //FASTFALL
+                    this.fastFall = true;
+                    this.game.audioManager.playSound("Swish.wav");
                 }
             } else { //Grounded
                 this.jumpDuration = 0;
                 this.airdash = true;
-                if (this.game.right) {
+                this.fastFall = false;
+                if (this.game.right && this.game.left) {
+                    this.player.state = 0;
+                } else if (this.game.right) {
                     this.player.state = 1;
                     this.player.facing = 0;
                 } else if (this.game.left) {
@@ -134,10 +149,12 @@ class PlayerController {
                 this.player.x += this.dashSpeed * this.game.clockTick;
             } else this.player.x -= this.dashSpeed * this.game.clockTick;
         } else if (this.player.state < 6) {
-            if (this.game.right) {
-                this.player.x += this.speed * this.game.clockTick;
-            } else if (this.game.left) {
-                this.player.x -= this.speed * this.game.clockTick;
+            if (!this.game.right || !this.game.left) {
+                if (this.game.right) {
+                    this.player.x += this.speed * this.game.clockTick;
+                } else if (this.game.left) {
+                    this.player.x -= this.speed * this.game.clockTick;
+                }
             }
         }
 
@@ -163,6 +180,10 @@ class PlayerController {
         //JUMPING
         if (this.player.state < 7) {
             if (this.airborne) { //Airborne
+                if (this.fastFall) { //FASTFALLING
+                    this.player.y += 1300 * this.game.clockTick;
+                    this.yVelocity = 0;
+                }
                 if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
                     this.yVelocity -= this.highJumpBonus * this.game.clockTick;
                 }
@@ -170,7 +191,8 @@ class PlayerController {
                     this.jumpHold = false;
                 }
                 
-                if (this.yVelocity > 0 && (this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Double Jumping
+                if (this.yVelocity > 0 && (this.game.A || this.game.up) && !this.game.down && 
+                    this.doublejump && !this.jumpHold) { //Double Jumping
                     this.doublejump = false;
                     this.jump();
                 }
