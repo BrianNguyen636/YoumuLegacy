@@ -48,20 +48,20 @@ class MeilingController {
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
                 this.facePlayer();
     
-                // let roll = this.lastRoll;
-                // while (roll == this.lastRoll) {
-                //     roll = Math.floor(Math.random() * 5);
-                // }
-                // this.lastRoll = roll;
-                // switch(roll) {
-                //     case(0): this.boss.state = 2; break;
-                //     case(1): this.boss.state = 4; break;
-                //     case(2): this.boss.state = 7; break;
-                //     case(3): this.boss.state = 10; break;
-                //     case(4): this.boss.state = 16; break;
-                // }
+                let roll = this.lastRoll;
+                while (roll == this.lastRoll) {
+                    roll = Math.floor(Math.random() * 5);
+                }
+                this.lastRoll = roll;
+                switch(roll) {
+                    case(0): this.boss.state = 2; break;
+                    case(1): this.boss.state = 4; break;
+                    case(2): this.boss.state = 7; break;
+                    case(3): this.boss.state = 10; break;
+                    case(4): this.boss.state = 16; break;
+                }
     
-                this.boss.state = 4;
+                // this.boss.state = 4;
     
                 switch(this.boss.state) {
                     case(2): this.attackDuration = 0.3; break;
