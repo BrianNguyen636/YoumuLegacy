@@ -4,7 +4,7 @@ class Meiling extends Character {
             200, 150, 
             82*1.5, 123*1.5, 
             600, 700 - 123*1.5, 
-            1);
+            50);
         this.setController(new MeilingController(this, game));
     };
 
