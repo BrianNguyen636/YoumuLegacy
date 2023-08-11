@@ -151,13 +151,6 @@ class GameEngine {
         for (let i = this.entities.length - 1; i >= 0; i--) {
             let entity = this.entities[i];
             entity.draw(this.ctx, this);
-            if (this.boxView && entity.id == "attack") {
-                let box = entity.BB;
-                this.ctx.beginPath();
-                this.ctx.strokeStyle = "yellow";
-                this.ctx.rect(box.x, box.y, box.width, box.height);
-                this.ctx.stroke();
-            }
         }
         
     };

@@ -20,7 +20,12 @@ class Hitbox {
     };
 
     draw(ctx) {
-        // ctx.strokeStyle = "red";
-        // ctx.strokeRect(this.BB.x, this.BB.y, this.BB.width, this.BB.height);
+        if (this.game.boxView) {
+            let box = this.BB;
+            ctx.beginPath();
+            ctx.strokeStyle = "yellow";
+            ctx.rect(box.x, box.y, box.width, box.height);
+            ctx.stroke();
+        }
     };
 }
