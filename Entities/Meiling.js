@@ -17,7 +17,7 @@ class Meiling extends Character {
         this.makeAnimation(2, 2, 0, 1, 1);
         this.makeAnimation(3, 2, 0, 15, 15);
         //TETSUZANKO
-        this.makeAnimation(4, 3, 0, 4, 10);
+        this.makeAnimation(4, 3, 0, 4, 15);
         this.makeAnimation(5, 3, 4, 1, 1);
         this.makeAnimation(6, 3, 4, 7, 10);
         //STOMP

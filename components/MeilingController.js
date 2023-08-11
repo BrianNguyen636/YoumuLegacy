@@ -5,7 +5,7 @@ class MeilingController {
         this.player = this.game.player;
         this.boss.state = 1;
         this.timer = 0;
-        this.attackDuration = 1;
+        this.attackDuration = 0.1;
         this.effectSpawn = false;
         this.lastRoll = null;
         this.yVelocity = 0;
@@ -43,28 +43,28 @@ class MeilingController {
         if (!this.boss.dead()) {
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
                 this.boss.state = 1;
-                this.timer = 150 * this.game.clockTick;
+                this.timer = 1.5;
             }
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
                 this.facePlayer();
     
-                let roll = this.lastRoll;
-                while (roll == this.lastRoll) {
-                    roll = Math.floor(Math.random() * 5);
-                }
-                this.lastRoll = roll;
-                switch(roll) {
-                    case(0): this.boss.state = 2; break;
-                    case(1): this.boss.state = 4; break;
-                    case(2): this.boss.state = 7; break;
-                    case(3): this.boss.state = 10; break;
-                    case(4): this.boss.state = 16; break;
-                }
+                // let roll = this.lastRoll;
+                // while (roll == this.lastRoll) {
+                //     roll = Math.floor(Math.random() * 5);
+                // }
+                // this.lastRoll = roll;
+                // switch(roll) {
+                //     case(0): this.boss.state = 2; break;
+                //     case(1): this.boss.state = 4; break;
+                //     case(2): this.boss.state = 7; break;
+                //     case(3): this.boss.state = 10; break;
+                //     case(4): this.boss.state = 16; break;
+                // }
     
-                // this.boss.state = 7;
+                this.boss.state = 4;
     
                 switch(this.boss.state) {
-                    case(2): this.attackDuration = 40 * this.game.clockTick; break;
+                    case(2): this.attackDuration = 0.3; break;
                     case(4): this.attack(4); break;
                     case(7): this.attack(7); break;
                     case(10): this.attack(10); break;
@@ -87,17 +87,17 @@ class MeilingController {
                         break;
                     }
                     case(5): { //Tetsuzanko
-                        if (this.attackDuration < 40 * this.game.clockTick) {
-                            this.xVelocity -= (-1 + this.boss.facing * 2) * 12000 * this.game.clockTick;
+                        if (this.attackDuration < 0.3) {
+                            this.xVelocity -= (-1 + this.boss.facing * 2) * 10000 * this.game.clockTick;
                         }
-                        if (!this.effectSpawn) {
+                        if (!this.effectSpawn && this.attackDuration < 0.28) {
                             this.game.audioManager.playSound("Swish.wav");
                             this.effectSpawn = true;
                         }
                         break;
                     }
                     case(6): { //Tetsuzanko
-                        if (this.attackDuration < (6/7) * this.boss.animations[this.boss.facing][6].totalTime)
+                        if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime)
                             this.xVelocity = 0;
                         break;
                     }
@@ -169,7 +169,7 @@ class MeilingController {
                         break;
                     }
                     case(4): {
-                        this.attackDuration = 70 * this.game.clockTick;
+                        this.attackDuration = 0.6;
                         this.boss.state = 5;
                         break;
                     }
@@ -179,7 +179,7 @@ class MeilingController {
                         break;
                     }
                     case(7): {
-                        this.attackDuration = 40 * this.game.clockTick;
+                        this.attackDuration = 0.3;
                         this.boss.state = 8;
                         break;
                     }
@@ -188,7 +188,7 @@ class MeilingController {
                         break;
                     }
                     case(10): {
-                        this.attackDuration = 40 * this.game.clockTick;
+                        this.attackDuration = 0.3;
                         this.boss.state = 11;
                         break;
                     }
@@ -197,7 +197,7 @@ class MeilingController {
                         break;
                     }
                     case(12): { //DRAGONKICK
-                        this.attackDuration = 100 * this.game.clockTick;
+                        this.attackDuration = 0.5;
                         this.boss.state = 13;
                         this.xVelocity = -(-1 + this.boss.facing * 2) * 1500; 
                         this.yVelocity = -1000; 
@@ -210,13 +210,13 @@ class MeilingController {
                         break;
                     }
                     case(14): {
-                        this.attackDuration = 1000 * this.game.clockTick;
+                        this.attackDuration = 10;
                         this.boss.state = 15;
                         break;
                     }
                     default: {
                         this.effectSpawn = false;
-                        this.timer = 30 * this.game.clockTick;
+                        this.timer = 0.4;
                         this.boss.state = 0;
                         this.xVelocity = 0;
                         break;
