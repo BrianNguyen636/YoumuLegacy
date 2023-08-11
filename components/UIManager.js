@@ -102,9 +102,19 @@ class UIManager {
     drawStartMenu(ctx) {
         let screen = ASSET_MANAGER.getAsset("./assets/StartMenu.jpg");
         ctx.drawImage(screen, 0, 0);
+        // ctx.font = "bold 100px serif"
+        // ctx.fillStyle = "white";
+        // ctx.fillText("Press Z to start!", 0, 700);
+
         ctx.font = "bold 100px serif"
-        ctx.fillStyle = "white";
-        ctx.fillText("Press Z to start!", 0, 700);
+        if (this.game.menuController.selected == 0) {
+            ctx.fillStyle = "green";
+        } else ctx.fillStyle = "white"
+        ctx.fillText("Start", 0, 600);
+        if (this.game.menuController.selected == 1) {
+            ctx.fillStyle = "green";
+        } else ctx.fillStyle = "white"
+        ctx.fillText("Options", 0, 700);
 
         ctx.font = "50px serif"
         ctx.fillStyle = "white";

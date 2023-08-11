@@ -54,6 +54,7 @@ class Meiling extends Character {
 
     update() {
         if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
+        if (this.game.roomManager.stage != 1) this.removeFromWorld = true;
         this.controller.update();
         this.updateBB();
     }

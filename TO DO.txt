@@ -1,7 +1,5 @@
 IMPLEMENT
 - Add lifetime to Effects
-- Make init call stageTransition(0) from Room Manager
-- Add fast Fall 
 - add ghost
 - Add options to main menu and keybinds
 

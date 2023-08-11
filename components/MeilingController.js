@@ -44,7 +44,7 @@ class MeilingController {
         if (!this.boss.dead()) {
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
                 this.boss.state = 1;
-                this.timer = 1.5;
+                this.timer =  0.5 + 0.4 * Math.floor(Math.random() * 4);
             }
             if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
                 this.facePlayer();
@@ -200,8 +200,8 @@ class MeilingController {
                     case(12): { //DRAGONKICK
                         this.attackDuration = 0.5;
                         this.boss.state = 13;
-                        this.xVelocity = -(-1 + this.boss.facing * 2) * 1500; 
-                        this.yVelocity = -1000; 
+                        this.xVelocity = -(-1 + this.boss.facing * 2) * 1700; 
+                        this.yVelocity = -1100; 
                         this.game.audioManager.playSound("Fly.wav");
                         break;
                     }

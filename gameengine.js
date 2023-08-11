@@ -14,6 +14,11 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
 
+        this.keyBinding = false;
+        const keybinds = new Map();
+        // this.buttons = {
+        //     left, right, up, down, A, B, C, R
+        // }
         this.left = false;
         this.right = false;
         this.up = false;
@@ -26,6 +31,8 @@ class GameEngine {
 
         this.startMenu = true;
         this.pause = false;
+        this.selected = 0;
+
         this.combat = false;
         this.victory = false;
         this.startTime = 0;
@@ -49,6 +56,7 @@ class GameEngine {
         this.player = player;
         this.uiManager = new UIManager(this);
         this.audioManager = new AudioManager(this);
+        this.menuController = new MenuController(this);
         this.roomManager = new RoomManager(this);
     };
 
@@ -201,13 +209,7 @@ class GameEngine {
 
     loop() {
         if (this.startMenu) { //START MENU
-            this.uiManager.drawStartMenu(this.ctx);
-            if (this.A) { //END START MENU
-                this.A = false;
-                this.audioManager.playSound("Select.wav");
-                this.startMenu = false;
-                this.roomManager.stageTransition(0);
-            }
+            this.menuController.startMenu();
         } else if (this.pause) {
             if (this.victory) { 
                 this.uiManager.drawVictory(this.ctx);

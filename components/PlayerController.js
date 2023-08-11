@@ -36,6 +36,7 @@ class PlayerController {
     };
 
     knockback(side) {
+        this.fastFall = false;
         this.yVelocity = -1200;
         this.doublejump = true;
         if (side < 0) this.xVelocity = -800;

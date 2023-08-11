@@ -9,15 +9,15 @@ class RoomManager {
         switch(stage) {
             case(0): {
                 this.stage = stage;
-                this.game.uiManager.bgmTitle = "Kuroneko Lounge - Ancient Temple";
                 this.game.audioManager.playBGM("StartTheme");
+                this.game.uiManager.bgmTitle = "Kuroneko Lounge - Ancient Temple";
                 break;
             }
             case(1): {
                 this.game.startTime = this.game.timer.gameTime;
                 this.game.addEntity(new Meiling(this.game));
                 this.game.audioManager.playBGM("MeilingTheme");
-                this.game.uiManager.bgmTitle = "Snug Space - Dragon Kick!!"
+                this.game.uiManager.bgmTitle = "Snug Space - Get Up!!"
                 this.newStage(stage);
                 break;
             }
