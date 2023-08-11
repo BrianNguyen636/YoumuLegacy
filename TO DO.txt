@@ -3,3 +3,13 @@ IMPLEMENT
 - Make init call stageTransition(0) from Room Manager
 - Add fast Fall 
 - add ghost
+- Add options to main menu and keybinds
+
+TENSHI ATTACKS
+-backdashes & jumps
+-Kick bouncing keystone top
+-Triple slash
+-Fullscreen slash
+-Summon pillars
+-Keystone Ground pound
+-Drop Keystones ??
