@@ -101,7 +101,7 @@ class MenuController {
             this.game.keyBinding = true;
             this.game.keybinds.clear();
         }
-        if (this.game.A && this.selected == 1) { //KEYBINDING
+        if (this.game.A && this.selected == 1) { //DEFAULT
             this.game.A = false;
             this.game.audioManager.playSound("Select.wav");
             this.game.keybinds.clear();
@@ -143,6 +143,30 @@ class MenuController {
             this.game.audioManager.playSound("Cancel.wav");
             this.options = false;
             this.selected = 1;
+        }
+    }
+    gameOver() {
+        this.optionSelection(2);
+        this.game.uiManager.drawGameOver(this.game.ctx);
+        if (this.game.A && this.selected == 0) { //RESTART
+            this.game.A = false;
+            this.restart();
+        }
+        if (this.game.A && this.selected == 1) { //MAIN MENU
+            this.game.A = false;
+            this.goToMainMenu();
+        }
+    }
+    victory() {
+        this.optionSelection(2);
+        this.game.uiManager.drawVictory(this.game.ctx);
+        if (this.game.A && this.selected == 0) { //RESTART
+            this.game.A = false;
+            this.restart();
+        }
+        if (this.game.A && this.selected == 1) { //MAIN MENU
+            this.game.A = false;
+            this.goToMainMenu();
         }
     }
 

@@ -45,7 +45,7 @@ class PlayerController {
     }
 
     updateState() {
-        if (this.player.state == 10) this.game.pause = true;
+        if (this.player.state == 10) this.game.paused = true;
         if (this.player.state == 9) {
             if (this.jumpDuration <= 0) {
                 this.player.state = 10;

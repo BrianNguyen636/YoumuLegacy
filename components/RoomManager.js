@@ -22,7 +22,7 @@ class RoomManager {
                 break;
             }
             default: {
-                this.game.pause = true;
+                this.game.paused = true;
                 this.game.victory = true;
                 this.game.audioManager.playBGM("EndTheme");
                 this.game.uiManager.bgmTitle = "TH15.5 The Eternal Steam Engine"

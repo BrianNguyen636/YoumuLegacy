@@ -42,11 +42,17 @@ class UIManager {
     }
 
     drawGameOver(ctx) {
+        let selected = this.game.menuController.selected;
         ctx.font = "100px serif";
         ctx.fillStyle = "Red"
-        ctx.fillText("GAME OVER", 450, 300);
+        ctx.fillText("GAME OVER", 400, 300);
         ctx.font = "60px serif";
-        ctx.fillText("[R] to restart", 470, 400);
+        if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
+        ctx.fillText("Restart", 470, 400);
+        ctx.strokeText("Restart", 470, 400);
+        if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
+        ctx.fillText("Main Menu", 470, 460);
+        ctx.strokeText("Main Menu", 470, 460);
     }
 
     drawPlayerHealth(ctx) {
@@ -56,6 +62,7 @@ class UIManager {
     }
 
     drawVictory(ctx) {
+        let selected = this.game.menuController.selected;
         ctx.fillStyle = "White"
         ctx.clearRect(0,0, 1280, 800);
         ctx.font = "bold 100px serif";
@@ -73,7 +80,12 @@ class UIManager {
         ctx.fillText("Reisen: " + this.game.reisenTime + "s", 470, 300 + 40 * 3);
 
         ctx.font = "60px serif";
-        ctx.fillText("[R] to restart", 470, 600);
+        if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
+        ctx.fillText("Restart", 470, 600);
+        ctx.strokeText("Restart", 470, 600);
+        if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
+        ctx.fillText("Main Menu", 470, 660);
+        ctx.strokeText("Main Menu", 470, 660);
 
         this.drawBGM(ctx);
 
@@ -119,6 +131,7 @@ class UIManager {
 
         ctx.font = "50px serif"
         ctx.fillStyle = "white";
+        ctx.fillText("-Default Controls-", 800, 350);
         ctx.fillText("Z - Jump (or Up)", 800, 400);
         ctx.fillText("X - Attack", 800, 450);
         ctx.fillText("C - Dash", 800, 500);

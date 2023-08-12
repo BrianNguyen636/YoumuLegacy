@@ -241,7 +241,6 @@ class GameEngine {
     }
 
     loop() {
-        console.log(this.A);
         if (this.startMenu) { //START MENU
             if (this.menuController.controls) {
                 this.menuController.controlsMenu();
@@ -249,17 +248,12 @@ class GameEngine {
             if (this.menuController.options) {
                 this.menuController.optionsMenu();
             } else this.menuController.startMenu();
-        } else if (this.paused) {
-            if (this.victory) { 
-                this.uiManager.drawVictory(this.ctx);
-            } else if (this.player.health > 0) { //IF PAUSED
+        } else if (this.paused) {//IF PAUSED
+            if (this.victory) { //VICTORY
+                this.menuController.victory();
+            } else if (this.player.health > 0) {  //PAUSE MENU
                 this.menuController.pauseMenu();
-            } else this.uiManager.drawGameOver(this.ctx); //IF GAME OVER
-            if (this.R) { //RESTART
-                this.R = false;
-                this.reset();
-                this.audioManager.playSound("Select.wav");
-            }
+            } else this.menuController.gameOver(); //IF GAME OVER
         } else { //NORMAL GAMELOOP
             this.clockTick = this.timer.tick();
             this.update();

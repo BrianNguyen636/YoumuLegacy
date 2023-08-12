@@ -1,7 +1,6 @@
 IMPLEMENT
 - Add lifetime to Effects
 - add ghost
-- Add options to main menu and keybinds
 
 TENSHI ATTACKS
 -backdashes & jumps
