@@ -77,6 +77,7 @@ class GameEngine {
         this.audioManager.music.stop();
         this.init(this.ctx, new Player(this));
         this.roomManager.stageTransition(0);
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
     startInput() {
@@ -164,7 +165,7 @@ class GameEngine {
     };
 
     update() {
-        if (this.Esc) {
+        if (this.Esc) { //START PAUSE
             this.pause = true;
             this.audioManager.playSound("Pause.wav");
             this.audioManager.music.stop();
@@ -209,18 +210,14 @@ class GameEngine {
 
     loop() {
         if (this.startMenu) { //START MENU
-            this.menuController.startMenu();
+            if (this.menuController.options) {
+                this.menuController.optionsMenu();
+            } else this.menuController.startMenu();
         } else if (this.pause) {
             if (this.victory) { 
                 this.uiManager.drawVictory(this.ctx);
             } else if (this.player.health > 0) { //IF PAUSED
-                this.uiManager.drawPause(this.ctx);
-                if (this.Esc) {
-                    this.audioManager.playSound("Select.wav");
-                    this.pause = false;
-                    this.Esc = false;
-                    this.audioManager.music.play();
-                }
+                this.menuController.pauseMenu();
             } else this.uiManager.drawGameOver(this.ctx); //IF GAME OVER
             if (this.R) { //RESTART
                 this.R = false;
