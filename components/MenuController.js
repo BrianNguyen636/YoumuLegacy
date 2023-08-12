@@ -3,6 +3,7 @@ class MenuController {
         Object.assign(this, {game});
         this.selected = 0;
         this.options = false;
+        this.controls = false;
     }
     goToMainMenu() {
         this.restart();
@@ -36,7 +37,7 @@ class MenuController {
             this.game.startMenu = false;
             this.game.roomManager.stageTransition(0);
         }
-        if (this.game.A && this.selected == 1) { //END START MENU
+        if (this.game.A && this.selected == 1) {
             this.game.A = false;
             this.game.audioManager.playSound("Select.wav");
             this.optionsMenu();
@@ -46,12 +47,13 @@ class MenuController {
     pauseMenu() {
         this.game.uiManager.drawPause(this.game.ctx);
         this.optionSelection(3);
-        if ((this.game.A && this.selected == 0) || this.game.Esc) { //END PAUSE MENU
-            if (this.game.Esc) this.game.Esc = false;
+        if ((this.game.A && this.selected == 0) || this.game.pauseButton) { //END PAUSE MENU
+            if (this.game.pauseButton) this.game.pauseButton = false;
             if (this.game.A) this.game.A = false;
             this.game.audioManager.playSound("Cancel.wav");
-            this.game.pause = false;
+            this.game.paused = false;
             this.game.audioManager.music.play();
+            this.selected = 0;
         }
         if (this.game.A && this.selected == 1) { //RESTART
             this.game.A = false;
@@ -62,10 +64,25 @@ class MenuController {
             this.goToMainMenu();
         }
     }
+    controlsMenu() {
+        this.optionSelection(10);
+        this.game.uiManager.drawControls(this.game.ctx);
+        if ((this.game.A && this.selected == 9) || this.game.pauseButton) { //RETURN
+            if (this.game.A) this.game.A = false;
+            if (this.game.pauseButton) this.game.pauseButton = false;
+            this.game.audioManager.playSound("Cancel.wav");
+            this.controls = false;
+            this.selected = 0;
+        }
+    }
     optionsMenu() {
-        this.game.uiManager.drawOptions(this.game.ctx);
         this.optionSelection(3);
+        this.game.uiManager.drawOptions(this.game.ctx);
         this.options = true;
+        if (this.selected == 0 && this.game.A) {
+            this.A = false;
+            this.controls = true;
+        }
         if (this.selected == 1) { //VOLUME
             if(this.game.left) {
                 this.game.left = false;
@@ -78,9 +95,9 @@ class MenuController {
                 this.game.audioManager.playSound("Select.wav");
             }
         }
-        if ((this.game.A && this.selected == 2) || this.game.Esc) { //RETURN
+        if ((this.game.A && this.selected == 2) || this.game.pauseButton) { //RETURN
             if (this.game.A) this.game.A = false;
-            if (this.game.Esc) this.game.Esc = false;
+            if (this.game.pauseButton) this.game.pauseButton = false;
             this.game.audioManager.playSound("Cancel.wav");
             this.options = false;
             this.selected = 1;

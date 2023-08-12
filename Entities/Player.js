@@ -59,7 +59,6 @@ class Player extends Character{
 
     update() {
         if (this.invuln > 0 && this.state < 6) this.invuln -= this.game.clockTick;
-        console.log(this.invuln);
         this.controller.update();
         this.updateBB();
         this.updateAttackBox();

@@ -140,6 +140,30 @@ class UIManager {
         ctx.fillText("Return", 0, 700);
     }
 
+    drawControls(ctx) {
+        let selected = this.game.menuController.selected;
+        ctx.font = "bold 30px serif"
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        let options = [
+            "Left",
+            "Right",
+            "Up",
+            "Down",
+            "Jump / Confirm",
+            "Attack",
+            "Dash",
+            "Pause",
+            "Restore Defaults",
+            "Return"
+        ];
+        for (let i = 0; i < 10; i++) {
+            if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(options[i], 20, 200 + 40 * i);
+        }
+
+
+    }
+
     draw(ctx) {
         this.drawTimer(ctx);
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);

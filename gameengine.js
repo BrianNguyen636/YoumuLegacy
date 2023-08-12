@@ -15,10 +15,8 @@ class GameEngine {
         this.wheel = null;
 
         this.keyBinding = false;
-        const keybinds = new Map();
-        // this.buttons = {
-        //     left, right, up, down, A, B, C, R
-        // }
+        this.keybinds = new Map();
+
         this.left = false;
         this.right = false;
         this.up = false;
@@ -26,12 +24,14 @@ class GameEngine {
         this.A = false;
         this.B = false;
         this.C = false;
+        this.pauseButton = false;
+
+        this.defaultKeybinds();
         this.R = false;
-        this.Esc = false;
+
 
         this.startMenu = true;
-        this.pause = false;
-        this.selected = 0;
+        this.paused = false;
 
         this.combat = false;
         this.victory = false;
@@ -69,7 +69,7 @@ class GameEngine {
     };
 
     reset() {
-        this.pause = false;
+        this.paused = false;
         this.combat = false;
         this.victory = false;
         this.entities = [];
@@ -79,6 +79,17 @@ class GameEngine {
         this.roomManager.stageTransition(0);
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
+
+    defaultKeybinds() {
+        this.keybinds.set("ArrowLeft", "left");
+        this.keybinds.set("ArrowRight", "right");
+        this.keybinds.set("ArrowUp", "up");
+        this.keybinds.set("ArrowDown", "down");
+        this.keybinds.set("KeyZ", "A");
+        this.keybinds.set("KeyX", "B");
+        this.keybinds.set("KeyC", "C");
+        this.keybinds.set("Escape", "pauseButton");
+    };
 
     startInput() {
         var that = this;
@@ -118,30 +129,46 @@ class GameEngine {
         });
 
         this.ctx.canvas.addEventListener("keydown", function(e) {
-            switch(e.code) {
-                case "ArrowLeft": that.left = true; break;
-                case "ArrowRight": that.right = true; break;
-                case "ArrowUp": that.up = true; break;
-                case "ArrowDown": that.down = true; break;
-                case "KeyZ": that.A = true; break;
-                case "KeyX": that.B = true; break;
-                case "KeyC": that.C = true; break;
-                case "Escape": that.Esc = true; break;
-                case "KeyR": that.R = true; break;
+            if (!that.keyBinding && that.keybinds.has(e.code)) {
+                switch(that.keybinds.get(e.code)) {
+                    case "left": that.left = true; break;
+                    case "right": that.right = true; break;
+                    case "up": that.up = true; break;
+                    case "down": that.down = true; break;
+                    case "A": that.A = true; break;
+                    case "B": that.B = true; break;
+                    case "C": that.C = true; break;
+                    case "pauseButton": that.pauseButton = true; break;
+                    case "R": that.R = true; break;
+                }
             }
+
         });
         this.ctx.canvas.addEventListener("keyup", function(e) {
-            switch(e.code) {
-                case "ArrowLeft": that.left = false; break;
-                case "ArrowRight": that.right = false; break;
-                case "ArrowUp": that.up = false; break;
-                case "ArrowDown": that.down = false; break;
-                case "KeyZ": that.A = false; break;
-                case "KeyX": that.B = false; break;
-                case "KeyC": that.C = false; break;
-                case "Escape": that.Esc = false; break;
-                case "KeyR": that.R = false; break;
+            if (!that.keyBinding && that.keybinds.has(e.code)) {
+                switch(that.keybinds.get(e.code)) {
+                    case "left": that.left = false; break;
+                    case "right": that.right = false; break;
+                    case "up": that.up = false; break;
+                    case "down": that.down = false; break;
+                    case "A": that.A = false; break;
+                    case "B": that.B = false; break;
+                    case "C": that.C = false; break;
+                    case "pauseButton": that.pauseButton = false; break;
+                    case "R": that.R = false; break;
+                }
             }
+            // switch(e.code) {
+            //     case "ArrowLeft": that.left = false; break;
+            //     case "ArrowRight": that.right = false; break;
+            //     case "ArrowUp": that.up = false; break;
+            //     case "ArrowDown": that.down = false; break;
+            //     case "KeyZ": that.A = false; break;
+            //     case "KeyX": that.B = false; break;
+            //     case "KeyC": that.C = false; break;
+            //     case "Escape": that.Esc = false; break;
+            //     case "KeyR": that.R = false; break;
+            // }
         });
     };
 
@@ -165,11 +192,11 @@ class GameEngine {
     };
 
     update() {
-        if (this.Esc) { //START PAUSE
-            this.pause = true;
+        if (this.pauseButton) { //START PAUSE
+            this.paused = true;
             this.audioManager.playSound("Pause.wav");
             this.audioManager.music.stop();
-            this.Esc = false;
+            this.pauseButton = false;
         }
         this.uiManager.update();
         let entitiesCount = this.entities.length;
@@ -210,10 +237,13 @@ class GameEngine {
 
     loop() {
         if (this.startMenu) { //START MENU
+            if (this.menuController.controls) {
+                this.menuController.controlsMenu();
+            } else
             if (this.menuController.options) {
                 this.menuController.optionsMenu();
             } else this.menuController.startMenu();
-        } else if (this.pause) {
+        } else if (this.paused) {
             if (this.victory) { 
                 this.uiManager.drawVictory(this.ctx);
             } else if (this.player.health > 0) { //IF PAUSED

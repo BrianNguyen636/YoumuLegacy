@@ -26,14 +26,6 @@ class RoomManager {
                 this.game.victory = true;
                 this.game.audioManager.playBGM("EndTheme");
                 this.game.uiManager.bgmTitle = "TH15.5 The Eternal Steam Engine"
-                // this.game.player.x = 0;
-                // this.stage = 0;
-                // this.game.entities.forEach(element => {
-                //     if (element.id != "player") element.removeFromWorld = true;
-                // });
-                // this.game.player.health = 5;
-                // this.game.startTime = 0;
-                // this.game.uiManager = new UIManager(this.game);
                 break;
             }
         }
