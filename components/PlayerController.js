@@ -78,10 +78,10 @@ class PlayerController {
             this.dashing = false;
         } else if (this.dashing && this.dashDuration > 0) {
             this.player.state = 4;
-            if (this.game.down && this.game.A && !this.fastFall && !this.jumpHold) { //FASTFALL cancel
-                this.dashDuration = 0;
-                this.dashing = false;
-            }
+            // if (this.game.down && !this.fastFall && !this.jumpHold) { //FASTFALL cancel
+            //     this.dashDuration = 0;
+            //     this.dashing = false;
+            // }
             if ((this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Cancel into jump
                 this.dashDuration = 0;
                 this.dashing = false;
@@ -118,7 +118,7 @@ class PlayerController {
                         this.player.facing = 1;
                     }
                 }
-                if (this.game.down && this.game.A && !this.fastFall && !this.jumpHold) { //FASTFALL
+                if (this.game.down && !this.fastFall && !this.jumpHold) { //FASTFALL
                     this.fastFall = true;
                     this.game.audioManager.playSound("Swish.wav");
                 }

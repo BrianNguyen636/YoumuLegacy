@@ -10,7 +10,7 @@ class RoomManager {
             case(0): {
                 this.stage = stage;
                 this.game.audioManager.playBGM("StartTheme");
-                this.game.uiManager.bgmTitle = "Kuroneko Lounge - Ancient Temple";
+                this.game.uiManager.bgmTitle = "Snug Space - Petal of the Cherry Blossom";
                 break;
             }
             case(1): {

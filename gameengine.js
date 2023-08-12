@@ -28,7 +28,8 @@ class GameEngine {
 
         this.defaultKeybinds();
         this.R = false;
-
+        this.key;
+        this.keyPress = false;
 
         this.startMenu = true;
         this.paused = false;
@@ -81,14 +82,14 @@ class GameEngine {
     }
 
     defaultKeybinds() {
-        this.keybinds.set("ArrowLeft", "left");
-        this.keybinds.set("ArrowRight", "right");
-        this.keybinds.set("ArrowUp", "up");
-        this.keybinds.set("ArrowDown", "down");
-        this.keybinds.set("KeyZ", "A");
-        this.keybinds.set("KeyX", "B");
-        this.keybinds.set("KeyC", "C");
-        this.keybinds.set("Escape", "pauseButton");
+        this.keybinds.set("ArrowLeft", "Left");
+        this.keybinds.set("ArrowRight", "Right");
+        this.keybinds.set("ArrowUp", "Up");
+        this.keybinds.set("ArrowDown", "Down");
+        this.keybinds.set("KeyZ", "Jump");
+        this.keybinds.set("KeyX", "Attack");
+        this.keybinds.set("KeyC", "Dash");
+        this.keybinds.set("Escape", "Pause");
     };
 
     startInput() {
@@ -131,33 +132,37 @@ class GameEngine {
         this.ctx.canvas.addEventListener("keydown", function(e) {
             if (!that.keyBinding && that.keybinds.has(e.code)) {
                 switch(that.keybinds.get(e.code)) {
-                    case "left": that.left = true; break;
-                    case "right": that.right = true; break;
-                    case "up": that.up = true; break;
-                    case "down": that.down = true; break;
-                    case "A": that.A = true; break;
-                    case "B": that.B = true; break;
-                    case "C": that.C = true; break;
-                    case "pauseButton": that.pauseButton = true; break;
+                    case "Left": that.left = true; break;
+                    case "Right": that.right = true; break;
+                    case "Up": that.up = true; break;
+                    case "Down": that.down = true; break;
+                    case "Jump": that.A = true; break;
+                    case "Attack": that.B = true; break;
+                    case "Dash": that.C = true; break;
+                    case "Pause": that.pauseButton = true; break;
                     case "R": that.R = true; break;
                 }
-            }
-
+            } else if (that.keyBinding) {
+                that.key = e.code;
+                that.keyPress = true;
+            } 
         });
         this.ctx.canvas.addEventListener("keyup", function(e) {
             if (!that.keyBinding && that.keybinds.has(e.code)) {
                 switch(that.keybinds.get(e.code)) {
-                    case "left": that.left = false; break;
-                    case "right": that.right = false; break;
-                    case "up": that.up = false; break;
-                    case "down": that.down = false; break;
-                    case "A": that.A = false; break;
-                    case "B": that.B = false; break;
-                    case "C": that.C = false; break;
-                    case "pauseButton": that.pauseButton = false; break;
+                    case "Left": that.left = false; break;
+                    case "Right": that.right = false; break;
+                    case "Up": that.up = false; break;
+                    case "Down": that.down = false; break;
+                    case "Jump": that.A = false; break;
+                    case "Attack": that.B = false; break;
+                    case "Dash": that.C = false; break;
+                    case "Pause": that.pauseButton = false; break;
                     case "R": that.R = false; break;
                 }
-            }
+            } else if (that.keyBinding) {
+                that.keyPress = false;
+            } 
             // switch(e.code) {
             //     case "ArrowLeft": that.left = false; break;
             //     case "ArrowRight": that.right = false; break;
@@ -236,6 +241,7 @@ class GameEngine {
     }
 
     loop() {
+        console.log(this.A);
         if (this.startMenu) { //START MENU
             if (this.menuController.controls) {
                 this.menuController.controlsMenu();

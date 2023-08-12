@@ -101,7 +101,7 @@ class UIManager {
     drawBGM(ctx) {
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";
-        ctx.font = "30px arial";
+        ctx.font = "25px arial";
         ctx.fillText("BGM: " + this.bgmTitle, 700, 30);
         ctx.strokeText("BGM: " + this.bgmTitle, 700, 30);
     }
@@ -113,9 +113,9 @@ class UIManager {
         ctx.drawImage(screen, 0, 0);
         ctx.font = "bold 100px serif"
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Start", 0, 600);
+        ctx.fillText("Start", 20, 600);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Options", 0, 700);
+        ctx.fillText("Options", 20, 700);
 
         ctx.font = "50px serif"
         ctx.fillStyle = "white";
@@ -130,38 +130,47 @@ class UIManager {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.font = "bold 100px serif"
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Set Controls", 0, 500);
+        ctx.fillText("Set Controls", 20, 500);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Set Volume", 0, 600);
+        ctx.fillText("Set Volume", 20, 600);
         let volume = this.game.audioManager.volume;
         volume = Math.round(this.game.audioManager.volume * 100);
-        ctx.fillText(volume + "%", 600, 600);
+        ctx.fillText(volume + "%", 620, 600);
         if (selected == 2) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Return", 0, 700);
+        ctx.fillText("Return", 20, 700);
     }
 
     drawControls(ctx) {
         let selected = this.game.menuController.selected;
-        ctx.font = "bold 30px serif"
+        ctx.font = "bold 100px serif"
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        let options = [
+        let controls = [
             "Left",
             "Right",
             "Up",
             "Down",
-            "Jump / Confirm",
+            "Jump",
             "Attack",
             "Dash",
-            "Pause",
-            "Restore Defaults",
-            "Return"
+            "Pause"
         ];
-        for (let i = 0; i < 10; i++) {
+        let options = ["Bind all", "Restore Defaults", "Return"]
+        for (let i = 0; i < 3; i++) {
             if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-            ctx.fillText(options[i], 20, 200 + 40 * i);
+            ctx.fillText(options[i], 20, 500 + 100 * i);
         }
-
-
+        ctx.fillStyle = "white"
+        ctx.font = "30px serif"
+        let i = 0;
+        for (let i = 0; i < controls.length; i++) {
+            if (this.game.menuController.binding == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(controls[i], 800, 100 + 40 * i);
+        }
+        for (const x of this.game.keybinds.entries()) {
+            if (this.game.menuController.binding == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(x[1] + "---" + x[0], 800, 100 + 40 * i);
+            i++;
+        }
     }
 
     draw(ctx) {

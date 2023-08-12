@@ -4,6 +4,7 @@ class MenuController {
         this.selected = 0;
         this.options = false;
         this.controls = false;
+        this.binding = -1;
     }
     goToMainMenu() {
         this.restart();
@@ -64,10 +65,49 @@ class MenuController {
             this.goToMainMenu();
         }
     }
+    controlBinding() {
+        let controls = [
+            "Left",
+            "Right",
+            "Up",
+            "Down",
+            "Jump",
+            "Attack",
+            "Dash",
+            "Pause"
+        ];
+        if (this.game.keyPress) {
+            this.game.keyPress = false;
+            this.game.audioManager.playSound("Select.wav");
+            if (!this.game.keybinds.has(this.game.key)) {
+                this.game.keybinds.set(this.game.key, controls[this.binding]);
+                this.binding += 1;
+            } else {
+
+            }
+        }
+        if (this.binding >= controls.length) {
+            this.game.keyBinding = false;
+        }
+    }
     controlsMenu() {
-        this.optionSelection(10);
+        this.optionSelection(3);
         this.game.uiManager.drawControls(this.game.ctx);
-        if ((this.game.A && this.selected == 9) || this.game.pauseButton) { //RETURN
+        if (this.game.keyBinding) this.controlBinding();
+        if (this.game.A && this.selected == 0) { //KEYBINDING
+            this.game.A = false;
+            this.game.audioManager.playSound("Select.wav");
+            this.binding = 0;
+            this.game.keyBinding = true;
+            this.game.keybinds.clear();
+        }
+        if (this.game.A && this.selected == 1) { //KEYBINDING
+            this.game.A = false;
+            this.game.audioManager.playSound("Select.wav");
+            this.game.keybinds.clear();
+            this.game.defaultKeybinds();
+        }
+        if ((this.game.A && this.selected == 2) || this.game.pauseButton) { //RETURN
             if (this.game.A) this.game.A = false;
             if (this.game.pauseButton) this.game.pauseButton = false;
             this.game.audioManager.playSound("Cancel.wav");
@@ -82,6 +122,8 @@ class MenuController {
         if (this.selected == 0 && this.game.A) {
             this.A = false;
             this.controls = true;
+            this.selected = -1;
+            this.game.audioManager.playSound("Select.wav");
         }
         if (this.selected == 1) { //VOLUME
             if(this.game.left) {
