@@ -6,7 +6,6 @@ class Player extends Character{
             400, 700 - 127*1.5, 
             5);
         this.setController(new PlayerController(this, game));
-
     };
 
     loadAnimations() {
