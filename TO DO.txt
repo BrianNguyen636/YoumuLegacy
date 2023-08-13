@@ -2,6 +2,9 @@ IMPLEMENT
 - Add lifetime to Effects
 - add ghost
 
+FIX
+- Ability to fastfall while holding jump
+
 TENSHI ATTACKS
 -backdashes & jumps
 -Kick bouncing keystone top

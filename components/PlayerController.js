@@ -14,10 +14,6 @@ class PlayerController {
         this.jumpDuration = 0;
         this.dashDuration = 0;
         this.attackDuration = 0;
-        this.jumpHold = false;
-        this.dashHold = false;
-        this.leftHold = false;
-        this.rightHold = false;
 
         this.speed = 400;
         this.dashSpeed = 700;
@@ -78,7 +74,7 @@ class PlayerController {
             this.dashing = false;
         } else if (this.dashing && this.dashDuration > 0) {
             this.player.state = 4;
-            // if (this.game.down && !this.fastFall && !this.jumpHold) { //FASTFALL cancel
+            // if (this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL cancel
             //     this.dashDuration = 0;
             //     this.dashing = false;
             // }
@@ -111,6 +107,7 @@ class PlayerController {
             if (this.airborne) {  //Airborne
                 if (this.jumpDuration > 0) this.player.state = 2; // Jumping
                 if (this.jumpDuration < 0) this.player.state = 3; // Falling
+                if (!this.game.down) this.fastFallHold = false;
                 if (!this.game.right || !this.game.left) { //SOCD
                     if (this.game.right) {
                         this.player.facing = 0;
@@ -118,8 +115,9 @@ class PlayerController {
                         this.player.facing = 1;
                     }
                 }
-                if (this.game.down && !this.fastFall && !this.jumpHold) { //FASTFALL
+                if (this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL
                     this.fastFall = true;
+                    this.fastFallHold = true;
                     this.game.audioManager.playSound("Swish.wav");
                 }
             } else { //Grounded

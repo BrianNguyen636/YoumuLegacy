@@ -35,6 +35,7 @@ class RoomManager {
         this.game.combat = true;
         this.stage = stage;
         this.game.player.x = 0;
+        
         this.game.timer.timerRun = true;
     };
     
