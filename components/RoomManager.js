@@ -21,6 +21,11 @@ class RoomManager {
                 this.newStage(stage);
                 break;
             }
+            case(2): {
+                this.game.addEntity(new Tenshi(this.game));
+                this.newStage(stage);
+                break;
+            }
             default: {
                 this.game.paused = true;
                 this.game.victory = true;

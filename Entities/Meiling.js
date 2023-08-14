@@ -34,7 +34,7 @@ class Meiling extends Character {
         //PROJECTILE
         this.makeAnimation(16, 6, 0, 8, 10);
         //KNOCKBACK
-        this.makeAnimation(17, 7, 0, 8, 20);
+        this.makeAnimation(17, 7, 0, 8, 15);
         this.makeAnimation(18, 7, 6, 2, 10);
         //DEAD
         this.makeAnimation(19, 8, 0, 7, 15);
@@ -58,16 +58,5 @@ class Meiling extends Character {
         this.controller.update();
         this.updateBB();
     }
-    
-    draw(ctx) {
 
-        this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-
-        if (this.game.boxView) {
-            ctx.beginPath();
-            ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
-            ctx.strokeStyle = "green";
-            ctx.stroke();
-        }
-    };
 }

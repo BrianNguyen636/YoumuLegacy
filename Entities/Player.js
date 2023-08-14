@@ -5,6 +5,7 @@ class Player extends Character{
             84*1.5, 127*1.5, 
             400, 700 - 127*1.5, 
             5);
+        this.facing = 0;
         this.setController(new PlayerController(this, game));
     };
 
