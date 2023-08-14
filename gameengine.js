@@ -55,7 +55,8 @@ class GameEngine {
         this.entities = [];
         this.addEntity(player);
         this.player = player;
-        this.addEntity(new Ghost(this));
+        this.ghost = new Ghost(this);
+        this.addEntity(this.ghost);
         this.uiManager = new UIManager(this);
         this.audioManager = new AudioManager(this);
         this.menuController = new MenuController(this);

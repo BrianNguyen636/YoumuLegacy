@@ -60,7 +60,9 @@ class Meiling extends Character {
     }
     
     draw(ctx) {
+
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
+
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)

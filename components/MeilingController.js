@@ -138,15 +138,15 @@ class MeilingController {
                             let projSpeed = 750;
                             if (!this.effectSpawn) {
                                 if (this.boss.facing == 0) {
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 60, null, "Meiling", 3, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 30, null, "Meiling", 2, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 0, null, "Meiling", 1, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, -30, null, "Meiling", 0, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 60, null, "Meiling", 3, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 30, null, "Meiling", 2, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 0, null, "Meiling", 1, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, -30, null, "Meiling", 0, this.game));
                                 } else {
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 120, null, "Meiling", 3, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 150, null, "Meiling", 2, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 180, null, "Meiling", 1, this.game));
-                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.y + this.boss.BB.midY + 32, 64, 32, projSpeed, 210, null, "Meiling", 0, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 120, null, "Meiling", 3, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 150, null, "Meiling", 2, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 180, null, "Meiling", 1, this.game));
+                                    this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY + 16, 64, 32, projSpeed, 210, null, "Meiling", 0, this.game));
                                 }
                                 this.game.audioManager.playSound("Spray.wav");
                                 this.effectSpawn = true;

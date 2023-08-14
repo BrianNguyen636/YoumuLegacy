@@ -1,12 +1,9 @@
 IMPLEMENT
 - Add lifetime to Effects
-- add ghost
 
-FIX
-- Ability to fastfall while holding jump
 
 TENSHI ATTACKS
--backdashes & jumps
+-jumps
 -Kick bouncing keystone top
 -Triple slash
 -Fullscreen slash

@@ -4,6 +4,7 @@ const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheetFlip.png");
+ASSET_MANAGER.queueDownload("./assets/YoumuEffects.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");

@@ -65,12 +65,14 @@ class Player extends Character{
     };
 
     draw(ctx) {
+        if (this.invuln > 0 && !this.dead()) ctx.globalAlpha = 0.5;
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-        if (this.invuln > 0 && this.state < 6) {
-            ctx.font = "20px arial"
-            ctx.fillStyle = "cyan";
-            ctx.fillText("*INVULN*", this.x + 60*1.5, this.y + 46*1.5);
-        }
+        ctx.globalAlpha = 1;
+        // if (this.invuln > 0 && this.state < 6) {
+        //     ctx.font = "20px arial"
+        //     ctx.fillStyle = "cyan";
+        //     ctx.fillText("*INVULN*", this.x + 60*1.5, this.y + 46*1.5);
+        // }
         if (this.game.boxView) {
             ctx.strokeStyle = "yellow";
             ctx.beginPath();

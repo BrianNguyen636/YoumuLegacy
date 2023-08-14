@@ -119,6 +119,7 @@ class PlayerController {
                     this.fastFall = true;
                     this.fastFallHold = true;
                     this.game.audioManager.playSound("Swish.wav");
+                    // this.game.addEntity(new Effect(this.player.BB.midX - 75, this.player.BB.y, "Youmu", 2, this.game));
                 }
             } else { //Grounded
                 this.jumpDuration = 0;
