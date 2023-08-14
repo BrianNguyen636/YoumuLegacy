@@ -41,8 +41,20 @@ class Character {
         this.animations[1][number] = new Animator(this.spritesheetFlip, column * this.sWidth, row * this.sHeight, this.sWidth, this.sHeight, frameCount, fps); 
     };
 
-    draw(ctx) {
+    drawShadow(ctx) {
+        let distance = 700 - this.BB.bottom;
+        let scale = 1 - distance / 700;
+        ctx.beginPath();
+        ctx.save();
+        ctx.ellipse(this.BB.midX, 700, 70 * scale, 12 * scale, 0, 0, 2 * Math.PI);
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.restore();
+    }
 
+    draw(ctx) {
+        this.drawShadow(ctx);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
 
         if (this.game.boxView) {
