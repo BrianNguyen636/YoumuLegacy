@@ -2,8 +2,8 @@ class Tenshi extends Character {
     constructor(game) {
         super("boss", "Tenshi", game, 
             200, 200, 
-            (77+46) * 1.5 , 197 * 1.5, 
-            600, 700 - 197*1.5, 
+            (77+46) * 1.5 , 192 * 1.5, 
+            600, 700 - 192*1.5, 
             1);
         this.controller = new TenshiController(this, game);
     };
@@ -28,9 +28,9 @@ class Tenshi extends Character {
         switch(this.state) {
             default: 
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 102* 1.5, 46* 1.5, 95* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 97* 1.5, 46* 1.5, 95* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 102* 1.5, 46* 1.5, 95* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 97* 1.5, 46* 1.5, 95* 1.5); break;
                 }
         }
     };
