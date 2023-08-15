@@ -15,8 +15,22 @@ class Tenshi extends Character {
         this.makeAnimation(1, 1, 0, 10, 15);
         this.makeAnimation(2, 1, 8, 2, 10);
         //LAND
-        this.makeAnimation(3, 2, 0, 6, 10);
-
+        this.makeAnimation(3, 2, 0, 6, 15);
+        //SLASH WAVE
+        this.makeAnimation(4, 3, 0, 4, 10);
+        this.makeAnimation(5, 3, 3, 7, 15);
+        this.makeAnimation(6, 3, 9, 1, 1);
+        this.makeAnimation(7, 3, 9, 3, 15);
+        //SLASH1
+        this.makeAnimation(8, 4, 0, 1, 1);
+        this.makeAnimation(9, 4, 0, 8, 15);
+        this.makeAnimation(10, 4, 7, 1, 1);
+        //SLASH2
+        this.makeAnimation(11, 5, 0, 7, 15);
+        this.makeAnimation(12, 5, 6, 1, 1);
+        //SLASH3
+        this.makeAnimation(13, 6, 0, 8, 15);
+        this.makeAnimation(14, 6, 7, 1, 1);
         //KNOCKBACK
         this.makeAnimation(30, 8, 0, 7, 15);
         this.makeAnimation(31, 8, 5, 2, 10);

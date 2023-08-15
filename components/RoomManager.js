@@ -23,6 +23,8 @@ class RoomManager {
             }
             case(2): {
                 this.game.addEntity(new Tenshi(this.game));
+                this.game.audioManager.playBGM("TenshiTheme");
+                this.game.uiManager.bgmTitle = "Tenjou no Tempest - Main Menu"
                 this.newStage(stage);
                 break;
             }

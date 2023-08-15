@@ -44,7 +44,8 @@ class UIManager {
     drawGameOver(ctx) {
         let selected = this.game.menuController.selected;
         ctx.font = "100px serif";
-        ctx.fillStyle = "Red"
+        ctx.fillStyle = "red"
+        ctx.strokeStyle = "black";
         ctx.fillText("GAME OVER", 400, 300);
         ctx.font = "60px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";

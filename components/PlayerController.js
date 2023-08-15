@@ -191,7 +191,7 @@ class PlayerController {
                     this.jumpHold = false;
                 }
                 
-                if (this.yVelocity > 0 && (this.game.A || this.game.up) && !this.game.down && 
+                if ((this.game.A || this.game.up) && !this.game.down && 
                     this.doublejump && !this.jumpHold) { //Double Jumping
                     this.doublejump = false;
                     this.jump();

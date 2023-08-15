@@ -45,7 +45,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = true;
+        this.boxView = false;
     };
 
     init(ctx, player) {
@@ -165,17 +165,6 @@ class GameEngine {
             } else if (that.keyBinding) {
                 that.keyPress = false;
             } 
-            // switch(e.code) {
-            //     case "ArrowLeft": that.left = false; break;
-            //     case "ArrowRight": that.right = false; break;
-            //     case "ArrowUp": that.up = false; break;
-            //     case "ArrowDown": that.down = false; break;
-            //     case "KeyZ": that.A = false; break;
-            //     case "KeyX": that.B = false; break;
-            //     case "KeyC": that.C = false; break;
-            //     case "Escape": that.Esc = false; break;
-            //     case "KeyR": that.R = false; break;
-            // }
         });
     };
 
@@ -199,7 +188,7 @@ class GameEngine {
     };
 
     update() {
-        if (this.pauseButton) { //START PAUSE
+        if (this.pauseButton && !this.player.dead()) { //START PAUSE
             this.paused = true;
             this.audioManager.playSound("Pause.wav");
             this.audioManager.music.stop();

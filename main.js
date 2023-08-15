@@ -11,6 +11,7 @@ ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingEffects.png");
 ASSET_MANAGER.queueDownload("./assets/TenshiSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/TenshiSpritesheetFlip.png");
+ASSET_MANAGER.queueDownload("./assets/TenshiEffects.png");
 ASSET_MANAGER.queueDownload("./assets/Stages.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Ghost.png");
