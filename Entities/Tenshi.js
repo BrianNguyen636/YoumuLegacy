@@ -2,8 +2,8 @@ class Tenshi extends Character {
     constructor(game) {
         super("boss", "Tenshi", game, 
             200, 200, 
-            (77+46) * 1.5 , 192 * 1.5, 
-            600, 700 - 192*1.5, 
+            (77+46) * 1.5 , 172 * 1.5, 
+            600, 700 - 172*1.5, 
             1);
         this.controller = new TenshiController(this, game);
     };
@@ -13,7 +13,9 @@ class Tenshi extends Character {
         this.makeAnimation(0, 0, 0, 6, 6);
         //JUMP
         this.makeAnimation(1, 1, 0, 10, 15);
-        this.makeAnimation(2, 1, 8, 2, 15);
+        this.makeAnimation(2, 1, 8, 2, 10);
+        //LAND
+        this.makeAnimation(3, 2, 0, 6, 10);
 
         //KNOCKBACK
         this.makeAnimation(30, 8, 0, 7, 15);
@@ -28,9 +30,9 @@ class Tenshi extends Character {
         switch(this.state) {
             default: 
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 97* 1.5, 46* 1.5, 95* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 57* 1.5, this.y + 77* 1.5, 46* 1.5, 95* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 77* 1.5, this.y + 97* 1.5, 46* 1.5, 95* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 97* 1.5, this.y + 77* 1.5, 46* 1.5, 95* 1.5); break;
                 }
         }
     };

@@ -60,7 +60,7 @@ class Character {
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)
-            ctx.strokeStyle = "green";
+            ctx.strokeStyle = "Yellow";
             ctx.stroke();
         }
     };

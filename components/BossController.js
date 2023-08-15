@@ -26,7 +26,7 @@ class BossController {
     }
     
     facePlayer() {
-        if (this.boss.x < this.player.x) {
+        if (this.boss.BB.midX < this.player.BB.midX) {
             this.boss.facing = 0;
         } else this.boss.facing = 1; 
     };
@@ -71,11 +71,13 @@ class BossController {
             this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
         }
-        if (this.boss.x + this.boss.xBoxOffset <= 0) { //LEFT COLLISION
-            this.boss.x = 0 - this.boss.xBoxOffset;
+        if (this.boss.BB.x <= 0) { //LEFT COLLISION
+            let offset = this.boss.BB.x - this.boss.x
+            this.boss.x = 0 - offset;
         }
-        if (this.boss.x + this.boss.xBoxOffset + this.boss.BB.width >= 1280) { //RIGHT COLLISION
-            this.boss.x = 1280 - this.boss.xBoxOffset - this.boss.BB.width;
+        if (this.boss.BB.right >= 1280) { //RIGHT COLLISION
+            let offset = this.boss.BB.x - this.boss.x
+            this.boss.x = 1280 - offset - this.boss.BB.width;
         }
 
         if (!this.boss.dead()) {

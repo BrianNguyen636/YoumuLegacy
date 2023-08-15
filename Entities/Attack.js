@@ -23,7 +23,7 @@ class Hitbox {
         if (this.game.boxView) {
             let box = this.BB;
             ctx.beginPath();
-            ctx.strokeStyle = "yellow";
+            ctx.strokeStyle = "red";
             ctx.rect(box.x, box.y, box.width, box.height);
             ctx.stroke();
         }
