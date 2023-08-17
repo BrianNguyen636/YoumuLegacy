@@ -15,17 +15,42 @@ class TenshiController extends BossController {
         }
     }
     behavior() {
-        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //JUMP FROM IDLE
-            let roll = Math.floor(Math.random() * 2);
+        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
+
+            // this.facePlayer();
+            // let roll = this.rollForAttack(5);
+            // switch(roll) {
+            //     case(0): {
+            //         this.attack(1);
+            //         this.yVelocity = -1000;
+            //         this.xVelocity = (1 - this.boss.facing * 2) * 600;
+            //         break;
+            //     }
+            //     case(1): {
+            //         this.attack(1);
+            //         this.yVelocity = -700;
+            //         this.xVelocity = -(1 - this.boss.facing * 2) * 600;
+            //         break;
+            //     }
+            //     case(2): this.attack(4); break;
+            //     case(3): {
+            //         this.attackDuration = 0.3;
+            //         this.boss.state = 8;
+            //         break;
+            //     } 
+            // }
             this.facePlayer();
-            this.attack(1);
-            if (roll == this.boss.facing) { //JUMP FORWARD
-                this.yVelocity = -1000;
-                this.xVelocity = (1 - roll * 2) * 600;
-            } else { //JUMP BACKWARDS
-                this.yVelocity = -700;
-                this.xVelocity = (1 - roll * 2) * 600;
-            }
+            this.attack(15);
+            // let roll = Math.floor(Math.random() * 2);
+            // this.facePlayer();
+            // this.attack(1);
+            // if (roll == this.boss.facing) { //JUMP FORWARD
+            //     this.yVelocity = -1000;
+            //     this.xVelocity = (1 - roll * 2) * 600;
+            // } else { //JUMP BACKWARDS
+            //     this.yVelocity = -700;
+            //     this.xVelocity = (1 - roll * 2) * 600;
+            // }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -36,6 +61,10 @@ class TenshiController extends BossController {
                     }
                     break;
                 }
+                case(4): if (!this.effectSpawn) {
+                    this.game.audioManager.playSound("Shing.wav");
+                    this.effectSpawn = true;
+                } break;
                 case(5): {
                     if (this.attackDuration < (4/7) * this.boss.animations[0][5].totalTime) {
                         if (!this.effectSpawn) {
@@ -116,6 +145,28 @@ class TenshiController extends BossController {
                     } else this.effectSpawn = false;
                     break;
                 }
+                case(16): {
+                    if (!this.effectSpawn && ((this.attackDuration < 1.5 && this.attackDuration > 1)
+                        || (this.attackDuration < 0.5))) {
+                        for (let i = 0; i < 6; i++) {
+                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 + 250 * i, -154, 200, 200, 
+                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 250 * i, -154, 200, 200, 
+                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                        }
+                        this.effectSpawn = true;
+                    }
+                    if (this.effectSpawn && this.attackDuration < 1 && this.attackDuration > 0.5) {
+                        for (let i = 0; i < 6; i++) {
+                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 125 + 250 * i, -154, 200, 200, 
+                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 125 - 250 * i, -154, 200, 200, 
+                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                        }
+                        this.effectSpawn = false;
+                    }
+                    break;
+                }
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -126,18 +177,17 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(2): {
-                    this.facePlayer();
                     this.attack(3);
                     break;
                 }
-                case(3): { //AFTER LANDING
-                    this.attackDuration = 0.3;
-                    this.boss.state = 8;
-                    //SLASH WAVE
-                    // this.game.audioManager.playSound("Shing.wav");
-                    // this.attack(4);
-                    break;
-                }
+                // case(3): { //AFTER LANDING
+                //     this.attackDuration = 0.3;
+                //     this.boss.state = 8;
+                //     //SLASH WAVE
+                //     // this.game.audioManager.playSound("Shing.wav");
+                //     // this.attack(4);
+                //     break;
+                // }
                 case(4): {
                     this.attack(5);
                     this.game.audioManager.playSound("HisouSlash.wav");
@@ -183,10 +233,21 @@ class TenshiController extends BossController {
                     this.boss.state = 14;
                     break;
                 }
+                case(15): {
+                    this.game.audioManager.playSound("Shing.wav");
+                    this.attackDuration = 2;
+                    this.boss.state = 16;
+                    break;
+                }
+                case(16): {
+                    this.attack(17);
+                    break;
+                }
                 default: {
                     this.timer =  0.5;
                     this.boss.state = 0;
                     this.xVelocity = 0;
+                    this.effectSpawn = false;
                 }
             }
         }

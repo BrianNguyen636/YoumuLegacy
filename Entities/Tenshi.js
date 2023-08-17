@@ -31,12 +31,16 @@ class Tenshi extends Character {
         //SLASH3
         this.makeAnimation(13, 6, 0, 8, 15);
         this.makeAnimation(14, 6, 7, 1, 1);
+        //SUMMON
+        this.makeAnimation(15, 7, 0, 5, 15);
+        this.makeAnimation(16, 7, 4, 1, 1);
+        this.makeAnimation(17, 7, 4, 5, 15);
         //KNOCKBACK
-        this.makeAnimation(30, 8, 0, 7, 15);
-        this.makeAnimation(31, 8, 5, 2, 10);
+        this.makeAnimation(30, 11, 0, 7, 15);
+        this.makeAnimation(31, 11, 5, 2, 10);
         //DOWNED
-        this.makeAnimation(32, 9, 0, 5, 15);
-        this.makeAnimation(33, 9, 4, 1, 1);
+        this.makeAnimation(32, 12, 0, 5, 15);
+        this.makeAnimation(33, 12, 4, 1, 1);
 
     };
 
