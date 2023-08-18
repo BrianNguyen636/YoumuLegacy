@@ -14,6 +14,7 @@ class PlayerController {
         this.jumpDuration = 0;
         this.dashDuration = 0;
         this.attackDuration = 0;
+        this.hurtDuration = 0;
 
         this.speed = 400;
         this.dashSpeed = 700;
@@ -32,6 +33,7 @@ class PlayerController {
     };
 
     knockback(side) {
+        this.hurtDuration = 0.5;
         this.fastFall = false;
         this.yVelocity = -1200;
         this.doublejump = true;
@@ -67,7 +69,7 @@ class PlayerController {
                 this.airborne = true;
                 this.dashing = false;
                 if (this.yVelocity == 0) this.player.state = 0;
-                if ((this.game.A || this.game.up) && !this.jumpHold) this.player.state = 2;
+                if ((this.game.A || this.game.up) && !this.jumpHold && this.hurtDuration < 0) this.player.state = 2;
             }
         } else if (this.attacking && this.attackDuration > 0) {
             this.player.state = 5;
@@ -178,7 +180,7 @@ class PlayerController {
             this.player.x = 1280 - this.player.xBoxOffset - this.player.BB.width;
         }
         //JUMPING
-        if (this.player.state < 7) {
+        if (this.player.state < 6) {
             if (this.airborne) { //Airborne
                 if (this.fastFall) { //FASTFALLING
                     this.player.y += 1300 * this.game.clockTick;
@@ -190,7 +192,6 @@ class PlayerController {
                 if (!(this.game.A || this.game.up)) {
                     this.jumpHold = false;
                 }
-                
                 if ((this.game.A || this.game.up) && !this.game.down && 
                     this.doublejump && !this.jumpHold) { //Double Jumping
                     this.doublejump = false;
@@ -212,6 +213,7 @@ class PlayerController {
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
         if (this.dashDuration > 0) this.dashDuration -= this.game.clockTick;
         if (this.jumpDuration > 0) this.jumpDuration -= this.game.clockTick;
+        if (this.hurtDuration > 0) this.hurtDuration -= this.game.clockTick;
         this.updateState();
         this.updateMovement();
     };

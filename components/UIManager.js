@@ -98,8 +98,8 @@ class UIManager {
             ctx.font = "40px arial";
             ctx.fillStyle = "white";
             ctx.strokeStyle = "black";
-            ctx.fillText(time, 600, 100);
-            ctx.strokeText(time, 600, 100);
+            ctx.fillText(time + "s", 600, 100);
+            ctx.strokeText(time + "s", 600, 100);
         
     }
     

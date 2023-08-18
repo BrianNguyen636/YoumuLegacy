@@ -4,7 +4,7 @@ class Tenshi extends Character {
             200, 200, 
             (77+46) * 1.5 , 172 * 1.5, 
             600, 700 - 172*1.5, 
-            1);
+            50);
         this.controller = new TenshiController(this, game);
     };
 
@@ -17,7 +17,7 @@ class Tenshi extends Character {
         //LAND
         this.makeAnimation(3, 2, 0, 6, 15);
         //SLASH WAVE
-        this.makeAnimation(4, 3, 0, 4, 10);
+        this.makeAnimation(4, 3, 0, 4, 8);
         this.makeAnimation(5, 3, 3, 7, 15);
         this.makeAnimation(6, 3, 9, 1, 1);
         this.makeAnimation(7, 3, 9, 3, 15);

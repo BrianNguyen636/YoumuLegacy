@@ -16,31 +16,34 @@ class TenshiController extends BossController {
     }
     behavior() {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
-
-            // this.facePlayer();
-            // let roll = this.rollForAttack(5);
-            // switch(roll) {
-            //     case(0): {
-            //         this.attack(1);
-            //         this.yVelocity = -1000;
-            //         this.xVelocity = (1 - this.boss.facing * 2) * 600;
-            //         break;
-            //     }
-            //     case(1): {
-            //         this.attack(1);
-            //         this.yVelocity = -700;
-            //         this.xVelocity = -(1 - this.boss.facing * 2) * 600;
-            //         break;
-            //     }
-            //     case(2): this.attack(4); break;
-            //     case(3): {
-            //         this.attackDuration = 0.3;
-            //         this.boss.state = 8;
-            //         break;
-            //     } 
-            // }
             this.facePlayer();
-            this.attack(15);
+
+            let roll = this.rollForAttack(5);
+            switch(roll) {
+                case(0): {
+                    this.attack(1);
+                    this.game.audioManager.playSound("Whoosh.wav");
+                    this.yVelocity = -1200;
+                    this.xVelocity = (1 - this.boss.facing * 2) * 500;
+                    break;
+                }
+                case(1): {
+                    this.attack(1);
+                    this.game.audioManager.playSound("Whoosh.wav");
+                    this.yVelocity = -700;
+                    this.xVelocity = -(1 - this.boss.facing * 2) * 600;
+                    break;
+                }
+                case(2): this.attack(4); break;
+                case(3): {
+                    this.attackDuration = 0.4;
+                    this.boss.state = 8;
+                    break;
+                } 
+                case(4): {
+                    this.attack(15);
+                }
+            }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -164,6 +167,7 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(2): {
+                    this.game.audioManager.playSound("Thud.wav");
                     this.attack(3);
                     break;
                 }
