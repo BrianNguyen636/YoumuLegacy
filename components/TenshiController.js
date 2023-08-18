@@ -41,16 +41,6 @@ class TenshiController extends BossController {
             // }
             this.facePlayer();
             this.attack(15);
-            // let roll = Math.floor(Math.random() * 2);
-            // this.facePlayer();
-            // this.attack(1);
-            // if (roll == this.boss.facing) { //JUMP FORWARD
-            //     this.yVelocity = -1000;
-            //     this.xVelocity = (1 - roll * 2) * 600;
-            // } else { //JUMP BACKWARDS
-            //     this.yVelocity = -700;
-            //     this.xVelocity = (1 - roll * 2) * 600;
-            // }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -149,22 +139,19 @@ class TenshiController extends BossController {
                     if (!this.effectSpawn && ((this.attackDuration < 1.5 && this.attackDuration > 1)
                         || (this.attackDuration < 0.5))) {
                         for (let i = 0; i < 6; i++) {
-                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 + 250 * i, -154, 200, 200, 
-                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
-                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 250 * i, -154, 200, 200, 
-                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 + 250 * i, -90, this.game));
+                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 250 * i, -90, this.game));
                         }
                         this.effectSpawn = true;
                     }
                     if (this.effectSpawn && this.attackDuration < 1 && this.attackDuration > 0.5) {
                         for (let i = 0; i < 6; i++) {
-                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 125 + 250 * i, -154, 200, 200, 
-                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
-                            this.game.addEntity(new Projectile(this.boss.BB.midX - 115 - 125 - 250 * i, -154, 200, 200, 
-                                73, 17, 95, 95, 1000, -90, null, "Tenshi", 1, this.game));
+                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 + 250 * i, -90, this.game));
+                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 250 * i, -90, this.game));
                         }
                         this.effectSpawn = false;
                     }
+                    Keystone.setSfxPlayed(false);
                     break;
                 }
             }

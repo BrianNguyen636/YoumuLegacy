@@ -30,8 +30,8 @@ class Ghost {
     };
     update() {
         this.calculateTrajectory();
-        if (Math.abs(this.xTrajectory) <= 0.01) this.xTrajectory = 0;
-        if (Math.abs(this.yTrajectory) <= 0.01) this.yTrajectory = 0;
+        if (Math.abs(this.getXTarget() - this.x) <= 1) this.xTrajectory = 0;
+        if (Math.abs(this.getXTarget() - this.y) <= 1) this.yTrajectory = 0;
         this.x += this.xTrajectory * this.speed * this.game.clockTick;
         this.y += this.yTrajectory * this.speed * this.game.clockTick;
     };

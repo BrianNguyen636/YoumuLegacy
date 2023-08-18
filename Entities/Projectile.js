@@ -23,17 +23,19 @@ class Projectile {
         this.x += this.xVelocity * this.game.clockTick;
         this.y += this.yVelocity * this.game.clockTick;
         this.updateHitbox();
-        if (this.lifespan == null) {
-            if (this.x + this.width < 0 || this.x > 1280) {
-                this.removeFromWorld = true;
-            }
-            if (this.y > 1600 || this.y < -800) {
-                this.removeFromWorld = true;
-            }
-        } else {
+        this.behavior();
+        if (this.lifespan != null) {
             if (this.lifespan <= 0) {
                 this.removeFromWorld = true;
             } else this.lifespan -= this.game.clockTick;
+        }
+    };
+    behavior() {
+        if (this.x + this.width < 0 || this.x > 1280) {
+            this.removeFromWorld = true;
+        }
+        if (this.y > 1600 || this.y < -800) {
+            this.removeFromWorld = true;
         }
     };
 
