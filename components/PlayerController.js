@@ -17,7 +17,7 @@ class PlayerController {
         this.hurtDuration = 0;
 
         this.speed = 400;
-        this.dashSpeed = 700;
+        this.dashSpeed = 800;
         this.jumpHeight = 1800;
         this.highJumpBonus = 1300;
         this.gravity = 4500;

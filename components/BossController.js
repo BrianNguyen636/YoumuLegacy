@@ -62,7 +62,7 @@ class BossController {
         if (this.timer > 0) this.timer -= this.game.clockTick;
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
 
-        this.yVelocity += 2000 * this.game.clockTick; //Gravity
+        if (!this.antiGrav) this.yVelocity += 2000 * this.game.clockTick; //Gravity
 
         this.boss.y += this.yVelocity * this.game.clockTick; 
         this.boss.x += this.xVelocity * this.game.clockTick;

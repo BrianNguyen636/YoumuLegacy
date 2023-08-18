@@ -12,7 +12,7 @@ class Keystone extends Projectile {
     }
     behavior(){
         this.yVelocity += this.gravity * this.game.clockTick;
-        if (this.y + 18 + 90 >= 700) {
+        if (this.y + 18 + 90 >= 700 + 25) {
             if (!Keystone.sfxPlayed) {
                 this.game.audioManager.playSound("Rock.wav");
                 Keystone.setSfxPlayed(true);

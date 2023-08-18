@@ -1,8 +1,5 @@
 IMPLEMENT
 - Add lifetime to Effects
-- Minimum duration to knockback
-FIX
-- Projectile cleaning when touching edge of screen
 
 TENSHI ATTACKS
 -jumps
@@ -12,4 +9,4 @@ TENSHI ATTACKS
 	-FIX KNOCKBACK INTERACTION
 -Summon pillars
 -Keystone Ground pound
--Drop Keystones --MAKE A NEW CLASS FOR KEYSTONES
+-Drop Keystones

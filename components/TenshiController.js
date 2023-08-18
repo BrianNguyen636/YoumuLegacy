@@ -19,31 +19,42 @@ class TenshiController extends BossController {
             this.facePlayer();
 
             let roll = this.rollForAttack(5);
-            switch(roll) {
-                case(0): {
-                    this.attack(1);
-                    this.game.audioManager.playSound("Whoosh.wav");
-                    this.yVelocity = -1200;
-                    this.xVelocity = (1 - this.boss.facing * 2) * 500;
-                    break;
-                }
-                case(1): {
-                    this.attack(1);
-                    this.game.audioManager.playSound("Whoosh.wav");
-                    this.yVelocity = -700;
-                    this.xVelocity = -(1 - this.boss.facing * 2) * 600;
-                    break;
-                }
-                case(2): this.attack(4); break;
-                case(3): {
-                    this.attackDuration = 0.4;
-                    this.boss.state = 8;
-                    break;
-                } 
-                case(4): {
-                    this.attack(15);
-                }
-            }
+            this.attack(18);
+            this.game.audioManager.playSound("Whoosh.wav");
+            this.yVelocity = -1200;
+            this.xVelocity = (1 - this.boss.facing * 2) * 500;
+            // switch(roll) {
+            //     case(0): {
+            //         this.attack(1);
+            //         this.game.audioManager.playSound("Whoosh.wav");
+            //         this.yVelocity = -1200;
+            //         this.xVelocity = (1 - this.boss.facing * 2) * 500;
+            //         break;
+            //     }
+            //     case(1): {
+            //         this.attack(1);
+            //         this.game.audioManager.playSound("Whoosh.wav");
+            //         this.yVelocity = -700;
+            //         this.xVelocity = -(1 - this.boss.facing * 2) * 600;
+            //         break;
+            //     }
+            //     case(2): this.attack(4); break;
+            //     case(3): {
+            //         this.attackDuration = 0.4;
+            //         this.boss.state = 8;
+            //         break;
+            //     } 
+            //     case(4): {
+            //         this.attack(15);
+            //     }
+            //     case(5): {
+            //         this.attack(18);
+            //         this.game.audioManager.playSound("Whoosh.wav");
+            //         this.yVelocity = -1200;
+            //         this.xVelocity = (1 - this.boss.facing * 2) * 500;
+            //         break;
+            //     }
+            // }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -157,6 +168,28 @@ class TenshiController extends BossController {
                     Keystone.setSfxPlayed(false);
                     break;
                 }
+                case(20): {
+                    this.yVelocity += 5000 * this.game.clockTick;
+                    if (this.boss.BB.bottom == 700) {
+                        this.attackDuration = 0;
+                        this.antiGrav = false;
+                        this.game.audioManager.playSound("Rock.wav");
+                    }
+                    if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0.8)) {
+                        for (let i = 0; i < 2; i++) {
+                            let stoneR = new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90 - 120 * i, this.game);
+                            stoneR.gravity = 5000;
+                            let stoneL = new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 125 * i, -90 - 120 * i, this.game);
+                            stoneL.gravity = 5000;
+                            this.game.addEntity(stoneR);
+                            this.game.addEntity(stoneL);
+                            // this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90, this.game));
+                            // this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 125 * i, -90, this.game));
+                        }
+                        Keystone.setSfxPlayed(false);
+                        this.effectSpawn = true;
+                    }
+                }
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -232,6 +265,23 @@ class TenshiController extends BossController {
                 }
                 case(16): {
                     this.attack(17);
+                    break;
+                }
+                case(18): {
+                    this.yVelocity = 0;
+                    this.xVelocity = 0;
+                    this.antiGrav = true;
+                    this.attack(19);
+                    break;
+                }
+                case(19): {
+                    this.boss.state = 20;
+                    this.attackDuration = 1;
+                    // this.game.audioManager.playSound("Swish.wav");
+                    break;
+                }
+                case(20): {
+                    this.attack(21);
                     break;
                 }
                 default: {
