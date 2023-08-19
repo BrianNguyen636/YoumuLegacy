@@ -1,7 +1,7 @@
 class Ghost {
     constructor(game) {
         Object.assign(this, {game});
-        this.x = 450;
+        this.x = 400;
         this.y = 600; 
         this.speed = 250;
         this.sprite = ASSET_MANAGER.getAsset("./assets/Ghost.png");
@@ -31,7 +31,7 @@ class Ghost {
     update() {
         this.calculateTrajectory();
         if (Math.abs(this.getXTarget() - this.x) <= 1) this.xTrajectory = 0;
-        if (Math.abs(this.getXTarget() - this.y) <= 1) this.yTrajectory = 0;
+        if (Math.abs(this.getYTarget() - this.y) <= 1) this.yTrajectory = 0;
         this.x += this.xTrajectory * this.speed * this.game.clockTick;
         this.y += this.yTrajectory * this.speed * this.game.clockTick;
     };

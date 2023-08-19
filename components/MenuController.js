@@ -35,8 +35,8 @@ class MenuController {
         if (this.game.A && this.selected == 0) { //END START MENU
             this.game.A = false;
             this.game.audioManager.playSound("Select.wav");
+            this.game.audioManager.music.play();
             this.game.startMenu = false;
-            this.game.roomManager.stageTransition(0);
         }
         if (this.game.A && this.selected == 1) {
             this.game.A = false;

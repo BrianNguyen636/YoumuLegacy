@@ -9,6 +9,7 @@ class RoomManager {
         switch(stage) {
             case(0): {
                 this.stage = stage;
+                this.game.addEntity(new Yuyuko(this.game));
                 this.game.audioManager.playBGM("StartTheme");
                 this.game.uiManager.bgmTitle = "Snug Space - Petal of the Cherry Blossom";
                 break;
@@ -32,7 +33,7 @@ class RoomManager {
                 this.game.paused = true;
                 this.game.victory = true;
                 this.game.audioManager.playBGM("EndTheme");
-                this.game.uiManager.bgmTitle = "TH15.5 The Eternal Steam Engine"
+                this.game.uiManager.bgmTitle = "Spreading Full Colors - Sakura, Sakura"
                 break;
             }
         }

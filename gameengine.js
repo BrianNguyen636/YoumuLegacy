@@ -61,6 +61,8 @@ class GameEngine {
         this.audioManager = new AudioManager(this);
         this.menuController = new MenuController(this);
         this.roomManager = new RoomManager(this);
+        this.roomManager.stageTransition(0);
+        console.log(this.entities);
     };
 
     start() {
@@ -79,7 +81,6 @@ class GameEngine {
         this.startTime = 0;
         this.audioManager.music.stop();
         this.init(this.ctx, new Player(this));
-        this.roomManager.stageTransition(0);
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
