@@ -40,6 +40,12 @@ class Tenshi extends Character {
         this.makeAnimation(19, 8, 0, 8, 20);
         this.makeAnimation(20, 8, 6, 2, 10);
         this.makeAnimation(21, 8, 8, 7, 15);
+        //STAB
+        this.makeAnimation(22, 9, 0, 9, 15);
+        this.makeAnimation(23, 9, 8, 1, 1);
+        this.makeAnimation(24, 9, 8, 4, 15);
+        this.makeAnimation(25, 9, 11, 1, 1);
+        this.makeAnimation(26, 9, 11, 4, 15);
         //KNOCKBACK
         this.makeAnimation(30, 11, 0, 7, 15);
         this.makeAnimation(31, 11, 5, 2, 10);

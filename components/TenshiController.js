@@ -19,10 +19,8 @@ class TenshiController extends BossController {
             this.facePlayer();
 
             let roll = this.rollForAttack(5);
-            this.attack(18);
-            this.game.audioManager.playSound("Whoosh.wav");
-            this.yVelocity = -1200;
-            this.xVelocity = (1 - this.boss.facing * 2) * 500;
+            this.attack(22);
+            this.game.audioManager.playSound("HisouSwing.wav");
             // switch(roll) {
             //     case(0): {
             //         this.attack(1);
@@ -183,12 +181,17 @@ class TenshiController extends BossController {
                             stoneL.gravity = 5000;
                             this.game.addEntity(stoneR);
                             this.game.addEntity(stoneL);
-                            // this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90, this.game));
-                            // this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 125 * i, -90, this.game));
                         }
                         Keystone.setSfxPlayed(false);
                         this.effectSpawn = true;
                     }
+                }
+                case(25): {
+                    if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0.8)) {
+                        this.game.addEntity(new Pillar(this.boss.BB.midX - 3 - 72, 1, this.game));
+                        this.effectSpawn = true;
+                    }
+                    break;
                 }
             }
         }
@@ -282,6 +285,25 @@ class TenshiController extends BossController {
                 }
                 case(20): {
                     this.attack(21);
+                    break;
+                }
+                case(22): {
+                    this.attackDuration = 0.05;
+                    this.boss.state = 23;
+                    break;
+                }
+                case(23): {
+                    this.attack(24);
+                    break;
+                }
+                case(24): {
+                    this.game.audioManager.playSound("HisouStab.wav");
+                    this.attackDuration = 1;
+                    this.boss.state = 25;
+                    break;
+                }
+                case(25): {
+                    this.attack(26);
                     break;
                 }
                 default: {
