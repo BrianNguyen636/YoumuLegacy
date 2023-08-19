@@ -215,8 +215,7 @@ class GameEngine {
 
     checkPlayerCollisions(player) {
         if (this.player.x + this.player.xBoxOffset + this.player.BB.width >= 1280 && !this.combat) { //RIGHT COLLISION
-            // this.roomManager.stageTransition(this.roomManager.stage + 1);
-            this.roomManager.stageTransition(2);
+            this.roomManager.stageTransition(this.roomManager.stage + 1);
 
         }
 

@@ -44,6 +44,7 @@ class Character {
     drawShadow(ctx) {
         let distance = 700 - this.BB.bottom;
         let scale = 1 - distance / 700;
+        if (scale < 0) scale = 0;
         ctx.beginPath();
         ctx.save();
         ctx.ellipse(this.BB.midX, 700, 70 * scale, 12 * scale, 0, 0, 2 * Math.PI);

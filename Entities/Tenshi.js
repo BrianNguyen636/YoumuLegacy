@@ -3,9 +3,12 @@ class Tenshi extends Character {
         super("boss", "Tenshi", game, 
             200, 200, 
             (77+46) * 1.5 , 172 * 1.5, 
-            600, 700 - 172*1.5, 
+            600, 700 - 172*1.5 - 800, 
             50);
         this.controller = new TenshiController(this, game);
+        this.facing = 1;
+        this.state = 20;
+        this.controller.attackDuration = 3;
     };
 
     loadAnimations() {

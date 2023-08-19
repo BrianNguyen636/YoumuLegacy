@@ -14,18 +14,18 @@ class RoomManager {
                 break;
             }
             case(1): {
+                this.newStage(stage);
                 this.game.startTime = this.game.timer.gameTime;
                 this.game.addEntity(new Meiling(this.game));
                 this.game.audioManager.playBGM("MeilingTheme");
                 this.game.uiManager.bgmTitle = "Snug Space - Get Up!!"
-                this.newStage(stage);
                 break;
             }
             case(2): {
+                this.newStage(stage);
                 this.game.addEntity(new Tenshi(this.game));
                 this.game.audioManager.playBGM("TenshiTheme");
                 this.game.uiManager.bgmTitle = "Tenjou no Tempest - Main Menu"
-                this.newStage(stage);
                 break;
             }
             default: {
@@ -40,7 +40,9 @@ class RoomManager {
 
     newStage(stage) {
         this.game.combat = true;
+        console.log(this.game.combat);
         this.stage = stage;
+        this.game.player.health = 5;
         this.game.player.x = 0;
         this.game.ghost.x = -100;
         this.game.ghost.y = 600;

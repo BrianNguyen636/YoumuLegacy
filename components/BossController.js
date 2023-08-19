@@ -7,6 +7,7 @@ class BossController {
         this.attackDuration = 0;
         this.effectSpawn = false;
         this.lastRoll = null;
+        this.lastLastRoll = null;
         this.yVelocity = 0;
         this.xVelocity = 0;
         this.facePlayer();
@@ -18,9 +19,10 @@ class BossController {
 
     rollForAttack(attacks) {
         let roll = this.lastRoll;
-        while (roll == this.lastRoll) {
+        while (roll == this.lastRoll || roll == this.lastLastRoll) {
             roll = Math.floor(Math.random() * attacks);
         }
+        this.lastLastRoll = this.lastRoll;
         this.lastRoll = roll;
         return roll;
     }
@@ -37,10 +39,12 @@ class BossController {
         this.attackDuration = this.boss.animations[this.boss.facing][state].totalTime - 2 * this.game.clockTick;
     };
 
-    death(deathState){
+    death(deathState) {
         if (this.boss.state < deathState) { //initial death
             this.setBossTime();
+            this.antiGrav = false;
             this.game.timer.timerRun = false;
+            this.game.combat = false
             this.game.audioManager.playSound("KO.wav");
             this.facePlayer();
             this.attack(deathState);
@@ -55,7 +59,7 @@ class BossController {
             }
         } else if (this.boss.state == deathState + 2 && this.attackDuration <= 0) {
             this.boss.state = deathState + 3;
-        } else this.game.combat = false;
+        }
     };
 
     update() {

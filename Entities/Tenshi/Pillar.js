@@ -15,7 +15,6 @@ class Pillar extends Projectile {
             if (this.yVelocity == 0) this.game.audioManager.playSound("Pillar.wav");
             this.yVelocity = -500000 * this.game.clockTick;
             this.elevation = (700 - this.y) / 583; 
-            console.log(this.elevation);
         } else if (this.y <= 700 - 583) {
             this.y = 700 - 583;
             this.yVelocity = 0;
