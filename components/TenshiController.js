@@ -187,9 +187,15 @@ class TenshiController extends BossController {
                     }
                 }
                 case(25): {
-                    if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0.8)) {
-                        this.game.addEntity(new Pillar(this.boss.BB.midX - 3 - 72, 1, this.game));
+                    if (!this.effectSpawn && ((this.attackDuration < 4 && this.attackDuration > 3.25) ||
+                        (this.attackDuration < 2.5 && this.attackDuration > 1.75) || (this.attackDuration < 1 && this.attackDuration > 0.25))) {
+                        this.game.addEntity(new Pillar(this.game.player.BB.midX - 3 - 72, this.attackDuration, this.game));
                         this.effectSpawn = true;
+                    }
+                    if (this.effectSpawn && ((this.attackDuration < 3.25  && this.attackDuration > 2.5 ) ||
+                        (this.attackDuration < 1.75 && this.attackDuration > 1))) {
+                        this.game.addEntity(new Pillar(this.game.player.BB.midX - 3 - 72, this.attackDuration, this.game));
+                        this.effectSpawn = false;
                     }
                     break;
                 }
@@ -298,7 +304,7 @@ class TenshiController extends BossController {
                 }
                 case(24): {
                     this.game.audioManager.playSound("HisouStab.wav");
-                    this.attackDuration = 1;
+                    this.attackDuration = 4.5;
                     this.boss.state = 25;
                     break;
                 }
