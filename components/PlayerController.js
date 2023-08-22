@@ -138,6 +138,11 @@ class PlayerController {
                 } else {
                     this.player.state = 0;
                 }
+
+                if (this.game.canInteract && this.player.state == 0 && this.game.down) {
+                    this.game.down = false;
+                    this.player.interacting = true;
+                }
             }
         }
     };

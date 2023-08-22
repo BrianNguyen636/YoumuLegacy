@@ -29,6 +29,42 @@ class MenuController {
             this.game.audioManager.playSound("Select.wav");
         }
     }
+
+    stageSelect() {
+        this.optionSelection(4);
+        if (this.game.A && this.selected == 0) { //BOSS RUSH
+            this.game.A = false;
+            this.game.audioManager.playSound("Select.wav");
+            this.game.selectedStage = this.selected;
+            this.game.player.interacting = false;
+            this.game.bossRush = true;
+            this.selected = 0;
+        }
+        if (this.game.A && this.selected == 1) { //STAGE 1
+            this.game.A = false;
+            this.game.audioManager.playSound("Select.wav");
+            this.game.selectedStage = this.selected;
+            this.game.player.interacting = false;
+            this.game.bossRush = false;
+            this.selected = 0;
+        }
+        if (this.game.A && this.selected == 2) { //STAGE 2
+            this.game.A = false;
+            this.game.audioManager.playSound("Select.wav");
+            this.game.selectedStage = this.selected;
+            this.game.player.interacting = false;
+            this.game.bossRush = false;
+            this.selected = 0;
+        }
+        if (this.game.A && this.selected == 3) { //END
+            this.game.A = false;
+            this.game.audioManager.playSound("Cancel.wav");
+            this.game.player.interacting = false;
+            this.game.bossRush = false;
+            this.selected = 0;
+        }
+    }
+
     startMenu() {
         this.game.uiManager.drawStartMenu(this.game.ctx);
         this.optionSelection(2);

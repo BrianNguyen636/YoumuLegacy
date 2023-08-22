@@ -7,6 +7,7 @@ class Player extends Character{
             5);
         this.facing = 0;
         this.setController(new PlayerController(this, game));
+        this.interacting = false;
     };
 
     loadAnimations() {
@@ -60,7 +61,7 @@ class Player extends Character{
 
     update() {
         if (this.invuln > 0 && this.state < 6) this.invuln -= this.game.clockTick;
-        this.controller.update();
+        if (!this.interacting) this.controller.update();
         this.updateBB();
         this.updateAttackBox();
     };

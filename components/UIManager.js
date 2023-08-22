@@ -7,7 +7,6 @@ class UIManager {
         this.healthIcon = ASSET_MANAGER.getAsset("./assets/Health.png");
         this.bgmTitle;
     }
-
     update() {
         for (let i = 0; i < this.entities.length; i++) {
             let entity = this.entities[i];
@@ -19,6 +18,31 @@ class UIManager {
                     this.bossHealth = entity.health;
                 }
             }
+        }
+    }
+
+    drawNextStage(ctx) {
+        let stages = [
+            "Boss Rush",
+            "SDM",
+            "Heaven"
+        ];
+        if (this.game.roomManager.stage == 0) {
+            ctx.fillStyle = "yellow";
+            ctx.strokeStyle = "black";
+            ctx.font = "30px arial";
+            ctx.fillText("To " + stages[this.game.selectedStage], 1100, 500, 150);
+            ctx.strokeText("To " + stages[this.game.selectedStage], 1100, 500, 150);
+            ctx.fillText("->", 1150, 530);
+            ctx.strokeText("->", 1150, 530);
+        } else if (!this.game.combat){
+            ctx.fillStyle = "yellow";
+            ctx.strokeStyle = "black";
+            ctx.font = "30px arial";
+            ctx.fillText("Next", 1100, 500, 150);
+            ctx.strokeText("Next", 1100, 500, 150);
+            ctx.fillText("->", 1150, 530);
+            ctx.strokeText("->", 1150, 530);
         }
     }
 
@@ -192,5 +216,6 @@ class UIManager {
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);
         this.drawPlayerHealth(ctx);
         this.drawBGM(ctx);
+        this.drawNextStage(ctx);
     }
 }

@@ -31,11 +31,16 @@ class GameEngine {
         this.key;
         this.keyPress = false;
 
+        //FLAGS
         this.startMenu = true;
         this.paused = false;
-
         this.combat = false;
         this.victory = false;
+        this.canInteract = false;
+        this.bossRush = true;
+        this.selectedStage = 0;
+
+        //TIMERS
         this.startTime = 0;
         this.meilingTime = 0;
         this.tenshiTime = 0;
@@ -62,7 +67,6 @@ class GameEngine {
         this.menuController = new MenuController(this);
         this.roomManager = new RoomManager(this);
         this.roomManager.stageTransition(0);
-        console.log(this.entities);
     };
 
     start() {
@@ -179,7 +183,6 @@ class GameEngine {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.roomManager.draw(this.ctx);
         this.uiManager.draw(this.ctx);
-
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             let entity = this.entities[i];
@@ -191,6 +194,7 @@ class GameEngine {
     update() {
         if (this.pauseButton && !this.player.dead()) { //START PAUSE
             this.paused = true;
+            this.menuController.selected = 0;
             this.audioManager.playSound("Pause.wav");
             this.audioManager.music.stop();
             this.pauseButton = false;
@@ -216,8 +220,12 @@ class GameEngine {
 
     checkPlayerCollisions(player) {
         if (this.player.x + this.player.xBoxOffset + this.player.BB.width >= 1280 && !this.combat) { //RIGHT COLLISION
-            this.roomManager.stageTransition(this.roomManager.stage + 1);
-
+            if (this.bossRush) this.roomManager.stageTransition(this.roomManager.stage + 1);
+            else {
+                if (this.roomManager.stage == 0) {
+                    this.roomManager.stageTransition(this.selectedStage);
+                } else this.reset();
+            }
         }
 
         for (let i = 0; i < this.entities.length; i++) {
@@ -225,6 +233,13 @@ class GameEngine {
             if (!entity.removeFromWorld) {
                 if ((entity.id == "boss" && !entity.dead()) || entity.id == "attack") {
                     if (entity.BB.collide(player.BB)) player.hurt(entity);
+                }
+                if (entity.id == "npc") {
+                    if (entity.BB.collide(player.BB)) {
+                        this.canInteract = true;
+
+                    }
+                    else this.canInteract = false;
                 }
                 if (player.attackBox != null && entity.id == "boss") {
                     if (player.attackBox.collide(entity.BB)) entity.hurt(player);
