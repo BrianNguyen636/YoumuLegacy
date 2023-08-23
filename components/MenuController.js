@@ -56,11 +56,10 @@ class MenuController {
             this.game.bossRush = false;
             this.selected = 0;
         }
-        if (this.game.A && this.selected == 3) { //END
+        if ((this.game.A && this.selected == 3)) { //END
             this.game.A = false;
             this.game.audioManager.playSound("Cancel.wav");
             this.game.player.interacting = false;
-            this.game.bossRush = false;
             this.selected = 0;
         }
     }

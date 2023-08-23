@@ -6,6 +6,7 @@ class UIManager {
         this.bossHealth;
         this.healthIcon = ASSET_MANAGER.getAsset("./assets/Health.png");
         this.bgmTitle;
+        this.alpha = 0;
     }
     update() {
         for (let i = 0; i < this.entities.length; i++) {
@@ -211,11 +212,54 @@ class UIManager {
         }
     }
 
+    drawDialog(ctx) {
+        let selected = this.game.menuController.selected;
+        ctx.globalAlpha = this.alpha;
+        ctx.font = "40px serif";
+        let options = [
+            "On a journey.",
+            "To the Scarlet Devil Mansion.",
+            "To Bhava-agra.",
+            "I'll stay here for now."
+        ];
+        ctx.strokeStyle = "black";
+        for (let i = 0; i < options.length; i++) {
+            if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(options[i], 540, 300 + 50 * i);
+            ctx.strokeText(options[i], 540, 300 + 50 * i);
+        }
+
+        let portrait = ASSET_MANAGER.getAsset("./assets/YuyukoPortrait.png");
+        ctx.drawImage(portrait, 0, 800 - 512);
+        
+        ctx.fillStyle = "black";
+        ctx.globalAlpha = this.alpha * 0.75;
+        ctx.fillRect(140, 600, 1000, 200);
+        ctx.globalAlpha = this.alpha;
+        console.log(ctx.globalAlpha);
+        ctx.font = "bold 80px serif";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        let dialog = "Hello Youmu, where would you like to go?";
+        ctx.fillText(dialog, 140 + 50, 600 + 100, 900);
+        ctx.strokeText(dialog, 140 + 50, 600 + 100, 900);
+
+        ctx.globalAlpha = 1;
+    }
+
     draw(ctx) {
-        this.drawTimer(ctx);
+        if (this.game.roomManager.stage != 0) this.drawTimer(ctx);
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);
         this.drawPlayerHealth(ctx);
         this.drawBGM(ctx);
         this.drawNextStage(ctx);
+        if (!this.game.paused) this.drawDialog(ctx);
+        if (this.game.player.interacting) {
+            if (this.alpha < 1) this.alpha += 1.5 * this.game.clockTick;
+            if (this.alpha >= 1) this.alpha = 1;
+        } else {
+            if (this.alpha > 0) this.alpha -= 1.5 * this.game.clockTick;
+            if (this.alpha <= 0) this.alpha = 0;
+        }
     }
 }

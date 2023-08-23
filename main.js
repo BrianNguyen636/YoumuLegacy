@@ -14,6 +14,7 @@ ASSET_MANAGER.queueDownload("./assets/TenshiSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/TenshiProjectiles.png");
 ASSET_MANAGER.queueDownload("./assets/TenshiEffects.png");
 ASSET_MANAGER.queueDownload("./assets/YuyukoSpritesheet.png");
+ASSET_MANAGER.queueDownload("./assets/YuyukoPortrait.png");
 ASSET_MANAGER.queueDownload("./assets/Stages.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Ghost.png");

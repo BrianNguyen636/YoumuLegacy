@@ -182,13 +182,13 @@ class GameEngine {
         this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.roomManager.draw(this.ctx);
-        this.uiManager.draw(this.ctx);
+
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             let entity = this.entities[i];
             entity.draw(this.ctx, this);
         }
-        
+        this.uiManager.draw(this.ctx);
     };
 
     update() {

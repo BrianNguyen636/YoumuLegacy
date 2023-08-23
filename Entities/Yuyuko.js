@@ -32,47 +32,22 @@ class Yuyuko {
         ctx.beginPath();
         ctx.save();
         ctx.fillStyle = "black";
-        ctx.ellipse(this.BB.midX, 700, 70 * scale, 12 * scale, 0, 0, 2 * Math.PI);
+        ctx.ellipse(this.BB.midX + 9, 700, 70 * scale, 12 * scale, 0, 0, 2 * Math.PI);
         ctx.globalAlpha = 0.5;
         ctx.fill();
         ctx.restore();
     }
-    drawDialog(ctx) {
-        let selected = this.game.menuController.selected;
-        ctx.font = "40px serif";
-        let options = [
-            "On a journey.",
-            "To the Scarlet Devil Mansion.",
-            "To Bhava-agra.",
-            "I'll stay for now."
-        ];
-        ctx.strokeStyle = "black";
-        for (let i = 0; i < options.length; i++) {
-            if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-            ctx.fillText(options[i], this.BB.midX - 400, 700 - 207 * 1.5 + 30 * i);
-            ctx.strokeText(options[i], this.BB.midX - 400, 700 - 207 * 1.5 + 30 * i);
-        }
-        ctx.font = "bold 60px serif";
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "black";
-        let dialog = "Hello Youmu, \nwhere would you like to go?";
-        ctx.fillText(dialog, this.BB.midX - 800, 700 - 227 * 1.5);
-        ctx.strokeText(dialog, this.BB.midX - 800, 700 - 227 * 1.5);
-    }
+
+
     draw(ctx) {
         this.drawShadow(ctx);
         this.animator.drawFrame(this.game.clockTick, ctx, this.x, this.y);
-
         if (this.game.canInteract && !this.game.player.interacting) {
             ctx.fillStyle = "white";
-            // ctx.ellipse(this.BB.midX, 700 - 207 * 1.5, 40, 40, 0, 0, 2 * Math.PI);
-            // ctx.fill();
             ctx.font = "30px arial"
             ctx.fillText("Press [Down]", this.BB.midX - 60, 700 - 127 * 1.5, 120);
         }
-        // this.drawDialog(ctx);
-        if (this.game.player.interacting && !this.game.paused) {
-            this.drawDialog(ctx);
+        if (this.game.player.interacting) {
             this.game.menuController.stageSelect();
         }
         if (this.game.boxView) {
