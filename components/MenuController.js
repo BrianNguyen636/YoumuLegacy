@@ -70,7 +70,7 @@ class MenuController {
         if (this.game.A && this.selected == 0) { //END START MENU
             this.game.A = false;
             this.game.audioManager.playSound("Select.wav");
-            this.game.audioManager.music.play();
+            this.game.audioManager.playBGM("StartTheme");
             this.game.startMenu = false;
         }
         if (this.game.A && this.selected == 1) {

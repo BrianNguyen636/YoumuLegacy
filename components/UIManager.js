@@ -158,10 +158,11 @@ class UIManager {
         ctx.font = "50px serif"
         ctx.fillStyle = "white";
         ctx.fillText("-Default Controls-", 800, 350);
-        ctx.fillText("Z - Jump (or Up)", 800, 400);
+        ctx.fillText("Z - Jump", 800, 400);
         ctx.fillText("X - Attack", 800, 450);
         ctx.fillText("C - Dash", 800, 500);
         ctx.fillText("Arrows to Move", 800, 550);
+        ctx.fillText("Jump to Confirm", 800, 660);
     }
 
     drawOptions(ctx) {
@@ -236,7 +237,7 @@ class UIManager {
         ctx.globalAlpha = this.alpha * 0.75;
         ctx.fillRect(140, 600, 1000, 200);
         ctx.globalAlpha = this.alpha;
-        console.log(ctx.globalAlpha);
+
         ctx.font = "bold 80px serif";
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";

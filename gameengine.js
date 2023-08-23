@@ -84,7 +84,12 @@ class GameEngine {
         this.entities = [];
         this.startTime = 0;
         this.audioManager.music.stop();
+        //CONSTANTS
+        let volume = this.audioManager.volume;
+
         this.init(this.ctx, new Player(this));
+        this.audioManager.volume = volume;
+        this.audioManager.playBGM("StartTheme");
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
