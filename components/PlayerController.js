@@ -52,7 +52,7 @@ class PlayerController {
             if (this.jumpDuration <= 0) {
                 this.player.state = 8;
             }
-            if (this.yVelocity == 0) {
+            if (this.yVelocity >= 0 && this.player.y == 700 - this.player.yBoxOffset) {
                 this.player.state = 9;
                 this.player.animations[this.player.facing][9].resetFrames();
                 this.jumpDuration = this.player.animations[this.player.facing][9].totalTime - this.game.clockTick;
