@@ -52,7 +52,7 @@ class BossController {
             this.yVelocity = -700;
         } else if (this.boss.state == deathState || this.boss.state == deathState + 1) {
             if (this.attackDuration <= 0) this.boss.state = deathState + 1;
-            if (this.yVelocity == 0) {
+            if (this.yVelocity >= 0 && this.boss.y == 700 - this.boss.yBoxOffset) {
                 this.game.audioManager.playSound("Thud.wav");
                 this.attack(deathState + 2);
                 this.xVelocity = 0;
