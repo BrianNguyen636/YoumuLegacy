@@ -41,15 +41,23 @@ class MenuController {
             this.game.bossRush = true;
             this.selected = 0;
         }
-        if (this.game.A && this.selected == 1) { //STAGE 1
-            this.game.A = false;
-            ASSET_MANAGER.playSound("Select");
-            this.game.selectedStage = this.selected;
-            this.game.player.interacting = false;
-            this.game.bossRush = false;
-            this.selected = 0;
-        }
-        if (this.game.A && this.selected == 2) { //STAGE 2
+        // if (this.game.A && this.selected == 1) { //STAGE 1
+        //     this.game.A = false;
+        //     ASSET_MANAGER.playSound("Select");
+        //     this.game.selectedStage = this.selected;
+        //     this.game.player.interacting = false;
+        //     this.game.bossRush = false;
+        //     this.selected = 0;
+        // }
+        // if (this.game.A && this.selected == 2) { //STAGE 2
+        //     this.game.A = false;
+        //     ASSET_MANAGER.playSound("Select");
+        //     this.game.selectedStage = this.selected;
+        //     this.game.player.interacting = false;
+        //     this.game.bossRush = false;
+        //     this.selected = 0;
+        // }
+        if (this.game.A && this.selected > 0 && this.selected <= 2) {
             this.game.A = false;
             ASSET_MANAGER.playSound("Select");
             this.game.selectedStage = this.selected;

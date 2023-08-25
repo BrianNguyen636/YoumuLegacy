@@ -103,7 +103,7 @@ class UIManager {
 
         ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 40 * 2);
 
-        ctx.fillText("Reisen: " + this.game.reisenTime + "s", 470, 300 + 40 * 3);
+        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 40 * 3);
 
         ctx.font = "60px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
@@ -223,6 +223,7 @@ class UIManager {
             "To Bhava-agra.",
             "I'll stay here for now."
         ];
+                    // "To the Hell Geyser",
         ctx.strokeStyle = "black";
         for (let i = 0; i < options.length; i++) {
             if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"

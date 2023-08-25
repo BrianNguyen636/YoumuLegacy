@@ -25,6 +25,7 @@ ASSET_MANAGER.queueDownload("./assets/Audio/StartTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/MeilingTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/TenshiTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/EndTheme.mp3");
+
 ASSET_MANAGER.queueDownload("./assets/Audio/Select.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Cancel.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Pause.wav");

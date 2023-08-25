@@ -44,7 +44,7 @@ class GameEngine {
         this.startTime = 0;
         this.meilingTime = 0;
         this.tenshiTime = 0;
-        this.reisenTime = 0;
+        this.okuuTime = 0;
 
         // Options and the Details
         this.options = options || {
