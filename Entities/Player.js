@@ -45,8 +45,8 @@ class Player extends Character{
         }
     };
 
-    getAttackSpeed() {
-        return this.animations[this.facing][5].totalTime;
+    getAttackDuration() {
+        return this.controller.attackDuration;
     }
 
     updateAttackBox() {

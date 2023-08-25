@@ -5,6 +5,7 @@ class AssetManager {
         this.cache = [];
         this.downloadQueue = [];
         this.volume = 0.3;
+        this.currentSong;
     };
 
     queueDownload(path) {
@@ -83,20 +84,20 @@ class AssetManager {
         this.playAudio("./assets/Audio/" + name + ".wav");
     };
     playBGM(name) {
-        // this.pauseBGM();
+        if (this.currentSong != null) this.pauseBGM();
         let path = "./assets/Audio/" + name + ".mp3";
+        this.currentSong = path;
         this.playAudio(path);
         this.autoRepeat(path);
     };
     pauseBGM() {
-        for (let key in this.cache) {
-            let asset = this.cache[key];
-            if (asset instanceof Audio) {
-                asset.pause();
-                asset.currentTime = 0;
-            }
-        }
+        let asset = this.cache[this.currentSong];
+        asset.pause();
     };
+    resumeBGM() {
+        let asset = this.cache[this.currentSong];
+        asset.play();
+    }
     autoRepeat(path) {
         let aud = this.cache[path];
         aud.addEventListener("ended",  () => {

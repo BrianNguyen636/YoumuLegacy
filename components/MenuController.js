@@ -89,6 +89,7 @@ class MenuController {
             if (this.game.A) this.game.A = false;
             ASSET_MANAGER.playSound("Cancel");
             this.game.paused = false;
+            ASSET_MANAGER.resumeBGM();
             // this.game.audioManager.music.play();
             this.selected = 0;
         }

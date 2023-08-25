@@ -30,6 +30,7 @@ class RoomManager {
                 break;
             }
             default: {
+                // ASSET_MANAGER.pauseBGM();
                 this.game.paused = true;
                 this.game.victory = true;
                 ASSET_MANAGER.playBGM("EndTheme");
@@ -40,7 +41,7 @@ class RoomManager {
     }
 
     newStage(stage) {
-        ASSET_MANAGER.pauseBGM();
+        // ASSET_MANAGER.pauseBGM();
         this.game.combat = true;
         console.log(this.game.combat);
         this.stage = stage;

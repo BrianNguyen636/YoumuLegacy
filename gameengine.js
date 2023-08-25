@@ -50,7 +50,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = false;
+        this.boxView = true;
     };
 
     init(ctx, player) {
@@ -201,6 +201,7 @@ class GameEngine {
             this.paused = true;
             this.menuController.selected = 0;
             ASSET_MANAGER.playSound("Pause");
+            ASSET_MANAGER.pauseBGM();
             // this.audioManager.playSound("Pause.wav");
             // this.audioManager.music.stop();
             this.pauseButton = false;
@@ -243,12 +244,14 @@ class GameEngine {
                 if (entity.id == "npc") {
                     if (entity.BB.collide(player.BB)) {
                         this.canInteract = true;
-
                     }
                     else this.canInteract = false;
                 }
                 if (player.attackBox != null && entity.id == "boss") {
-                    if (player.attackBox.collide(entity.BB)) entity.hurt(player);
+                    if (player.attackBox.collide(entity.BB)) {
+                        entity.hurt(player);
+                        player.attackBox = null;
+                    }
                 }
             }
         }
