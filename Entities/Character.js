@@ -23,7 +23,8 @@ class Character {
         if (this.invuln <= 0 ) {
             this.health -= 1;
             this.invuln = this.game.player.getAttackSpeed();
-            this.game.audioManager.playSound("Slash.wav");
+            // this.game.audioManager.playSound("Slash.wav");
+            ASSET_MANAGER.playSound("Slash");
             if (this.game.player.facing == 0) this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 0, this.game));
             else this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 1, this.game));
         }

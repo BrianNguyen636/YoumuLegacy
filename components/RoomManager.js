@@ -10,7 +10,7 @@ class RoomManager {
             case(0): {
                 this.stage = stage;
                 this.game.addEntity(new Yuyuko(this.game));
-                this.game.audioManager.playBGM("StartTheme");
+                ASSET_MANAGER.playBGM("StartTheme");
                 this.game.uiManager.bgmTitle = "Snug Space - Petal of the Cherry Blossom";
                 break;
             }
@@ -18,21 +18,21 @@ class RoomManager {
                 this.newStage(stage);
                 this.game.startTime = this.game.timer.gameTime;
                 this.game.addEntity(new Meiling(this.game));
-                this.game.audioManager.playBGM("MeilingTheme");
+                ASSET_MANAGER.playBGM("MeilingTheme");
                 this.game.uiManager.bgmTitle = "Snug Space - Get Up!!"
                 break;
             }
             case(2): {
                 this.newStage(stage);
                 this.game.addEntity(new Tenshi(this.game));
-                this.game.audioManager.playBGM("TenshiTheme");
+                ASSET_MANAGER.playBGM("TenshiTheme");
                 this.game.uiManager.bgmTitle = "Tenjou no Tempest - Main Menu"
                 break;
             }
             default: {
                 this.game.paused = true;
                 this.game.victory = true;
-                this.game.audioManager.playBGM("EndTheme");
+                ASSET_MANAGER.playBGM("EndTheme");
                 this.game.uiManager.bgmTitle = "Spreading Full Colors - Sakura, Sakura"
                 break;
             }
@@ -40,6 +40,7 @@ class RoomManager {
     }
 
     newStage(stage) {
+        ASSET_MANAGER.pauseBGM();
         this.game.combat = true;
         console.log(this.game.combat);
         this.stage = stage;

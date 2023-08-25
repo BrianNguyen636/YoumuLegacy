@@ -24,7 +24,7 @@ class TenshiController extends BossController {
             switch(roll) {
                 case(0): {
                     this.attack(1);
-                    this.game.audioManager.playSound("Whoosh.wav");
+                    ASSET_MANAGER.playSound("Whoosh");
                     this.yVelocity = -1200;
                     this.xVelocity = (1 - this.boss.facing * 2) * 500;
                     break;
@@ -38,7 +38,7 @@ class TenshiController extends BossController {
                 // }
                 case(1): {
                     this.attack(4);
-                    this.game.audioManager.playSound("Shing.wav");
+                    ASSET_MANAGER.playSound("Shing");
                     break;
                 }
                 case(2): {
@@ -51,14 +51,14 @@ class TenshiController extends BossController {
                 }
                 case(4): {
                     this.attack(18);
-                    this.game.audioManager.playSound("Whoosh.wav");
+                    ASSET_MANAGER.playSound("Whoosh");
                     this.yVelocity = -1200;
                     this.xVelocity = (1 - this.boss.facing * 2) * 500;
                     break;
                 }
                 case(5): {
                     this.attack(22);
-                    this.game.audioManager.playSound("HisouSwing.wav");
+                    ASSET_MANAGER.playSound("HisouSwing");
                     break;
                 }
             }
@@ -91,7 +91,7 @@ class TenshiController extends BossController {
                     if (this.attackDuration < (5/8) * this.boss.animations[0][9].totalTime) {
                         if (!this.effectSpawn) {
                             this.effectSpawn = true;
-                            this.game.audioManager.playSound("HisouSwing.wav");
+                            ASSET_MANAGER.playSound("HisouSwing");
                         }
                         if (this.attackDuration >= (3/8) * this.boss.animations[0][9].totalTime) {
                             if(this.boss.facing == 0) {
@@ -115,7 +115,7 @@ class TenshiController extends BossController {
                     if (this.attackDuration < (5/7) * this.boss.animations[0][11].totalTime) {
                         if (!this.effectSpawn) {
                             this.effectSpawn = true;
-                            this.game.audioManager.playSound("HisouSwing.wav");
+                            ASSET_MANAGER.playSound("HisouSwing");
                         }
                         if (this.attackDuration >= (3/7) * this.boss.animations[0][11].totalTime) {
                             if(this.boss.facing == 0) {
@@ -137,7 +137,7 @@ class TenshiController extends BossController {
                     if (this.attackDuration < (4/8) * this.boss.animations[0][12].totalTime) {
                         if (!this.effectSpawn) {
                             this.effectSpawn = true;
-                            this.game.audioManager.playSound("HisouSlash.wav");
+                            ASSET_MANAGER.playSound("HisouSlash");
                         }
                         if (this.attackDuration >= (2/8) * this.boss.animations[0][12].totalTime) {
                             if(this.boss.facing == 0) {
@@ -176,7 +176,7 @@ class TenshiController extends BossController {
                     if (this.boss.BB.bottom == 700) {
                         this.attackDuration = 0;
                         this.antiGrav = false;
-                        this.game.audioManager.playSound("Rock.wav");
+                        ASSET_MANAGER.playSound("Rock");
                     }
                     if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0.8)) {
                         for (let i = 0; i < 2; i++) {
@@ -214,13 +214,13 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(2): {
-                    this.game.audioManager.playSound("Thud.wav");
+                    ASSET_MANAGER.playSound("Thud");
                     this.attack(3);
                     break;
                 }
                 case(4): {
                     this.attack(5);
-                    this.game.audioManager.playSound("HisouSlash.wav");
+                    ASSET_MANAGER.playSound("HisouSlash");
                     break;
                 }
                 case(5): {
@@ -264,7 +264,7 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(15): {
-                    this.game.audioManager.playSound("Shing.wav");
+                    ASSET_MANAGER.playSound("Shing");
                     this.attackDuration = 2;
                     this.boss.state = 16;
                     break;
@@ -299,7 +299,7 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(24): {
-                    this.game.audioManager.playSound("HisouStab.wav");
+                    ASSET_MANAGER.playSound("HisouStab");
                     this.attackDuration = 4.5;
                     this.boss.state = 25;
                     break;

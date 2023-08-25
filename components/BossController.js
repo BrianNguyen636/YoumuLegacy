@@ -45,7 +45,7 @@ class BossController {
             this.antiGrav = false;
             this.game.timer.timerRun = false;
             this.game.combat = false
-            this.game.audioManager.playSound("KO.wav");
+            ASSET_MANAGER.playSound("KO");
             this.facePlayer();
             this.attack(deathState);
             this.xVelocity = (-1 + this.boss.facing * 2) * 400; 
@@ -53,7 +53,7 @@ class BossController {
         } else if (this.boss.state == deathState || this.boss.state == deathState + 1) {
             if (this.attackDuration <= 0) this.boss.state = deathState + 1;
             if (this.yVelocity >= 0 && this.boss.y == 700 - this.boss.yBoxOffset) {
-                this.game.audioManager.playSound("Thud.wav");
+                ASSET_MANAGER.playSound("Thud");
                 this.attack(deathState + 2);
                 this.xVelocity = 0;
             }

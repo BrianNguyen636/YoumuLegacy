@@ -4,6 +4,7 @@ class AssetManager {
         this.errorCount = 0;
         this.cache = [];
         this.downloadQueue = [];
+        this.volume = 0.3;
     };
 
     queueDownload(path) {
@@ -18,30 +19,103 @@ class AssetManager {
     downloadAll(callback) {
         if (this.downloadQueue.length === 0) setTimeout(callback, 10);
         for (let i = 0; i < this.downloadQueue.length; i++) {
-            const img = new Image();
-
             const path = this.downloadQueue[i];
             console.log(path);
 
-            img.addEventListener("load", () => {
-                console.log("Loaded " + img.src);
-                this.successCount++;
-                if (this.isDone()) callback();
-            });
+            let extension = path.substring(path.length-3);
+            switch(extension) {
+                case 'png':
+                case 'jpg':
+                    const img = new Image();
+                    img.addEventListener("load", () => {
+                        console.log("Loaded " + img.src);
+                        this.successCount++;
+                        if (this.isDone()) callback();
+                    });
+        
+                    img.addEventListener("error", () => {
+                        console.log("Error loading " + img.src);
+                        this.errorCount++;
+                        if (this.isDone()) callback();
+                    });
+        
+                    img.src = path;
+                    this.cache[path] = img;
+                    break;
+                case 'wav':
+                case 'mp3':
+                    const audio = new Audio();
+                    audio.addEventListener("loadeddata", () => {
+                        console.log("Loaded " + audio.src);
+                        this.successCount++;
+                        if (this.isDone()) callback();
+                    });
 
-            img.addEventListener("error", () => {
-                console.log("Error loading " + img.src);
-                this.errorCount++;
-                if (this.isDone()) callback();
-            });
-
-            img.src = path;
-            this.cache[path] = img;
+                    audio.addEventListener("error", () => {
+                        console.log("Error loading " + audio.src);
+                        this.errorCount++;
+                        if (this.isDone()) callback();
+                    });
+                    audio.addEventListener("ended", () => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    });
+                    audio.src = path;
+                    audio.load();
+                    audio.volume = this.volume;
+                    this.cache[path] = audio;
+                    break;
+            };
         }
     };
 
     getAsset(path) {
         return this.cache[path];
+    };
+
+    playAudio(path) {
+        let audio = this.cache[path];
+        audio.currentTime = 0;
+        audio.play();
+    };
+
+    playSound(name) {
+        this.playAudio("./assets/Audio/" + name + ".wav");
+    };
+    playBGM(name) {
+        // this.pauseBGM();
+        let path = "./assets/Audio/" + name + ".mp3";
+        this.playAudio(path);
+        this.autoRepeat(path);
+    };
+    pauseBGM() {
+        for (let key in this.cache) {
+            let asset = this.cache[key];
+            if (asset instanceof Audio) {
+                asset.pause();
+                asset.currentTime = 0;
+            }
+        }
+    };
+    autoRepeat(path) {
+        let aud = this.cache[path];
+        aud.addEventListener("ended",  () => {
+            aud.play();
+        });
+    };
+    stop(path) {
+        const audio = this.cache[path];
+        audio.pause()
+        audio.currentTime = 0;
+    }
+    adjustVolume(volume) {
+        this.volume = volume;
+        for (let key in this.cache) {
+            let asset = this.cache[key];
+            if (asset instanceof Audio) {
+                asset.volume = volume;
+            }
+        }
     };
 };
 

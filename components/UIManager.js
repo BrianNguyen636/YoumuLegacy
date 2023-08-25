@@ -173,8 +173,8 @@ class UIManager {
         ctx.fillText("Set Controls", 20, 500);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
         ctx.fillText("Set Volume", 20, 600);
-        let volume = this.game.audioManager.volume;
-        volume = Math.round(this.game.audioManager.volume * 100);
+        let volume = ASSET_MANAGER.volume;
+        volume = Math.round(ASSET_MANAGER.volume * 100);
         ctx.fillText(volume + "%", 620, 600);
         if (selected == 2) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
         ctx.fillText("Return", 20, 700);

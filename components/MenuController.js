@@ -9,10 +9,11 @@ class MenuController {
     goToMainMenu() {
         this.restart();
         this.game.startMenu = true;
-        this.game.audioManager.music.stop();
+        ASSET_MANAGER.pauseBGM();
     }
     restart() {
-        this.game.audioManager.playSound("Select.wav");
+        ASSET_MANAGER.pauseBGM();
+        ASSET_MANAGER.playSound("Select");
         this.game.reset();
     }
     optionSelection(optionCount) {
@@ -20,13 +21,13 @@ class MenuController {
             this.game.up = false;
             this.selected -= 1;
             if (this.selected < 0) this.selected = optionCount - 1;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
         }
         if (this.game.down) {
             this.game.down = false;
             this.selected += 1;
             if (this.selected > optionCount - 1) this.selected = 0;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
         }
     }
 
@@ -34,7 +35,7 @@ class MenuController {
         this.optionSelection(4);
         if (this.game.A && this.selected == 0) { //BOSS RUSH
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.game.selectedStage = this.selected;
             this.game.player.interacting = false;
             this.game.bossRush = true;
@@ -42,7 +43,7 @@ class MenuController {
         }
         if (this.game.A && this.selected == 1) { //STAGE 1
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.game.selectedStage = this.selected;
             this.game.player.interacting = false;
             this.game.bossRush = false;
@@ -50,7 +51,7 @@ class MenuController {
         }
         if (this.game.A && this.selected == 2) { //STAGE 2
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.game.selectedStage = this.selected;
             this.game.player.interacting = false;
             this.game.bossRush = false;
@@ -58,7 +59,7 @@ class MenuController {
         }
         if ((this.game.A && this.selected == 3)) { //END
             this.game.A = false;
-            this.game.audioManager.playSound("Cancel.wav");
+            ASSET_MANAGER.playSound("Cancel");
             this.game.player.interacting = false;
             this.selected = 0;
         }
@@ -69,13 +70,13 @@ class MenuController {
         this.optionSelection(2);
         if (this.game.A && this.selected == 0) { //END START MENU
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
-            this.game.audioManager.playBGM("StartTheme");
+            ASSET_MANAGER.playSound("Select");
+            ASSET_MANAGER.playBGM("StartTheme");
             this.game.startMenu = false;
         }
         if (this.game.A && this.selected == 1) {
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.optionsMenu();
             this.selected = 0;
         }
@@ -86,9 +87,9 @@ class MenuController {
         if ((this.game.A && this.selected == 0) || this.game.pauseButton) { //END PAUSE MENU
             if (this.game.pauseButton) this.game.pauseButton = false;
             if (this.game.A) this.game.A = false;
-            this.game.audioManager.playSound("Cancel.wav");
+            ASSET_MANAGER.playSound("Cancel");
             this.game.paused = false;
-            this.game.audioManager.music.play();
+            // this.game.audioManager.music.play();
             this.selected = 0;
         }
         if (this.game.A && this.selected == 1) { //RESTART
@@ -113,7 +114,7 @@ class MenuController {
         ];
         if (this.game.keyPress) {
             this.game.keyPress = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             if (!this.game.keybinds.has(this.game.key)) {
                 this.game.keybinds.set(this.game.key, controls[this.binding]);
                 this.binding += 1;
@@ -131,21 +132,21 @@ class MenuController {
         if (this.game.keyBinding) this.controlBinding();
         if (this.game.A && this.selected == 0) { //KEYBINDING
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.binding = 0;
             this.game.keyBinding = true;
             this.game.keybinds.clear();
         }
         if (this.game.A && this.selected == 1) { //DEFAULT
             this.game.A = false;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
             this.game.keybinds.clear();
             this.game.defaultKeybinds();
         }
         if ((this.game.A && this.selected == 2) || this.game.pauseButton) { //RETURN
             if (this.game.A) this.game.A = false;
             if (this.game.pauseButton) this.game.pauseButton = false;
-            this.game.audioManager.playSound("Cancel.wav");
+            ASSET_MANAGER.playSound("Cancel");
             this.controls = false;
             this.selected = 0;
         }
@@ -158,24 +159,24 @@ class MenuController {
             this.A = false;
             this.controls = true;
             this.selected = -1;
-            this.game.audioManager.playSound("Select.wav");
+            ASSET_MANAGER.playSound("Select");
         }
         if (this.selected == 1) { //VOLUME
             if(this.game.left) {
                 this.game.left = false;
-                if (this.game.audioManager.volume >= 0.1) this.game.audioManager.volume = this.game.audioManager.volume - 0.1;
-                this.game.audioManager.playSound("Select.wav");
+                if (ASSET_MANAGER.volume >= 0.1) ASSET_MANAGER.adjustVolume(ASSET_MANAGER.volume - 0.1);
+                ASSET_MANAGER.playSound("Select");
             }
             if (this.game.right) {
                 this.game.right = false;
-                if (this.game.audioManager.volume <= 0.9) this.game.audioManager.volume = this.game.audioManager.volume + 0.1;
-                this.game.audioManager.playSound("Select.wav");
+                if (ASSET_MANAGER.volume <= 0.9) ASSET_MANAGER.adjustVolume(ASSET_MANAGER.volume + 0.1);
+                ASSET_MANAGER.playSound("Select");
             }
         }
         if ((this.game.A && this.selected == 2) || this.game.pauseButton) { //RETURN
             if (this.game.A) this.game.A = false;
             if (this.game.pauseButton) this.game.pauseButton = false;
-            this.game.audioManager.playSound("Cancel.wav");
+            ASSET_MANAGER.playSound("Cancel");
             this.options = false;
             this.selected = 1;
         }

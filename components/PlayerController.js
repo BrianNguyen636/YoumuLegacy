@@ -39,7 +39,7 @@ class PlayerController {
         this.doublejump = true;
         if (side < 0) this.xVelocity = -800;
         else this.xVelocity = 800;
-        this.game.audioManager.playSound("Hurt.wav");
+        ASSET_MANAGER.playSound("Hurt");
     }
 
     updateState() {
@@ -56,11 +56,12 @@ class PlayerController {
                 this.player.state = 9;
                 this.player.animations[this.player.facing][9].resetFrames();
                 this.jumpDuration = this.player.animations[this.player.facing][9].totalTime - this.game.clockTick;
-                this.game.audioManager.playSound("Thud.wav");
+                ASSET_MANAGER.playSound("Thud");
+                
             }
         } else if (this.player.state == 6) {
             if (this.player.health <= 0) {
-                this.game.audioManager.playSound("KO.wav");
+                ASSET_MANAGER.playSound("KO");
                 this.player.state = 7;
                 this.dashing = false;
                 this.player.animations[this.player.facing][7].resetFrames();
@@ -95,7 +96,7 @@ class PlayerController {
                     this.player.state = 4;
                     this.player.animations[this.player.facing][4].resetFrames();
                     this.dashDuration = this.player.animations[this.player.facing][4].totalTime;
-                    this.game.audioManager.playSound("Whoosh.wav");
+                    ASSET_MANAGER.playSound("Whoosh");
                 }
             }
             if (this.game.B) {
@@ -103,7 +104,7 @@ class PlayerController {
                 this.player.state = 5;
                 this.player.animations[this.player.facing][5].resetFrames();
                 this.attackDuration = this.player.animations[this.player.facing][5].totalTime;
-                this.game.audioManager.playSound("Swing.wav");
+                ASSET_MANAGER.playSound("Swing");
             }
             if (this.yVelocity != 0) this.airborne = true;
             if (this.airborne) {  //Airborne
@@ -120,7 +121,7 @@ class PlayerController {
                 if (this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL
                     this.fastFall = true;
                     this.fastFallHold = true;
-                    this.game.audioManager.playSound("Swish.wav");
+                    ASSET_MANAGER.playSound("Swish");
                     // this.game.addEntity(new Effect(this.player.BB.midX - 75, this.player.BB.y, "Youmu", 2, this.game));
                 }
             } else { //Grounded

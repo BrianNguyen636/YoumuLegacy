@@ -1,12 +1,15 @@
 IMPLEMENT
 - Add lifetime to Effects
+- Controller support
 
-TENSHI ATTACKS
--jumps
--Kick bouncing keystone top
--Triple slash
--Fullscreen slash
-	-FIX KNOCKBACK INTERACTION
--Summon pillars
--Keystone Ground pound
--Drop Keystones
+Reisen Attacks
+- Teleport punch / divekick
+- Midscreen rotating bullet stream
+- Midscreen 360 bullet spreads
+- Aimed shots
+- Telegraphed ricochet shot/laser 
+
+Okuu Attacks
+- Rush from side of screen
+- Gravity pull with bullet spreads
+- 

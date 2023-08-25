@@ -12,7 +12,7 @@ class Pillar extends Projectile {
             this.game.addEntity(new Effect(this.x - 12, this.y - 60, "Tenshi", 3, this.game));
             this.timer = 0.7;
         } else if (this.timer < 0 && this.y > 700 - 583) {
-            if (this.yVelocity == 0) this.game.audioManager.playSound("Pillar.wav");
+            if (this.yVelocity == 0) ASSET_MANAGER.playSound("Pillar");
             this.yVelocity = -500000 * this.game.clockTick;
             this.elevation = (700 - this.y) / 583; 
         } else if (this.y <= 700 - 583) {
