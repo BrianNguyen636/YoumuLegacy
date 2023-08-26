@@ -109,7 +109,7 @@ class PlayerController {
             if (this.yVelocity != 0) this.airborne = true;
             if (this.airborne) {  //Airborne
                 if (this.jumpDuration > 0) this.player.state = 2; // Jumping
-                if (this.jumpDuration < 0) this.player.state = 3; // Falling
+                if (this.jumpDuration <= 0) this.player.state = 3; // Falling
                 if (!this.game.down) this.fastFallHold = false;
                 if (!this.game.right || !this.game.left) { //SOCD
                     if (this.game.right) {

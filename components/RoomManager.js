@@ -31,6 +31,11 @@ class RoomManager {
             }
             case(3): {
                 this.newStage(stage);
+                this.game.player.x = 100;
+                this.game.player.y = -200;
+                this.game.ghost.x = 0;
+                this.game.ghost.y = -200;
+                this.game.player.state = 3;
                 this.game.addEntity(new Okuu(this.game));
                 ASSET_MANAGER.playBGM("OkuuTheme");
                 this.game.uiManager.bgmTitle = "~xi-on~ - Nuclear Fusion"

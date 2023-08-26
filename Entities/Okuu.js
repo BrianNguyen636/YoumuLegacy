@@ -2,7 +2,7 @@ class Okuu extends Character {
     constructor(game) {
         super("boss", "Okuu", game,
             250, 200, 90*1.5, 167*1.5,
-            600, 700 - 167*1.5,
+            700, 700 - 167*1.5,
             50
         );
         this.facing = 1;
