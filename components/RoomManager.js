@@ -53,7 +53,6 @@ class RoomManager {
 
     newStage(stage) {
         this.game.combat = true;
-        console.log(this.game.combat);
         this.stage = stage;
         this.game.player.health = 5;
         this.game.player.x = 0;

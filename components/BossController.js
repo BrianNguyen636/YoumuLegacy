@@ -10,6 +10,8 @@ class BossController {
         this.lastLastRoll = null;
         this.yVelocity = 0;
         this.xVelocity = 0;
+        this.shotTimer = 0;
+        this.shotCount = 0;
         this.facePlayer();
     };
 
@@ -61,6 +63,16 @@ class BossController {
             this.boss.state = deathState + 3;
         }
     };
+    sideCollisions(){
+        if (this.boss.BB.x <= 0) { //LEFT COLLISION
+            let offset = this.boss.BB.x - this.boss.x
+            this.boss.x = 0 - offset;
+        }
+        if (this.boss.BB.right >= 1280) { //RIGHT COLLISION
+            let offset = this.boss.BB.x - this.boss.x
+            this.boss.x = 1280 - offset - this.boss.BB.width;
+        }
+    }
 
     update() {
         if (this.timer > 0) this.timer -= this.game.clockTick;
@@ -75,14 +87,7 @@ class BossController {
             this.boss.y = 700 - this.boss.yBoxOffset;
             this.yVelocity = 0;
         }
-        if (this.boss.BB.x <= 0) { //LEFT COLLISION
-            let offset = this.boss.BB.x - this.boss.x
-            this.boss.x = 0 - offset;
-        }
-        if (this.boss.BB.right >= 1280) { //RIGHT COLLISION
-            let offset = this.boss.BB.x - this.boss.x
-            this.boss.x = 1280 - offset - this.boss.BB.width;
-        }
+        this.sideCollisions();
 
         if (!this.boss.dead()) {
             this.behavior();

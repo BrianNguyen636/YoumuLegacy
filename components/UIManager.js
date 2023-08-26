@@ -124,9 +124,16 @@ class UIManager {
             ctx.font = "40px arial";
             ctx.fillStyle = "white";
             ctx.strokeStyle = "black";
-            ctx.fillText(time + "s", 600, 100);
-            ctx.strokeText(time + "s", 600, 100);
-        
+            if ((time * 100) % 100 == 0) {
+                ctx.fillText(time + ".00s", 600, 100);
+                ctx.strokeText(time + ".00s", 600, 100);
+            } else if ((time * 100) % 10 == 0) {
+                ctx.fillText(time + "0s", 600, 100);
+                ctx.strokeText(time + "0s", 600, 100);
+            } else {
+                ctx.fillText(time + "s", 600, 100);
+                ctx.strokeText(time + "s", 600, 100);
+            }
     }
     
     drawBossHealthBar(ctx) {

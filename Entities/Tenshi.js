@@ -8,7 +8,7 @@ class Tenshi extends Character {
         this.controller = new TenshiController(this, game);
         this.facing = 1;
         this.state = 20;
-        this.controller.attackDuration = 3;
+        this.controller.attackDuration = 10;
     };
 
     loadAnimations() {

@@ -29,13 +29,6 @@ class TenshiController extends BossController {
                     this.xVelocity = (1 - this.boss.facing * 2) * 500;
                     break;
                 }
-                // case(1): {
-                //     this.attack(1);
-                //     this.game.audioManager.playSound("Whoosh.wav");
-                //     this.yVelocity = -700;
-                //     this.xVelocity = -(1 - this.boss.facing * 2) * 600;
-                //     break;
-                // }
                 case(1): {
                     this.attack(4);
                     ASSET_MANAGER.playSound("Shing");
@@ -153,21 +146,22 @@ class TenshiController extends BossController {
                     break;
                 }
                 case(16): {
-                    if (!this.effectSpawn && ((this.attackDuration < 1.5 && this.attackDuration > 1)
-                        || (this.attackDuration < 0.5))) {
-                        for (let i = 0; i < 6; i++) {
-                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 + 250 * i, -90, this.game));
-                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 250 * i, -90, this.game));
+                    if (this.shotTimer <= 0 && this.shotCount < 3) {
+                        if (this.shotCount % 2 == 0) {
+                            for (let i = 0; i < 6; i++) {
+                                this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 + 250 * i, -90, this.game));
+                                this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 250 * i, -90, this.game));
+                            }
+                        } else {
+                            for (let i = 0; i < 6; i++) {
+                                this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 + 250 * i, -90, this.game));
+                                this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 250 * i, -90, this.game));
+                            }
                         }
-                        this.effectSpawn = true;
+                        this.shotCount++;
+                        this.shotTimer = 0.5
                     }
-                    if (this.effectSpawn && this.attackDuration < 1 && this.attackDuration > 0.5) {
-                        for (let i = 0; i < 6; i++) {
-                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 + 250 * i, -90, this.game));
-                            this.game.addEntity(new Keystone(this.boss.BB.midX - 22 - 48 - 250 * i, -90, this.game));
-                        }
-                        this.effectSpawn = false;
-                    }
+                    this.shotTimer -= this.game.clockTick;
                     Keystone.setSfxPlayed(false);
                     break;
                 }
@@ -178,7 +172,7 @@ class TenshiController extends BossController {
                         this.antiGrav = false;
                         ASSET_MANAGER.playSound("Rock");
                     }
-                    if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0.8)) {
+                    if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0)) {
                         for (let i = 0; i < 2; i++) {
                             let stoneR = new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90 - 120 * i, this.game);
                             stoneR.gravity = 5000;
@@ -190,18 +184,15 @@ class TenshiController extends BossController {
                         Keystone.setSfxPlayed(false);
                         this.effectSpawn = true;
                     }
+                    break;
                 }
                 case(25): {
-                    if (!this.effectSpawn && ((this.attackDuration < 4 && this.attackDuration > 3.25) ||
-                        (this.attackDuration < 2.5 && this.attackDuration > 1.75) || (this.attackDuration < 1 && this.attackDuration > 0.25))) {
+                    if (this.shotTimer <= 0 && this.shotCount < 5) {
                         this.game.addEntity(new Pillar(this.game.player.BB.midX - 3 - 72, this.attackDuration, this.game));
-                        this.effectSpawn = true;
-                    }
-                    if (this.effectSpawn && ((this.attackDuration < 3.25  && this.attackDuration > 2.5 ) ||
-                        (this.attackDuration < 1.75 && this.attackDuration > 1))) {
-                        this.game.addEntity(new Pillar(this.game.player.BB.midX - 3 - 72, this.attackDuration, this.game));
-                        this.effectSpawn = false;
-                    }
+                        this.shotTimer = 0.75;
+                        this.shotCount++;
+                    } 
+                    this.shotTimer -= this.game.clockTick;
                     break;
                 }
             }
@@ -266,6 +257,7 @@ class TenshiController extends BossController {
                 case(15): {
                     ASSET_MANAGER.playSound("Shing");
                     this.attackDuration = 2;
+                    this.shotTimer = 0.5;
                     this.boss.state = 16;
                     break;
                 }
@@ -301,6 +293,7 @@ class TenshiController extends BossController {
                 case(24): {
                     ASSET_MANAGER.playSound("HisouStab");
                     this.attackDuration = 4.5;
+                    this.shotTimer = 0.5;
                     this.boss.state = 25;
                     break;
                 }
@@ -313,6 +306,8 @@ class TenshiController extends BossController {
                     this.boss.state = 0;
                     this.xVelocity = 0;
                     this.effectSpawn = false;
+                    this.shotCount = 0;
+                    this.shotTimer = 0;
                 }
             }
         }

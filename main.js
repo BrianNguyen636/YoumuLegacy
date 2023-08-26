@@ -15,6 +15,8 @@ ASSET_MANAGER.queueDownload("./assets/TenshiProjectiles.png");
 ASSET_MANAGER.queueDownload("./assets/TenshiEffects.png");
 ASSET_MANAGER.queueDownload("./assets/OkuuSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/OkuuSpritesheetFlip.png");
+ASSET_MANAGER.queueDownload("./assets/OkuuProjectiles.png");
+ASSET_MANAGER.queueDownload("./assets/OkuuEffects.png");
 
 ASSET_MANAGER.queueDownload("./assets/YuyukoSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/YuyukoPortrait.png");
@@ -53,6 +55,8 @@ ASSET_MANAGER.queueDownload("./assets/Audio/HisouSlash.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/HisouStab.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Rock.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Pillar.wav");
+
+ASSET_MANAGER.queueDownload("./assets/Audio/Boom.wav");
 
 
 ASSET_MANAGER.downloadAll(() => {
