@@ -29,11 +29,13 @@ class RoomManager {
                 this.game.uiManager.bgmTitle = "Tenjou no Tempest - Main Menu"
                 break;
             }
-            // case(3): {
-            //     this.newStage(stage);
-            //     this.game.uiManager.bgmTitle = "Nuclear Fusion"
-            //     break;
-            // }
+            case(3): {
+                this.newStage(stage);
+                this.game.addEntity(new Okuu(this.game));
+                ASSET_MANAGER.playBGM("OkuuTheme");
+                this.game.uiManager.bgmTitle = "~xi-on~ - Nuclear Fusion"
+                break;
+            }
             default: {
                 this.game.paused = true;
                 this.game.victory = true;

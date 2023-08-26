@@ -26,7 +26,8 @@ class UIManager {
         let stages = [
             "Boss Rush",
             "SDM",
-            "Heaven"
+            "Heaven",
+            "Hell"
         ];
         if (this.game.roomManager.stage == 0) {
             ctx.fillStyle = "yellow";
@@ -221,9 +222,9 @@ class UIManager {
             "On a journey.",
             "To the Scarlet Devil Mansion.",
             "To Bhava-agra.",
+            "To the Hell Geyser",
             "I'll stay here for now."
         ];
-                    // "To the Hell Geyser",
         ctx.strokeStyle = "black";
         for (let i = 0; i < options.length; i++) {
             if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
