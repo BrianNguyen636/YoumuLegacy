@@ -31,7 +31,12 @@ class Okuu extends Character {
         this.makeAnimation(15, 4, 2, 1, 1);
         this.makeAnimation(16, 4, 3, 5, 12);
         this.makeAnimation(17, 4, 4, 4, 12);
-
+        //NOVA
+        this.makeAnimation(18, 5, 0, 2, 15);
+        this.makeAnimation(19, 5, 2, 2, 10);
+        this.makeAnimation(20, 5, 4, 5, 10);
+        this.makeAnimation(21, 5, 9, 3, 12);
+        this.makeAnimation(22, 5, 12, 3, 15);
         //KNOCKBACK
         this.makeAnimation(40, 8, 0, 8, 15);
         this.makeAnimation(41, 8, 5, 3, 10);

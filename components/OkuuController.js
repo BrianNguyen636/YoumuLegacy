@@ -2,7 +2,7 @@ class OkuuController extends BossController {
     constructor(boss, game) {
         super(boss, game, 40);
         this.timer = 0.5;
-        this.gravity = 1500;
+        // this.gravity = 2000;
     };
     setBossTime() {
         this.game.okuuTime = Math.round((this.game.timer.gameTime - this.game.tenshiTime) * 100) / 100;
@@ -37,15 +37,14 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            
-            // let roll = this.rollForAttack(2);
-            // switch(roll) {
-            //     case(0): {this.attack(4); break; }
-            //     case(1): {this.attack(9); break; }
-            //     case(2): {this.attack(14); break; }
-            // }
-
-
+            // this.attack(18);
+            let roll = this.rollForAttack(4);
+            switch(roll) {
+                case(0): {this.attack(4); break; }
+                case(1): {this.attack(9); break; }
+                case(2): {this.attack(14); break; }
+                case(3): {this.attack(18); break; }
+            }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -100,6 +99,37 @@ class OkuuController extends BossController {
                     this.shotTimer -= this.game.clockTick;
 
                     if (this.shotCount > 2 && this.shotTimer <= -0.75) this.attackDuration = 0;
+                    break;
+                }
+                case(19): {
+                    if (this.attackDuration < 1) this.yVelocity -= 800 * this.game.clockTick;
+                    break;
+                }
+                case(21): {
+                    let projSpeed = 700;
+                    if (this.shotTimer <= 0) {
+                        let roll = Math.floor(Math.random() * 18);
+                        ASSET_MANAGER.playSound("Spray");
+                        let angle;
+                        if (this.shotCount % 2 == 0) {
+                            let roll = Math.floor(Math.random() * 18);
+                            angle = this.shotCount * 20;
+                        } else {
+                            let roll = Math.floor(Math.random() * 18);
+                            angle = 180 - this.shotCount * 20; 
+                        }
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                            80, 80, 40, 40, projSpeed, 0 - this.shotCount * 20, null, "Okuu", 1, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                            80, 80, 40, 40, projSpeed, 180 + this.shotCount * 20, null, "Okuu", 1, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                                80, 80, 40, 40, projSpeed, 180 - 10 - this.shotCount * 20, null, "Okuu", 1, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                                80, 80, 40, 40, projSpeed, 0 + 10 + this.shotCount * 20, null, "Okuu", 1, this.game));
+                        this.shotTimer = 0.05;
+                        this.shotCount++;
+                    } 
+                    this.shotTimer -= this.game.clockTick;
                     break;
                 }
             }
@@ -178,6 +208,32 @@ class OkuuController extends BossController {
                         this.xVelocity = -300;
                     }
                     this.attack(1);
+                    break;
+                }
+                case(18): {
+                    this.antiGrav = true;
+                    this.attackDuration = 1.3;
+                    this.boss.state = 19;
+                    break;
+                }
+                case(19): {
+                    this.yVelocity = 0;
+                    this.attack(20);
+                    break;
+                }
+                case(20): {
+                    this.attackDuration = 2;
+                    this.boss.state = 21;
+                    break;
+                }
+                case(21): {
+                    this.antiGrav = false;
+                    this.attack(22);
+                    break;
+                }
+                case(22): {
+                    this.boss.state = 2;
+                    this.attackDuration = 2;
                     break;
                 }
                 default: {
