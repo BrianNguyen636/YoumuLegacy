@@ -108,16 +108,7 @@ class OkuuController extends BossController {
                 case(21): {
                     let projSpeed = 700;
                     if (this.shotTimer <= 0) {
-                        let roll = Math.floor(Math.random() * 18);
                         ASSET_MANAGER.playSound("Spray");
-                        let angle;
-                        if (this.shotCount % 2 == 0) {
-                            let roll = Math.floor(Math.random() * 18);
-                            angle = this.shotCount * 20;
-                        } else {
-                            let roll = Math.floor(Math.random() * 18);
-                            angle = 180 - this.shotCount * 20; 
-                        }
                         this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
                             80, 80, 40, 40, projSpeed, 0 - this.shotCount * 20, null, "Okuu", 1, this.game));
                         this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
