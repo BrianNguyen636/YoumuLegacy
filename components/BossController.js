@@ -10,6 +10,7 @@ class BossController {
         this.lastLastRoll = null;
         this.yVelocity = 0;
         this.xVelocity = 0;
+        this.gravity = 2000;
         this.shotTimer = 0;
         this.shotCount = 0;
         this.facePlayer();
@@ -64,12 +65,11 @@ class BossController {
         }
     };
     sideCollisions(){
+        let offset = this.boss.BB.x - this.boss.x
         if (this.boss.BB.x <= 0) { //LEFT COLLISION
-            let offset = this.boss.BB.x - this.boss.x
             this.boss.x = 0 - offset;
         }
         if (this.boss.BB.right >= 1280) { //RIGHT COLLISION
-            let offset = this.boss.BB.x - this.boss.x
             this.boss.x = 1280 - offset - this.boss.BB.width;
         }
     }
@@ -78,7 +78,7 @@ class BossController {
         if (this.timer > 0) this.timer -= this.game.clockTick;
         if (this.attackDuration > 0) this.attackDuration -= this.game.clockTick;
 
-        if (!this.antiGrav) this.yVelocity += 2000 * this.game.clockTick; //Gravity
+        if (!this.antiGrav) this.yVelocity += this.gravity * this.game.clockTick; //Gravity
 
         this.boss.y += this.yVelocity * this.game.clockTick; 
         this.boss.x += this.xVelocity * this.game.clockTick;

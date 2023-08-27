@@ -11,7 +11,9 @@ class Okuu extends Character {
     loadAnimations() {
         //IDLE
         this.makeAnimation(0, 0, 1, 23, 12);
-
+        //FALLING
+        this.makeAnimation(1, 1, 0, 6, 15);
+        this.makeAnimation(2, 1, 5, 1, 1);
         //SLAM
         this.makeAnimation(4, 2, 0, 3, 15);
         this.makeAnimation(5, 2, 1, 2, 10);
@@ -24,6 +26,11 @@ class Okuu extends Character {
         this.makeAnimation(11, 3, 5, 4, 15);
         this.makeAnimation(12, 3, 8, 2, 10);
         this.makeAnimation(13, 3, 9, 4, 10);
+        //RUSH
+        this.makeAnimation(14, 4, 0, 3, 15);
+        this.makeAnimation(15, 4, 2, 1, 1);
+        this.makeAnimation(16, 4, 3, 5, 12);
+        this.makeAnimation(17, 4, 4, 4, 12);
 
         //KNOCKBACK
         this.makeAnimation(40, 8, 0, 8, 15);

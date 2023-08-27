@@ -59,7 +59,7 @@ class TenshiController extends BossController {
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
                 case(1, 2): {
-                    if (this.yVelocity == 0) {
+                    if (this.yVelocity >= 0 && this.boss.y == 700 - this.boss.yBoxOffset) {
                         this.attackDuration = 0;
                         this.xVelocity = 0;
                     }
