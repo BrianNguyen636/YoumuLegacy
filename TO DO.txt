@@ -9,10 +9,21 @@ Reisen Attacks
 - Aimed shots
 - Telegraphed ricochet shot/laser 
 
+Cirno Attacks
+- Walks at you
+- Rush
+- Aimed lobs
+- Spinning bullet spread
+- Aimed spread shot
+- Headbutt
+
 Okuu Attacks
-- Eagle rushes from sides of screen
+
+DONE:
+- Eagle rushes from sides of screen 
 - Rapid bullet burst
-- Melee swing into uppercut into air projectile spread
+- Flame pillars
+PLANNED:
+- Melee swing into something else
 - Flying projectile rain
 - Magnetize into bullet spreads
-- Flame pillars

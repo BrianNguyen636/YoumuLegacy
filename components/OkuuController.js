@@ -2,6 +2,7 @@ class OkuuController extends BossController {
     constructor(boss, game) {
         super(boss, game, 40);
         this.timer = 0.5;
+        this.antiCollision = false;
         // this.gravity = 2000;
     };
     setBossTime() {
@@ -23,7 +24,7 @@ class OkuuController extends BossController {
         this.shotTimer -= this.game.clockTick;
     }
     sideCollisions(){
-        if (this.boss.state > 2 && this.boss.state < 16 || this.boss.state > 17) {
+        if (!this.antiCollision) {
             let offset = this.boss.BB.x - this.boss.x
             if (this.boss.BB.x <= 0) { //LEFT COLLISION
                 this.boss.x = 0 - offset;
@@ -37,19 +38,23 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            // this.attack(18);
-            let roll = this.rollForAttack(4);
-            switch(roll) {
-                case(0): {this.attack(4); break; }
-                case(1): {this.attack(9); break; }
-                case(2): {this.attack(14); break; }
-                case(3): {this.attack(18); break; }
-            }
+            this.attackDuration = 0.5;
+            this.boss.state = 23;
+            this.antiGrav = true;
+
+            // let roll = this.rollForAttack(4);
+            // switch(roll) {
+            //     case(0): {this.attack(4); break; }
+            //     case(1): {this.attack(9); break; }
+            //     case(2): {this.attack(14); break; }
+            //     case(3): {this.attack(18); break; }
+            // }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
                 case(1):
                 case(2): {
+                    this.gravity = 1500;
                     if (this.yVelocity >= 0 && this.boss.y == 700 - this.boss.yBoxOffset) {
                         this.attackDuration = 0;
                         this.xVelocity = 0;
@@ -123,6 +128,19 @@ class OkuuController extends BossController {
                     this.shotTimer -= this.game.clockTick;
                     break;
                 }
+                // case(23): {
+                //     if (this.attackDuration < 0.8) this.yVelocity -= 800 * this.game.clockTick;
+                //     break;
+                // }
+                case(24): {
+                    if (this.attackDuration > 1) this.yVelocity -= 800 * this.game.clockTick;
+                    this.xVelocity += (1 - this.boss.facing * 2) * 1500 * this.game.clockTick; 
+                    break;
+                }
+                case(25): {
+                    this.xVelocity -= (1 - this.boss.facing * 2) * 1500 * this.game.clockTick; 
+                    break;
+                }
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -174,6 +192,7 @@ class OkuuController extends BossController {
                     break;
                 }
                 case(15): {
+                    this.antiCollision = true;
                     this.attack(16);
                     ASSET_MANAGER.playSound("Fly");
                     this.shotTimer = 1;
@@ -222,12 +241,35 @@ class OkuuController extends BossController {
                     this.attack(22);
                     break;
                 }
-                case(22): {
+                case(22):
+                case(26): {
                     this.boss.state = 2;
                     this.attackDuration = 2;
                     break;
                 }
+                case(23): {
+                    this.antiCollision = true;
+                    this.attackDuration = 1.5;
+                    this.boss.state = 24;
+                    break;
+                }
+                case(24): {
+                    this.xVelocity = 0;
+                    this.yVelocity = 0;
+                    this.attackDuration = 1.5;
+                    this.boss.state = 25;
+                    break;
+                }
+                case(25): {
+                    this.xVelocity = this.xVelocity / 4;
+                    this.antiCollision = false;
+                    this.antiGrav = false;
+                    this.attack(26);
+                    break;
+                }
                 default: {
+                    this.antiCollision = false;
+                    this.gravity = 2000;
                     this.timer =  0.7;
                     this.boss.state = 0;
                     this.xVelocity = 0;
