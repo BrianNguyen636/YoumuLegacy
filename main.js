@@ -58,6 +58,8 @@ ASSET_MANAGER.queueDownload("./assets/Audio/Pillar.wav");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Boom.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Okuu1.wav");
+ASSET_MANAGER.queueDownload("./assets/Audio/Okuu2.wav");
+ASSET_MANAGER.queueDownload("./assets/Audio/Okuu3.wav");
 
 
 ASSET_MANAGER.downloadAll(() => {

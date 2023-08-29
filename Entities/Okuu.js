@@ -3,7 +3,7 @@ class Okuu extends Character {
         super("boss", "Okuu", game,
             250, 200, 90*1.5, 167*1.5,
             700, 700 - 167*1.5,
-            1
+            50
         );
         this.controller = new OkuuController(this, game);
         this.facing = 1;
@@ -51,6 +51,14 @@ class Okuu extends Character {
     };
     updateBB() {
         switch(this.state) {
+            case 16:
+            case 17: {
+                if (this.facing == 0) {
+                    this.BB = new BoundingBox(this.x + 70* 1.5, this.y + 75* 1.5, 101* 1.5, 81* 1.5); break;
+                } else {
+                    this.BB = new BoundingBox(this.x + 79* 1.5, this.y + 75* 1.5, 101* 1.5, 81* 1.5); break;
+                }
+            }
             default: 
                 if (this.facing == 0) {
                     this.BB = new BoundingBox(this.x + 90* 1.5, this.y + 59* 1.5, 60* 1.5, 108* 1.5); break;

@@ -23,6 +23,18 @@ class OkuuController extends BossController {
         }
         this.shotTimer -= this.game.clockTick;
     }
+    magnetize(speed) {
+        let xTarget = this.boss.BB.midX;
+        let yTarget = this.boss.BB.bottom;
+        let xDiff = xTarget - this.game.player.x;
+        let yDiff = yTarget - this.game.player.y;
+        let distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+        this.xTrajectory = xDiff / distance;
+        this.yTrajectory = yDiff / distance;
+        this.game.player.x += this.xTrajectory * speed * this.game.clockTick;
+        if (!this.game.player.dead() && !this.game.player.controller.dashing)
+        this.game.player.y += this.yTrajectory * speed * this.game.clockTick;
+    }
     flightShots() {
         let projSpeed = 700;
         if (this.shotTimer <= 0 && (this.boss.BB.x > 0 - 100 && this.boss.BB.right < 1280 + 100)) {
@@ -50,20 +62,20 @@ class OkuuController extends BossController {
             this.facePlayer();
 
 
-
-            let roll = this.rollForAttack(5);
-            switch(roll) {
-                case(0): {this.attack(4); break; }
-                case(1): {this.attack(9); break; }
-                case(2): {this.attack(14); break; }
-                case(3): {this.attack(18); break; }
-                case(4): {
-                    this.attackDuration = 0.5;
-                    this.boss.state = 23;
-                    this.antiGrav = true;
-                    break;
-                }
-            }
+            this.attack(9);
+            // let roll = this.rollForAttack(5);
+            // switch(roll) {
+            //     case(0): {this.attack(4); break; }
+            //     case(1): {this.attack(9); break; }
+            //     case(2): {this.attack(14); break; }
+            //     case(3): {this.attack(18); break; }
+            //     case(4): {
+            //         this.attackDuration = 0.5;
+            //         this.boss.state = 23;
+            //         this.antiGrav = true;
+            //         break;
+            //     }
+            // }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -86,17 +98,40 @@ class OkuuController extends BossController {
                     this.firePillars();
                     break;
                 }
-                case(12): {
-                    let projSpeed = 650;
-                    if (this.shotTimer <= 0) {
-                        ASSET_MANAGER.playSound("Spray");
-                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
-                            60, 60, 80, 80, projSpeed, 40 * this.shotCount, null, "Okuu", 0, this.game));
-                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
-                            60, 60, 80, 80, projSpeed, 180 - 40 * this.shotCount, null, "Okuu", 0, this.game));
-                        this.shotTimer = 0.075;
+                case(10): {
+                    let projSpeed = 800;
+                    if (this.shotTimer <= 0 && this.shotCount < 3) {
+                        ASSET_MANAGER.playSound("Okuu2");
+                        let hypotenuse = 1280 / Math.sqrt(2);
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 - 1280, this.boss.BB.midY - 100, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 + 1280, this.boss.BB.midY - 100, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100, this.boss.BB.midY - 100 - 1280, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 - hypotenuse, this.boss.BB.midY - 100 - hypotenuse, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 + hypotenuse, this.boss.BB.midY - 100 - hypotenuse, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 - hypotenuse, this.boss.BB.midY - 100 + hypotenuse, projSpeed, this.boss));
+                        this.game.addEntity(new Particle(this.boss.BB.midX - 100 + hypotenuse, this.boss.BB.midY - 100 + hypotenuse, projSpeed, this.boss));
+                        this.shotTimer = 0.75;
                         this.shotCount++;
-                    } 
+                    }
+                    this.shotTimer -= this.game.clockTick;
+                    this.magnetize(300);
+                    break;
+                }
+                case(12): {
+                    let projSpeed = 800;
+                    if (this.shotTimer <= 0 && this.shotCount < 5) {
+                        ASSET_MANAGER.playSound("Okuu3");
+                        for (let i = 0; i < 8; i++) {
+                            if (this.shotCount % 2 == 0)
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                                    70, 70, 60, 60, projSpeed, 45 * i, null, "Okuu", 0, this.game));
+                            else
+                                this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
+                                    70, 70, 60, 60, projSpeed, -22.5 + 45 * i, null, "Okuu", 0, this.game));
+                        }
+                        this.shotTimer = 0.2;
+                        this.shotCount++;
+                    }
                     this.shotTimer -= this.game.clockTick;
                     break;
                 }
@@ -172,9 +207,14 @@ class OkuuController extends BossController {
                 case(6): { this.attack(7, 1); break;}
                 case(7): { this.attack(8, null); break;}
 
-                case(9): { this.attack(10, 0.7); break;}
+                case(9): { this.attack(10, 3.5); break;}
                 case(10): { this.attack(11); break;}
-                case(11): { this.attack(12, 1.5); break;}
+                case(11): { 
+                    this.attack(12, 1); 
+                    this.shotCount = 0;
+                    this.shotTimer = 0;
+                    break;
+                }
                 case(12): { this.attack(13, null); break;}
 
                 case(14): { this.attack(15, 0.5); break; }

@@ -2,8 +2,6 @@ IMPLEMENT
 - Add lifetime to Effects
 - Controller support
 
-----REFACTOR BOSS CONTROLLERS WITH NEW ATTACK FUNCTION----
-
 Reisen Attacks
 - Teleport punch / divekick
 - Midscreen rotating bullet stream
