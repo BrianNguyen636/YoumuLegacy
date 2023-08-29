@@ -34,14 +34,8 @@ class TenshiController extends BossController {
                     ASSET_MANAGER.playSound("Shing");
                     break;
                 }
-                case(2): {
-                    this.attackDuration = 0.4;
-                    this.boss.state = 8;
-                    break;
-                } 
-                case(3): {
-                    this.attack(15); break;
-                }
+                case(2): { this.attack(8, 0.4); break; } 
+                case(3): { this.attack(15); break; }
                 case(4): {
                     this.attack(18);
                     ASSET_MANAGER.playSound("Whoosh");
@@ -199,11 +193,7 @@ class TenshiController extends BossController {
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
             switch(this.boss.state) {
-                case(1): {
-                    this.attackDuration = 10;
-                    this.boss.state = 2;
-                    break;
-                }
+                case(1): { this.attack(2, 10); break; }
                 case(2): {
                     ASSET_MANAGER.playSound("Thud");
                     this.attack(3);
@@ -214,57 +204,34 @@ class TenshiController extends BossController {
                     ASSET_MANAGER.playSound("HisouSlash");
                     break;
                 }
-                case(5): {
-                    this.attackDuration = 0.1;
-                    this.boss.state = 6;
-                    break;
-                }
-                case(6): { //SLASH WAVE RECOVERY
-                    this.attack(7);
-                    break;
-                }
+                case(5): { this.attack(6, 0.1); break; }
+                case(6): { this.attack(7); break; }
                 //TRIPLE SLASHES
                 case(8): {
                     this.facePlayer();
                     this.attack(9);
                     break;
                 }
-                case(9): {
-                    this.attackDuration = 0.1;
-                    this.boss.state = 10;
-                    break;
-                }
+                case(9): { this.attack(10, 0.1); break; }
                 case(10): {
                     this.facePlayer();
                     this.attack(11);
                     break;
                 }
-                case(11): {
-                    this.attackDuration = 0.1;
-                    this.boss.state = 12;
-                    break;
-                }
+                case(11): { this.attack(12, 0.1); break; }
                 case(12): {
                     this.facePlayer();
                     this.attack(13);
                     break;
                 }
-                case(13): {
-                    this.attackDuration = 0.1;
-                    this.boss.state = 14;
-                    break;
-                }
+                case(13): { this.attack(14, 0.1); break;}
                 case(15): {
                     ASSET_MANAGER.playSound("Shing");
-                    this.attackDuration = 2;
+                    this.attack(16, 2);
                     this.shotTimer = 0.5;
-                    this.boss.state = 16;
                     break;
                 }
-                case(16): {
-                    this.attack(17);
-                    break;
-                }
+                case(16): { this.attack(17); break; }
                 case(18): {
                     this.yVelocity = 0;
                     this.xVelocity = 0;
@@ -272,35 +239,18 @@ class TenshiController extends BossController {
                     this.attack(19);
                     break;
                 }
-                case(19): {
-                    this.boss.state = 20;
-                    this.attackDuration = 1;
-                    break;
-                }
-                case(20): {
-                    this.attack(21);
-                    break;
-                }
-                case(22): {
-                    this.attackDuration = 0.05;
-                    this.boss.state = 23;
-                    break;
-                }
-                case(23): {
-                    this.attack(24);
-                    break;
-                }
+                case(19): this.attack(20, 1); break;
+                case(20): this.attack(21); break;
+                
+                case(22): { this.attack(23, 0.05); break; }
+                case(23): { this.attack(24); break; }
                 case(24): {
                     ASSET_MANAGER.playSound("HisouStab");
-                    this.attackDuration = 4.5;
                     this.shotTimer = 0.5;
-                    this.boss.state = 25;
+                    this.attack(25, 4.5);
                     break;
                 }
-                case(25): {
-                    this.attack(26);
-                    break;
-                }
+                case(25): { this.attack(26); break; }
                 default: {
                     this.timer =  0.5;
                     this.boss.state = 0;

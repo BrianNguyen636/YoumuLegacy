@@ -17,21 +17,11 @@ class MeilingController extends BossController {
             let roll = this.rollForAttack(5);
 
             switch(roll) {
-                case(0): this.boss.state = 2; break;
-                case(1): this.boss.state = 4; break;
-                case(2): this.boss.state = 7; break;
-                case(3): this.boss.state = 10; break;
-                case(4): this.boss.state = 16; break;
-            }
-
-            // this.boss.state = 4;
-
-            switch(this.boss.state) {
-                case(2): this.attackDuration = 0.3; break;
-                case(4): this.attack(4); break;
-                case(7): this.attack(7); break;
-                case(10): this.attack(10); break;
-                case(16): this.attack(16); break;
+                case(0): this.attack(2, 0.3); break;
+                case(1): this.attack(4); break;
+                case(2): this.attack(7); break;
+                case(3): this.attack(10); break;
+                case(4): this.attack(16); break;
             }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //What happens during an attack
@@ -130,37 +120,18 @@ class MeilingController extends BossController {
                     this.timer = 0;
                     break;
                 }
-                case(4): {
-                    this.attackDuration = 0.6;
-                    this.boss.state = 5;
-                    break;
-                }
+                case(4): { this.attack(5, 0.6); break; }
                 case(5): {
                     ASSET_MANAGER.playSound("Whoosh");
                     this.attack(6);
                     break;
                 }
-                case(7): {
-                    this.attackDuration = 0.3;
-                    this.boss.state = 8;
-                    break;
-                }
-                case(8): {
-                    this.attack(9);
-                    break;
-                }
-                case(10): {
-                    this.attackDuration = 0.3;
-                    this.boss.state = 11;
-                    break;
-                }
-                case(11): {
-                    this.attack(12);
-                    break;
-                }
+                case(7): { this.attack(8, 0.3); break; }
+                case(8): { this.attack(9); break; }
+                case(10): { this.attack(11, 0.3); break; }
+                case(11): { this.attack(12); break; }
                 case(12): { //DRAGONKICK
-                    this.attackDuration = 0.5;
-                    this.boss.state = 13;
+                    this.attack(13, 0.5);
                     this.xVelocity = -(-1 + this.boss.facing * 2) * 1700; 
                     this.yVelocity = -1100; 
                     ASSET_MANAGER.playSound("Fly");
@@ -171,11 +142,7 @@ class MeilingController extends BossController {
                     this.attack(14);
                     break;
                 }
-                case(14): {
-                    this.attackDuration = 10;
-                    this.boss.state = 15;
-                    break;
-                }
+                case(14): { this.attack(15, 10); break; }
                 default: {
                     this.effectSpawn = false;
                     this.timer = 0.4;
