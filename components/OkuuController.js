@@ -49,9 +49,7 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            // this.attackDuration = 0.5;
-            // this.boss.state = 23;
-            // this.antiGrav = true;
+
 
             let roll = this.rollForAttack(5);
             switch(roll) {
@@ -65,7 +63,6 @@ class OkuuController extends BossController {
                     this.antiGrav = true;
                     break;
                 }
-
             }
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
@@ -168,62 +165,28 @@ class OkuuController extends BossController {
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
             switch(this.boss.state) {
-                case(1): {
-                    this.attackDuration = 3;
-                    this.boss.state = 2;
-                    break;
-                }
-                case(4): {
-                    this.attackDuration = 0.1;
-                    this.boss.state = 5;
-                    break;
-                }
-                case(5): {
-                    this.attack(6);
-                    break;
-                }
-                case(6): {
-                    this.attackDuration = 1;
-                    this.boss.state = 7;
-                    break;
-                }
-                case(7): {
-                    this.attack(8);
-                    break;
-                }
-                case(9): {
-                    this.attackDuration = 0.7;
-                    this.boss.state = 10;
-                    break;
-                }
-                case(10): {
-                    this.attack(11);
-                    break;
-                }
-                case(11): {
-                    this.attackDuration = 1.5;
-                    this.boss.state = 12;
-                    break;
-                }
-                case(12): {
-                    this.attack(13);
-                    break;
-                }
-                case(14): {
-                    this.attackDuration = 0.5;
-                    this.boss.state = 15;
-                    break;
-                }
+                case(1): { this.attack(2, 3); break;}
+
+                case(4): { this.attack(5, 0.1); break;}
+                case(5): { this.attack(6, null); break;}
+                case(6): { this.attack(7, 1); break;}
+                case(7): { this.attack(8, null); break;}
+
+                case(9): { this.attack(10, 0.7); break;}
+                case(10): { this.attack(11); break;}
+                case(11): { this.attack(12, 1.5); break;}
+                case(12): { this.attack(13, null); break;}
+
+                case(14): { this.attack(15, 0.5); break; }
                 case(15): {
                     this.antiCollision = true;
-                    this.attack(16);
+                    this.attack(16, null);
                     ASSET_MANAGER.playSound("Fly");
                     this.shotTimer = 1;
                     break;
                 }
                 case(16): {
-                    this.attackDuration = 3;
-                    this.boss.state = 17;
+                    this.attack(17, 3);
                     this.antiGrav = true;
                     break;
                 }
@@ -240,41 +203,33 @@ class OkuuController extends BossController {
                         this.boss.x = 1280 - offset - this.boss.BB.width;
                         this.xVelocity = -300;
                     }
-                    this.attack(1);
+                    this.attack(1, null);
                     break;
                 }
-                case(18): {
+
+                case(18): { //NOVA
                     this.antiGrav = true;
-                    this.attackDuration = 1.3;
-                    this.boss.state = 19;
+                    this.attack(19, 1.3);
                     break;
                 }
                 case(19): {
                     this.yVelocity = 0;
-                    this.attack(20);
+                    this.attack(20, null);
                     break;
                 }
-                case(20): {
-                    this.attackDuration = 2;
-                    this.boss.state = 21;
-                    break;
-                }
+                case(20): { this.attack(21, 2); break;}
                 case(21): {
                     this.antiGrav = false;
-                    this.attack(22);
+                    this.attack(22, null);
                     break;
                 }
                 case(22):
-                case(26): {
-                    this.boss.state = 2;
-                    this.attackDuration = 2;
-                    break;
-                }
+                case(26): { this.attack(2, 2); break;}
+
                 case(23): {
+                    this.attack(24, 2);
                     this.antiCollision = true;
-                    this.attackDuration = 2;
                     this.xVelocity = -(1 - this.boss.facing * 2) * 500;
-                    this.boss.state = 24;
                     this.shotTimer = 0.5;
                     break;
                 }
@@ -289,8 +244,7 @@ class OkuuController extends BossController {
                     this.boss.y = 600;
                     this.xVelocity = 0;
                     this.yVelocity = 0;
-                    this.attackDuration = 2.2;
-                    this.boss.state = 25;
+                    this.attack(25, 2.2);
                     break;
                 }
                 case(25): {
@@ -299,7 +253,7 @@ class OkuuController extends BossController {
                     this.boss.x = 640 - (this.boss.BB.midX - this.boss.x);
                     this.boss.y = 0 - this.boss.yBoxOffset - 100;
                     this.antiGrav = false;
-                    this.attack(26);
+                    this.attack(26, null);
                     break;
                 }
                 default: {

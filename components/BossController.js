@@ -37,10 +37,14 @@ class BossController {
         } else this.boss.facing = 1; 
     };
 
-    attack(state) {
+    attack(state, duration) {
         this.boss.state = state;
-        this.boss.animations[this.boss.facing][state].resetFrames();
-        this.attackDuration = this.boss.animations[this.boss.facing][state].totalTime - 2 * this.game.clockTick;
+        if (duration == null) {
+            this.boss.animations[this.boss.facing][state].resetFrames();
+            this.attackDuration = this.boss.animations[this.boss.facing][state].totalTime - 2 * this.game.clockTick;
+        } else {
+            this.attackDuration = duration;
+        }
     };
 
     death(deathState) {
