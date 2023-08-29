@@ -23,7 +23,7 @@ DONE:
 - Eagle rushes from sides of screen 
 - Rapid bullet burst
 - Flame pillars
+- Flying projectile rain
 PLANNED:
 - Melee swing into something else
-- Flying projectile rain
 - Magnetize into bullet spreads

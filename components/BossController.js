@@ -21,6 +21,7 @@ class BossController {
     }; 
 
     rollForAttack(attacks) {
+        if (attacks < 3) throw new Error("Not enough attacks!");
         let roll = this.lastRoll;
         while (roll == this.lastRoll || roll == this.lastLastRoll) {
             roll = Math.floor(Math.random() * attacks);
