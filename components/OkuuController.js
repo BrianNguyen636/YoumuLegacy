@@ -33,7 +33,7 @@ class OkuuController extends BossController {
         this.yTrajectory = yDiff / distance;
         this.game.player.x += this.xTrajectory * speed * this.game.clockTick;
         if (!this.game.player.dead() && !this.game.player.controller.dashing)
-        this.game.player.y += this.yTrajectory * speed * this.game.clockTick;
+        this.game.player.y += this.yTrajectory * speed * this.game.clockTick / 2;
     }
     flightShots() {
         let projSpeed = 700;
@@ -61,21 +61,20 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-
-            this.attack(9);
-            // let roll = this.rollForAttack(5);
-            // switch(roll) {
-            //     case(0): {this.attack(4); break; }
-            //     case(1): {this.attack(9); break; }
-            //     case(2): {this.attack(14); break; }
-            //     case(3): {this.attack(18); break; }
-            //     case(4): {
-            //         this.attackDuration = 0.5;
-            //         this.boss.state = 23;
-            //         this.antiGrav = true;
-            //         break;
-            //     }
-            // }
+            let roll = this.rollForAttack(6);
+            switch(roll) {
+                case(0): {this.attack(4); break; }
+                case(1): {this.attack(9); break; }
+                case(2): {this.attack(14); break; }
+                case(3): {this.attack(18); break; }
+                case(4): {
+                    this.attack(23, 0.5);
+                    this.antiGrav = true;
+                    break;
+                }
+                case(5): this.attack(27); break;
+            }
+            // this.attack(27);
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -196,6 +195,54 @@ class OkuuController extends BossController {
                     this.flightShots();
                     break;
                 }
+                case(29): {
+                    let time = this.boss.animations[0][29].totalTime;
+                    if (this.attackDuration > (3/7) * time) {
+                        this.boss.x += (1 - this.boss.facing * 2) * 800 * this.game.clockTick;
+                    } else if (this.shotCount < 1) {
+                        // if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x + 73 * 1.5 - 65, this.boss.y + 80 * 1.5 - 67, "Okuu", 1, this.game));
+                        // else this.game.addEntity(new Effect(this.boss.x + 58 * 1.5 - 136, this.boss.y + 66 * 1.5 - 45, "Okuu", 2, this.game));
+                        // this.shotCount++;
+                    }
+                    if (this.attackDuration < (5/7) * time && !this.effectSpawn) {
+                        this.effectSpawn = true;
+                        ASSET_MANAGER.playSound("HeavySwing");
+                    }
+                    if (this.attackDuration < (5/7) * time && this.attackDuration > (3/7) * time) {
+                        if (this.boss.facing == 0) {
+                            this.game.addEntity(new Hitbox(this.boss.x + 71 * 1.5, this.boss.y + 65 * 1.5, 
+                                138 * 1.5, 88 * 1.5, 0, this.game));
+                            this.game.addEntity(new Hitbox(this.boss.x + 209 * 1.5, this.boss.y + 92 * 1.5, 
+                                41 * 1.5, 54 * 1.5, 0, this.game));
+                        }
+                        else {
+                            this.game.addEntity(new Hitbox(this.boss.x + 41 * 1.5, this.boss.y + 65 * 1.5, 
+                                138 * 1.5, 88 * 1.5, 0, this.game));
+                            this.game.addEntity(new Hitbox(this.boss.x + 0 * 1.5, this.boss.y + 92 * 1.5, 
+                                41 * 1.5, 54 * 1.5, 0, this.game));
+                            }
+                    }
+                    break;
+                }
+                case(33): {
+                    if (this.attackDuration < (8/9) * this.boss.animations[0][33].totalTime && !this.effectSpawn) {
+                        ASSET_MANAGER.playSound("Okuu2");
+                        ASSET_MANAGER.playSound("Okuu2");
+                        this.yVelocity -= 1300;
+                        this.effectSpawn = true;
+                    }
+                    if (this.attackDuration < (6/9) * this.boss.animations[0][33].totalTime &&
+                        this.attackDuration > (4/9) * this.boss.animations[0][33].totalTime) {
+                        if (this.boss.facing == 0) {
+                            this.game.addEntity(new Hitbox(this.boss.x + 125 * 1.5, this.boss.y + 43 * 1.5, 
+                                62 * 1.5, 124 * 1.5, 0, this.game));
+                        } else {
+                            this.game.addEntity(new Hitbox(this.boss.x + 63 * 1.5, this.boss.y + 43 * 1.5, 
+                                62 * 1.5, 124 * 1.5, 0, this.game));
+                        }
+                    }
+                    break;
+                }
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -263,6 +310,8 @@ class OkuuController extends BossController {
                     this.attack(22, null);
                     break;
                 }
+                //FALLING
+                case(33):
                 case(22):
                 case(26): { this.attack(2, 2); break;}
 
@@ -294,6 +343,22 @@ class OkuuController extends BossController {
                     this.boss.y = 0 - this.boss.yBoxOffset - 100;
                     this.antiGrav = false;
                     this.attack(26, null);
+                    break;
+                }
+                case(27): this.attack(28, 0.3); break;
+                case(28): { this.attack(29); break;}
+                case(29): { this.attack(30, 0.2); break;}
+                case(30): { this.attack(31); break;}
+
+                case(31): {
+                    this.effectSpawn = false;
+                    this.facePlayer();
+                    this.attack(32, 0.1); 
+                    break;
+                }
+                case(32): {
+                    this.attack(33);
+                    this.xVelocity += (1 - this.boss.facing * 2) * 450;
                     break;
                 }
                 default: {

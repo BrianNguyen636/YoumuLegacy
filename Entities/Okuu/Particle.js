@@ -1,7 +1,7 @@
 class Particle extends Projectile {
     constructor(x, y, speed, boss) {
         super(x, y, 200, 200, 
-            70, 70, 60, 60, speed, 0, null, "Okuu", 0, boss.game);
+            75, 75, 50, 50, speed, 0, null, "Okuu", 0, boss.game);
         this.boss = boss;
         this.calculateTrajectory();
     };
