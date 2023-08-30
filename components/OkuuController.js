@@ -1,7 +1,7 @@
 class OkuuController extends BossController {
     constructor(boss, game) {
         super(boss, game, 40);
-        this.timer = 0.5;
+        this.timer = 1;
         this.antiCollision = false;
         // this.gravity = 2000;
     };
@@ -123,10 +123,10 @@ class OkuuController extends BossController {
                         for (let i = 0; i < 8; i++) {
                             if (this.shotCount % 2 == 0)
                                 this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
-                                    70, 70, 60, 60, projSpeed, 45 * i, null, "Okuu", 0, this.game));
+                                    75, 75, 50, 50, projSpeed, 45 * i, null, "Okuu", 0, this.game));
                             else
                                 this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200,
-                                    70, 70, 60, 60, projSpeed, -22.5 + 45 * i, null, "Okuu", 0, this.game));
+                                    75, 75, 50, 50, projSpeed, -22.5 + 45 * i, null, "Okuu", 0, this.game));
                         }
                         this.shotTimer = 0.2;
                         this.shotCount++;
