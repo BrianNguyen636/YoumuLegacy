@@ -99,12 +99,15 @@ class UIManager {
         ctx.font = "50px serif";
         ctx.fillStyle = "white"
         ctx.fillText("Times", 470, 280);
+        let sum = this.game.meilingTime + this.game.tenshiTime + this.game.okuuTime;
 
-        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 470, 300 + 40 * 1);
+        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 470, 300 + 45 * 1);
 
-        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 40 * 2);
+        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 45 * 2);
 
-        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 40 * 3);
+        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 45 * 3);
+
+        ctx.fillText("Total: " + sum + "s", 470, 300 + 45 * 4);
 
         ctx.font = "60px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
@@ -120,7 +123,14 @@ class UIManager {
     }
 
     drawTimer(ctx) {
-            let time = Math.round((this.game.timer.gameTime - this.game.startTime) * 100) / 100;
+            let time = this.game.timer.gameTime - this.game.startTime;
+            if (this.game.roomManager.stage == 2 && this.game.bossRush) {
+                time = time - this.game.meilingTime;
+            }
+            if (this.game.roomManager.stage == 3 && this.game.bossRush) {
+                time = time - this.game.tenshiTime - this.game.meilingTime;
+            }
+            time = Math.round((time) * 100) / 100;
             ctx.font = "40px arial";
             ctx.fillStyle = "white";
             ctx.strokeStyle = "black";

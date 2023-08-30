@@ -210,14 +210,14 @@ class OkuuController extends BossController {
                     }
                     if (this.attackDuration < (5/7) * time && this.attackDuration > (3/7) * time) {
                         if (this.boss.facing == 0) {
-                            this.game.addEntity(new Hitbox(this.boss.x + 71 * 1.5, this.boss.y + 65 * 1.5, 
-                                138 * 1.5, 88 * 1.5, 0, this.game));
+                            this.game.addEntity(new Hitbox(this.boss.x + 71 * 1.5, this.boss.y + 75 * 1.5, 
+                                138 * 1.5, 78 * 1.5, 0, this.game));
                             this.game.addEntity(new Hitbox(this.boss.x + 209 * 1.5, this.boss.y + 92 * 1.5, 
                                 41 * 1.5, 54 * 1.5, 0, this.game));
                         }
                         else {
-                            this.game.addEntity(new Hitbox(this.boss.x + 41 * 1.5, this.boss.y + 65 * 1.5, 
-                                138 * 1.5, 88 * 1.5, 0, this.game));
+                            this.game.addEntity(new Hitbox(this.boss.x + 41 * 1.5, this.boss.y + 75 * 1.5, 
+                                138 * 1.5, 78 * 1.5, 0, this.game));
                             this.game.addEntity(new Hitbox(this.boss.x + 0 * 1.5, this.boss.y + 92 * 1.5, 
                                 41 * 1.5, 54 * 1.5, 0, this.game));
                             }
@@ -227,7 +227,7 @@ class OkuuController extends BossController {
                 case(33): {
                     if (this.attackDuration < (8/9) * this.boss.animations[0][33].totalTime && !this.effectSpawn) {
                         ASSET_MANAGER.playSound("Okuu2");
-                        ASSET_MANAGER.playSound("Okuu2");
+                        ASSET_MANAGER.playSound("HeavySwing");
                         this.yVelocity -= 1300;
                         this.effectSpawn = true;
                     }
@@ -277,6 +277,7 @@ class OkuuController extends BossController {
                     this.antiGrav = true;
                     break;
                 }
+                case(25):
                 case(17): {
                     this.antiGrav = false;
                     this.boss.y = 0;
@@ -284,12 +285,13 @@ class OkuuController extends BossController {
                     let offset = this.boss.BB.x - this.boss.x
                     if (this.boss.BB.x <= 0) { //LEFT COLLISION
                         this.boss.x = 0 - offset;
-                        this.xVelocity = 300;
+                        this.xVelocity = 450;
                     }
                     if (this.boss.BB.right >= 1280) { //RIGHT COLLISION
                         this.boss.x = 1280 - offset - this.boss.BB.width;
-                        this.xVelocity = -300;
+                        this.xVelocity = -450;
                     }
+                    this.yVelocity = 0;
                     this.attack(1, null);
                     break;
                 }
@@ -333,18 +335,18 @@ class OkuuController extends BossController {
                     this.boss.y = 600;
                     this.xVelocity = 0;
                     this.yVelocity = 0;
-                    this.attack(25, 2.2);
+                    this.attack(25, 2.5);
                     break;
                 }
-                case(25): {
-                    this.xVelocity = 0;
-                    this.yVelocity = 0;
-                    this.boss.x = 640 - (this.boss.BB.midX - this.boss.x);
-                    this.boss.y = 0 - this.boss.yBoxOffset - 100;
-                    this.antiGrav = false;
-                    this.attack(26, null);
-                    break;
-                }
+                // case(25): {
+                //     this.xVelocity = 0;
+                //     this.yVelocity = 0;
+                //     this.boss.x = 640 - (this.boss.BB.midX - this.boss.x);
+                //     this.boss.y = 0 - this.boss.yBoxOffset - 100;
+                //     this.antiGrav = false;
+                //     this.attack(26, null);
+                //     break;
+                // }
                 case(27): this.attack(28, 0.3); break;
                 case(28): { this.attack(29); break;}
                 case(29): { this.attack(30, 0.2); break;}

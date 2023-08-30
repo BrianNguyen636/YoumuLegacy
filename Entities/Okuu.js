@@ -63,11 +63,20 @@ class Okuu extends Character {
             case 16:
             case 17: {
                 if (this.facing == 0) {
-                    this.BB = new BoundingBox(this.x + 70* 1.5, this.y + 75* 1.5, 101* 1.5, 81* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 70* 1.5, this.y + 90* 1.5, 101* 1.5, 51* 1.5); break;
                 } else {
-                    this.BB = new BoundingBox(this.x + 79* 1.5, this.y + 75* 1.5, 101* 1.5, 81* 1.5); break;
+                    this.BB = new BoundingBox(this.x + 79* 1.5, this.y + 90* 1.5, 101* 1.5, 51* 1.5); break;
                 }
             }
+            case 29:
+            case 30: {
+                if (this.facing == 0) {
+                    this.BB = new BoundingBox(this.x + 90* 1.5, this.y + 74* 1.5, 60* 1.5, 93* 1.5); break;
+                } else {
+                    this.BB = new BoundingBox(this.x + 99* 1.5, this.y + 74* 1.5, 60* 1.5, 93* 1.5); break;
+                }
+            }
+            
             default: 
                 if (this.facing == 0) {
                     this.BB = new BoundingBox(this.x + 90* 1.5, this.y + 59* 1.5, 60* 1.5, 108* 1.5); break;

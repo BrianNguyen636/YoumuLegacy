@@ -6,6 +6,7 @@ class Meiling extends Character {
             600, 700 - 123*1.5, 
             50);
         this.setController(new MeilingController(this, game));
+        this.facing = 1;
     };
 
     loadAnimations() {
@@ -43,6 +44,14 @@ class Meiling extends Character {
 
     updateBB() {
         switch(this.state) {
+            case(5):
+            case(6): {
+                if (this.facing == 0) {
+                    this.BB = new BoundingBox(this.x + 76* 1.5, this.y + 55* 1.5, 45* 1.5, 68* 1.5); break;
+                } else {
+                    this.BB = new BoundingBox(this.x + 76* 1.5, this.y + 55* 1.5, 45* 1.5, 68* 1.5); break;
+                }
+            }
             default: 
                 if (this.facing == 0) {
                     this.BB = new BoundingBox(this.x + 76* 1.5, this.y + 25* 1.5, 45* 1.5, 98* 1.5); break;

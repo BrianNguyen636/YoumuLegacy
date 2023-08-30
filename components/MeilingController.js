@@ -1,6 +1,7 @@
 class MeilingController extends BossController {
     constructor(boss, game) {
         super(boss, game, 17);
+        this.timer = 0.5;
     }
 
     setBossTime() {

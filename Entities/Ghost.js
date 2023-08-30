@@ -3,7 +3,7 @@ class Ghost {
         Object.assign(this, {game});
         this.x = 400;
         this.y = 600; 
-        this.speed = 250;
+        this.speed = 300;
         this.sprite = ASSET_MANAGER.getAsset("./assets/Ghost.png");
         this.xTrajectory = 0;
         this.yTrajectory = 0;
