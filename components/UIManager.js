@@ -267,7 +267,13 @@ class UIManager {
         ctx.globalAlpha = 1;
     }
 
+    drawFPS(ctx) {
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "green";
+        ctx.fillText(Math.round(1 / this.game.clockTick) + "fps", 0, 20);
+    }
     draw(ctx) {
+        this.drawFPS(ctx);
         if (this.game.roomManager.stage != 0) this.drawTimer(ctx);
         if (this.bossHealth != null || this.bossHealth >= 0) this.drawBossHealthBar(ctx);
         this.drawPlayerHealth(ctx);

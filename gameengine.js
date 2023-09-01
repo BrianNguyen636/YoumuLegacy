@@ -96,13 +96,7 @@ class GameEngine {
         this.entities = [];
         this.startTime = 0;
         ASSET_MANAGER.pauseBGM();
-        // this.audioManager.music.stop();
-        //CONSTANTS
-        // let volume = this.audioManager.volume;
-
         this.init(this.ctx, new Player(this));
-        // this.audioManager.volume = volume;
-        // this.audioManager.playBGM("StartTheme");
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 
@@ -239,8 +233,6 @@ class GameEngine {
             this.menuController.selected = 0;
             ASSET_MANAGER.playSound("Pause");
             ASSET_MANAGER.pauseBGM();
-            // this.audioManager.playSound("Pause.wav");
-            // this.audioManager.music.stop();
             this.pauseButtonHold = true;
         }
         this.uiManager.update();

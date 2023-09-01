@@ -50,7 +50,8 @@ class Player extends Character{
     }
 
     updateAttackBox() {
-        if (this.controller.attackDuration > 0 && this.controller.attackDuration < 6) {
+        let time = this.animations[0][4].totalTime;
+        if (this.controller.attackDuration > 2/7 * time) {
             if (this.facing == 0) {
                 this.attackBox = new BoundingBox(this.x + 110* 1.5, this.y, 90* 1.5, 120* 1.5);
             } else {
