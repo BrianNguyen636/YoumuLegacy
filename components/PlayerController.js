@@ -26,7 +26,7 @@ class PlayerController {
     jump() {
         this.yVelocity = -this.jumpHeight;
         this.airborne = true;
-        this.jumpHold = true;
+        this.game.AHold = true;
         this.player.animations[0][2].resetFrames();
         this.player.animations[1][2].resetFrames();
         this.jumpDuration = this.player.animations[this.player.facing][2].totalTime - this.game.clockTick;
@@ -70,7 +70,7 @@ class PlayerController {
                 this.airborne = true;
                 this.dashing = false;
                 if (this.yVelocity == 0) this.player.state = 0;
-                if ((this.game.A || this.game.up) && !this.jumpHold && this.hurtDuration < 0) this.player.state = 2;
+                if (((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) && this.hurtDuration < 0) this.player.state = 2;
             }
         } else if (this.attacking && this.attackDuration > 0) {
             this.player.state = 5;
@@ -81,18 +81,18 @@ class PlayerController {
             //     this.dashDuration = 0;
             //     this.dashing = false;
             // }
-            if ((this.game.A || this.game.up) && this.doublejump && !this.jumpHold) { //Cancel into jump
+            if (((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) && this.doublejump) { //Cancel into jump
                 this.dashDuration = 0;
                 this.dashing = false;
             }
         } else if (this.player.state < 7) {
             this.dashing = false;
-            if (!this.game.C) this.dashHold = false;
-            if (this.game.C && !this.dashHold) {
+
+            if (this.game.C && !this.game.CHold) {
                 if (this.airdash || !this.airborne) {
+                    this.game.CHold = true;
                     this.airdash = false;
                     this.dashing = true;
-                    this.dashHold = true;
                     this.player.state = 4;
                     this.player.animations[this.player.facing][4].resetFrames();
                     this.dashDuration = this.player.animations[this.player.facing][4].totalTime;
@@ -110,7 +110,6 @@ class PlayerController {
             if (this.airborne) {  //Airborne
                 if (this.jumpDuration > 0) this.player.state = 2; // Jumping
                 if (this.jumpDuration <= 0) this.player.state = 3; // Falling
-                if (!this.game.down) this.fastFallHold = false;
                 if (!this.game.right || !this.game.left) { //SOCD
                     if (this.game.right) {
                         this.player.facing = 0;
@@ -118,9 +117,9 @@ class PlayerController {
                         this.player.facing = 1;
                     }
                 }
-                if (this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL
+                if (this.game.down && !this.fastFall && !this.game.downHold) { //FASTFALL
                     this.fastFall = true;
-                    this.fastFallHold = true;
+                    this.game.downHold = true;
                     ASSET_MANAGER.playSound("Swish");
                     // this.game.addEntity(new Effect(this.player.BB.midX - 75, this.player.BB.y, "Youmu", 2, this.game));
                 }
@@ -140,8 +139,8 @@ class PlayerController {
                     this.player.state = 0;
                 }
 
-                if (this.game.canInteract && this.player.state == 0 && this.game.down) {
-                    this.game.down = false;
+                if (this.game.canInteract && this.player.state == 0 && this.game.down && !this.game.downHold) {
+                    this.game.downHold = true;
                     this.player.interacting = true;
                 }
             }
@@ -192,14 +191,11 @@ class PlayerController {
                     this.player.y += 1300 * this.game.clockTick;
                     this.yVelocity = 0;
                 }
-                if (this.yVelocity < 0 && this.jumpHold) { //High jump gravity
+                if (this.yVelocity < 0 && (this.game.AHold || this.game.upHold)) { //High jump gravity
                     this.yVelocity -= this.highJumpBonus * this.game.clockTick;
                 }
-                if (!(this.game.A || this.game.up)) {
-                    this.jumpHold = false;
-                }
-                if ((this.game.A || this.game.up) && !this.game.down && 
-                    this.doublejump && !this.jumpHold) { //Double Jumping
+                if (((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) && 
+                    this.doublejump) { //Double Jumping
                     this.doublejump = false;
                     this.jump();
                 }
@@ -208,7 +204,7 @@ class PlayerController {
                 if (!(this.game.A || this.game.up)) {
                     this.jumpHold = false;
                 }
-                if ((this.game.A || this.game.up) && !this.jumpHold) { 
+                if ((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) { 
                     this.jump();
                 }   
             }

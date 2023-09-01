@@ -14,8 +14,11 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
 
+        this.controllerIndex = null;
+        this.usingController = false;
         this.keyBinding = false;
         this.keybinds = new Map();
+        this.controllerBinds = new Map();
 
         this.left = false;
         this.right = false;
@@ -26,7 +29,17 @@ class GameEngine {
         this.C = false;
         this.pauseButton = false;
 
+        this.leftHold = false;
+        this.rightHold = false;
+        this.upHold = false;
+        this.downHold = false;
+        this.AHold = false;
+        this.BHold = false;
+        this.CHold = false;
+        this.pauseButtonHold = false;
+
         this.defaultKeybinds();
+        this.defaultController();
         this.R = false;
         this.key;
         this.keyPress = false;
@@ -104,6 +117,18 @@ class GameEngine {
         this.keybinds.set("Escape", "Pause");
     };
 
+    defaultController() {
+        this.controllerBinds.set(12, "Up");
+        this.controllerBinds.set(13, "Down");
+        this.controllerBinds.set(14, "Left");
+        this.controllerBinds.set(15, "Right");
+
+        this.controllerBinds.set(0, "Jump");
+        this.controllerBinds.set(1, "Dash");
+        this.controllerBinds.set(2, "Attack");
+        this.controllerBinds.set(9, "Pause");
+    };
+
     startInput() {
         var that = this;
         const getXandY = e => ({
@@ -142,6 +167,7 @@ class GameEngine {
         });
 
         this.ctx.canvas.addEventListener("keydown", function(e) {
+            that.usingController = false;
             if (!that.keyBinding && that.keybinds.has(e.code)) {
                 switch(that.keybinds.get(e.code)) {
                     case "Left": that.left = true; break;
@@ -152,7 +178,6 @@ class GameEngine {
                     case "Attack": that.B = true; break;
                     case "Dash": that.C = true; break;
                     case "Pause": that.pauseButton = true; break;
-                    case "R": that.R = true; break;
                 }
             } else if (that.keyBinding) {
                 that.key = e.code;
@@ -170,11 +195,23 @@ class GameEngine {
                     case "Attack": that.B = false; break;
                     case "Dash": that.C = false; break;
                     case "Pause": that.pauseButton = false; break;
-                    case "R": that.R = false; break;
                 }
             } else if (that.keyBinding) {
                 that.keyPress = false;
             } 
+        });
+        window.addEventListener("gamepadconnected", function(e) {
+            console.log(
+              "Gamepad connected at index %d: %s. %d buttons, %d axes.",
+              e.gamepad.index,
+              e.gamepad.id,
+              e.gamepad.buttons.length,
+              e.gamepad.axes.length,
+            );
+            that.controllerIndex = e.gamepad.index;
+        });
+        window.addEventListener("gamepaddisconnected", function(e) {
+            that.controllerIndex = null;
         });
     };
 
@@ -197,14 +234,14 @@ class GameEngine {
     };
 
     update() {
-        if (this.pauseButton && !this.player.dead()) { //START PAUSE
+        if (this.pauseButton && !this.player.dead() && !this.pauseButtonHold) { //START PAUSE
             this.paused = true;
             this.menuController.selected = 0;
             ASSET_MANAGER.playSound("Pause");
             ASSET_MANAGER.pauseBGM();
             // this.audioManager.playSound("Pause.wav");
             // this.audioManager.music.stop();
-            this.pauseButton = false;
+            this.pauseButtonHold = true;
         }
         this.uiManager.update();
         let entitiesCount = this.entities.length;
@@ -258,6 +295,8 @@ class GameEngine {
     }
 
     loop() {
+        if (this.controllerIndex != null) this.controllerButtons();
+        this.buttonHolds();
         if (this.startMenu) { //START MENU
             if (this.menuController.controls) {
                 this.menuController.controlsMenu();
@@ -277,6 +316,41 @@ class GameEngine {
             this.draw();
         }
     };
+
+    buttonHolds() {
+        if (!this.left) this.leftHold = false;
+        if (!this.right) this.rightHold = false;
+        if (!this.up) this.upHold = false;
+        if (!this.down) this.downHold = false;
+        if (!this.A) this.AHold = false;
+        if (!this.B) this.BHold = false;
+        if (!this.C) this.CHold = false;
+        if (!this.pauseButton) this.pauseButtonHold = false;
+    }
+    controllerButtons() {
+        let controller = navigator.getGamepads()[this.controllerIndex];
+        for (let i = 0; i < controller.buttons.length; i++) {
+            if (controller.buttons[i].pressed) {
+                this.usingController = true;
+            }
+        }
+        if (this.usingController) {
+            for (let i = 0; i < controller.buttons.length; i++) {
+                if (this.controllerBinds.has(i)) {
+                    switch(this.controllerBinds.get(i)) {
+                        case "Left": this.left = controller.buttons[i].pressed; break;
+                        case "Right": this.right = controller.buttons[i].pressed; break;
+                        case "Up": this.up = controller.buttons[i].pressed; break;
+                        case "Down": this.down = controller.buttons[i].pressed; break;
+                        case "Jump": this.A = controller.buttons[i].pressed; break;
+                        case "Attack": this.B = controller.buttons[i].pressed; break;
+                        case "Dash": this.C = controller.buttons[i].pressed; break;
+                        case "Pause": this.pauseButton = controller.buttons[i].pressed; break;
+                    }
+                }
+            }
+        }
+    }
 
 };
 
