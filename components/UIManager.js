@@ -188,13 +188,15 @@ class UIManager {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.font = "bold 100px serif"
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Set Controls", 20, 500);
+        ctx.fillText("Set Keyboard", 20, 400);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+        ctx.fillText("Set Controller", 20, 500);
+        if (selected == 2) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
         ctx.fillText("Set Volume", 20, 600);
         let volume = ASSET_MANAGER.volume;
         volume = Math.round(ASSET_MANAGER.volume * 100);
         ctx.fillText(volume + "%", 620, 600);
-        if (selected == 2) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+        if (selected == 3) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
         ctx.fillText("Return", 20, 700);
     }
 
@@ -226,7 +228,40 @@ class UIManager {
         }
         for (const x of this.game.keybinds.entries()) {
             if (this.game.menuController.binding == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-            ctx.fillText(x[1] + "---" + x[0], 800, 100 + 40 * i);
+            ctx.fillText("--- " + x[0], 900, 100 + 40 * i);
+            i++;
+        }
+    }
+
+    drawControllerControls(ctx) {
+        let selected = this.game.menuController.selected;
+        ctx.font = "bold 100px serif"
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        let controls = [
+            "Left",
+            "Right",
+            "Up",
+            "Down",
+            "Jump",
+            "Attack",
+            "Dash",
+            "Pause"
+        ];
+        let options = ["Bind all", "Restore Defaults", "Return"]
+        for (let i = 0; i < 3; i++) {
+            if (selected == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(options[i], 20, 500 + 100 * i);
+        }
+        ctx.fillStyle = "white"
+        ctx.font = "30px serif"
+        let i = 0;
+        for (let i = 0; i < controls.length; i++) {
+            if (this.game.menuController.binding == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText(controls[i], 800, 100 + 40 * i);
+        }
+        for (const x of this.game.controllerBinds.entries()) {
+            if (this.game.menuController.binding == i) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+            ctx.fillText("--- " + x[0], 900, 100 + 40 * i);
             i++;
         }
     }

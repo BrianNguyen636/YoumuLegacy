@@ -1,9 +1,6 @@
 IMPLEMENT
 - Add lifetime to Effects
-- Controller support
 - Make selected option more apparent (indistinct with only two options)
-
-- Button hold flag implementation
 
 Reisen Attacks
 - Teleport punch / divekick

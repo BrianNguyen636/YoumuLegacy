@@ -58,6 +58,7 @@ class MenuController {
     }
 
     startMenu() {
+        ASSET_MANAGER.pauseBGM();
         this.game.uiManager.drawStartMenu(this.game.ctx);
         this.optionSelection(2);
         if (this.game.A && !this.game.AHold && this.selected == 0) { //END START MENU
@@ -82,7 +83,6 @@ class MenuController {
             ASSET_MANAGER.playSound("Cancel");
             this.game.paused = false;
             ASSET_MANAGER.resumeBGM();
-            // this.game.audioManager.music.play();
             this.selected = 0;
         }
         if (this.game.A && !this.game.AHold && this.selected == 1) { //RESTART
@@ -92,6 +92,61 @@ class MenuController {
         if (this.game.A && !this.game.AHold && this.selected == 2) { //MAIN MENU
             this.game.AHold = true;
             this.goToMainMenu();
+        }
+    }
+    controllerBinding() {
+        let controls = [
+            "Left",
+            "Right",
+            "Up",
+            "Down",
+            "Jump",
+            "Attack",
+            "Dash",
+            "Pause"
+        ];
+
+        if (this.game.keyPress && !this.game.keyHold) {
+            this.game.keyHold = true;
+            ASSET_MANAGER.playSound("Select");
+            if (!this.game.controllerBinds.has(this.game.key)) {
+                this.game.controllerBinds.set(this.game.key, controls[this.binding]);
+                this.binding += 1;
+            } else {
+
+            }
+        }
+        if (this.binding >= controls.length) {
+            this.game.controllerBinding = false;
+            this.game.pauseButtonHold = true;
+        }
+    }
+    controllerControlsMenu() {
+        this.optionSelection(3);
+        this.game.uiManager.drawControllerControls(this.game.ctx);
+        if (this.game.controllerBinding) this.controllerBinding();
+        if (this.game.A && !this.game.AHold && this.selected == 0) { //CONTROLLER BINDS
+            this.game.AHold = true;
+            this.game.keyHold = true;
+            ASSET_MANAGER.playSound("Select");
+            this.binding = 0;
+            this.game.controllerBinding = true;
+            this.game.controllerBinds.clear();
+        }
+        if (this.game.A && !this.game.AHold && this.selected == 1) { //DEFAULT CONTROLLER
+            this.binding = 0;
+            this.game.AHold = true;
+            ASSET_MANAGER.playSound("Select");
+            this.game.controllerBinds.clear();
+            this.game.defaultController();
+        }
+        if ((this.game.A && !this.game.AHold && this.selected == 2) || (this.game.pauseButton && !this.game.pauseButtonHold)) { //RETURN
+            if (this.game.pauseButton) this.game.pauseButtonHold = true;
+            if (this.game.A) this.game.AHold = true;
+            this.binding = 0;
+            ASSET_MANAGER.playSound("Cancel");
+            this.controllerControls = false;
+            this.selected = 0;
         }
     }
     controlBinding() {
@@ -105,8 +160,8 @@ class MenuController {
             "Dash",
             "Pause"
         ];
-        if (this.game.keyPress) {
-            this.game.keyPress = false;
+        if (this.game.keyPress && !this.game.keyHold) {
+            this.game.keyHold = true;
             ASSET_MANAGER.playSound("Select");
             if (!this.game.keybinds.has(this.game.key)) {
                 this.game.keybinds.set(this.game.key, controls[this.binding]);
@@ -117,6 +172,8 @@ class MenuController {
         }
         if (this.binding >= controls.length) {
             this.game.keyBinding = false;
+            this.game.pauseButtonHold = true;
+            this.game.AHold = false;
         }
     }
     controlsMenu() {
@@ -124,14 +181,18 @@ class MenuController {
         this.game.uiManager.drawControls(this.game.ctx);
         if (this.game.keyBinding) this.controlBinding();
         if (this.game.A && !this.game.AHold && this.selected == 0) { //KEYBINDING
+            this.game.A = false;
             this.game.AHold = true;
+            this.game.keyHold = true;
             ASSET_MANAGER.playSound("Select");
             this.binding = 0;
             this.game.keyBinding = true;
             this.game.keybinds.clear();
         }
         if (this.game.A && !this.game.AHold && this.selected == 1) { //DEFAULT
+            this.game.A = false;
             this.game.AHold = true;
+            this.binding = 0;
             ASSET_MANAGER.playSound("Select");
             this.game.keybinds.clear();
             this.game.defaultKeybinds();
@@ -142,19 +203,26 @@ class MenuController {
             ASSET_MANAGER.playSound("Cancel");
             this.controls = false;
             this.selected = 0;
+            this.binding = 0;
         }
     }
     optionsMenu() {
-        this.optionSelection(3);
+        this.optionSelection(4);
         this.game.uiManager.drawOptions(this.game.ctx);
         this.options = true;
-        if (this.selected == 0 && this.game.A && !this.game.AHold) {
+        if (this.selected == 0 && this.game.A && !this.game.AHold) { //KEYBIND MENU
             this.game.AHold = true;
             this.controls = true;
-            this.selected = -1;
+            this.selected = 0;
             ASSET_MANAGER.playSound("Select");
         }
-        if (this.selected == 1) { //VOLUME
+        if (this.selected == 1 && this.game.A && !this.game.AHold) { //KEYBIND MENU
+            this.game.AHold = true;
+            this.controllerControls = true;
+            this.selected = 0;
+            ASSET_MANAGER.playSound("Select");
+        }
+        if (this.selected == 2) { //VOLUME
             if(this.game.left && !this.game.leftHold) {
                 this.game.leftHold = true;
                 if (ASSET_MANAGER.volume >= 0.1) ASSET_MANAGER.adjustVolume(ASSET_MANAGER.volume - 0.1);
@@ -166,7 +234,7 @@ class MenuController {
                 ASSET_MANAGER.playSound("Select");
             }
         }
-        if ((this.game.A && !this.game.AHold && this.selected == 2) || (this.game.pauseButton && !this.game.pauseButtonHold)) { //RETURN
+        if ((this.game.A && !this.game.AHold && this.selected == 3) || (this.game.pauseButton && !this.game.pauseButtonHold)) { //RETURN
             if (this.game.A) this.game.AHold = true;
             if (this.game.pauseButton) this.game.pauseButtonHold = true;
             ASSET_MANAGER.playSound("Cancel");

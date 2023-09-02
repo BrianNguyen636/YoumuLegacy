@@ -26,7 +26,8 @@ class PlayerController {
     jump() {
         this.yVelocity = -this.jumpHeight;
         this.airborne = true;
-        this.game.AHold = true;
+        if (this.game.up) this.game.upHold = true;
+        if (this.game.A) this.game.AHold = true;
         this.player.animations[0][2].resetFrames();
         this.player.animations[1][2].resetFrames();
         this.jumpDuration = this.player.animations[this.player.facing][2].totalTime - this.game.clockTick;
@@ -201,9 +202,6 @@ class PlayerController {
                 }
             } else { //Grounded
                 this.doublejump = true;
-                if (!(this.game.A || this.game.up)) {
-                    this.jumpHold = false;
-                }
                 if ((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) { 
                     this.jump();
                 }   

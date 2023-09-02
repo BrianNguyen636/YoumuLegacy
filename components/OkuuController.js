@@ -6,7 +6,7 @@ class OkuuController extends BossController {
         // this.gravity = 2000;
     };
     setBossTime() {
-        this.game.okuuTime = Math.round((this.game.timer.gameTime - this.game.tenshiTime) * 100) / 100;
+        this.game.okuuTime = Math.round((this.game.timer.gameTime - this.game.startTime - this.game.tenshiTime - this.game.meilingTime) * 100) / 100;
     };
     firePillars() {
         if (this.shotTimer <= 0) {

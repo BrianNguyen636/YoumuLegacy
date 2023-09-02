@@ -17,6 +17,7 @@ class GameEngine {
         this.controllerIndex = null;
         this.usingController = false;
         this.keyBinding = false;
+        this.controllerBinding = false;
         this.keybinds = new Map();
         this.controllerBinds = new Map();
 
@@ -37,6 +38,7 @@ class GameEngine {
         this.BHold = false;
         this.CHold = false;
         this.pauseButtonHold = false;
+        this.keyHold = false;
 
         this.defaultKeybinds();
         this.defaultController();
@@ -292,8 +294,9 @@ class GameEngine {
         if (this.startMenu) { //START MENU
             if (this.menuController.controls) {
                 this.menuController.controlsMenu();
-            } else
-            if (this.menuController.options) {
+            } else if (this.menuController.controllerControls) {
+                this.menuController.controllerControlsMenu();
+            } else if (this.menuController.options) {
                 this.menuController.optionsMenu();
             } else this.menuController.startMenu();
         } else if (this.paused) {//IF PAUSED
@@ -318,22 +321,30 @@ class GameEngine {
         if (!this.B) this.BHold = false;
         if (!this.C) this.CHold = false;
         if (!this.pauseButton) this.pauseButtonHold = false;
+        if (!this.keyPress) this.keyHold = false;
     }
     controllerButtons() {
         let controller = navigator.getGamepads()[this.controllerIndex];
+        if (this.usingController) this.keyPress = false;
         for (let i = 0; i < controller.buttons.length; i++) {
-            if (controller.buttons[i].pressed) {
+            if (controller.buttons[i].pressed || 
+                Math.abs(controller.axes[0]) > 0.25 || Math.abs(controller.axes[1]) > 0.25) {
                 this.usingController = true;
             }
+            if (this.controllerBinding && controller.buttons[i].pressed) {
+                this.keyPress = true;
+                console.log(this.keyPress);
+                this.key = i;
+            }
         }
-        if (this.usingController) {
+        if (this.usingController && !this.controllerBinding) {
             for (let i = 0; i < controller.buttons.length; i++) {
                 if (this.controllerBinds.has(i)) {
                     switch(this.controllerBinds.get(i)) {
-                        case "Left": this.left = controller.buttons[i].pressed; break;
-                        case "Right": this.right = controller.buttons[i].pressed; break;
-                        case "Up": this.up = controller.buttons[i].pressed; break;
-                        case "Down": this.down = controller.buttons[i].pressed; break;
+                        case "Left": this.left = controller.buttons[i].pressed || controller.axes[0] < -0.25; break;
+                        case "Right": this.right = controller.buttons[i].pressed || controller.axes[0] > 0.25; break;
+                        case "Up": this.up = (controller.buttons[i].pressed || controller.axes[1] < -0.4); break;
+                        case "Down": this.down = (controller.buttons[i].pressed || controller.axes[1] > 0.4); break;
                         case "Jump": this.A = controller.buttons[i].pressed; break;
                         case "Attack": this.B = controller.buttons[i].pressed; break;
                         case "Dash": this.C = controller.buttons[i].pressed; break;
