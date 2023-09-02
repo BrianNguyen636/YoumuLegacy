@@ -22,7 +22,10 @@ class Yuyuko {
         } else if (this.timer > 0.5 * this.animator.totalTime && this.timer < this.animator.totalTime) {
             if (this.yVelocity > 0) this.yVelocity = 0;
             this.yVelocity -= 0.4 * this.game.clockTick;
-        } else this.timer = 0;
+        } else {
+            this.timer = 0;
+            this.y = 700 - 157 * 1.5;
+        }
         this.timer += this.game.clockTick;
     }
     drawShadow(ctx) {
