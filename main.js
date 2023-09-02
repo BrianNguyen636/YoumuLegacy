@@ -5,6 +5,8 @@ const ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/YoumuEffects.png");
+ASSET_MANAGER.queueDownload("./assets/CirnoSpritesheet.png");
+ASSET_MANAGER.queueDownload("./assets/CirnoSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");
@@ -27,6 +29,7 @@ ASSET_MANAGER.queueDownload("./assets/StartMenu.jpg");
 
 
 ASSET_MANAGER.queueDownload("./assets/Audio/StartTheme.mp3");
+ASSET_MANAGER.queueDownload("./assets/Audio/CirnoTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/MeilingTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/TenshiTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/OkuuTheme.mp3");

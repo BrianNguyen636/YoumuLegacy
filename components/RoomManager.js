@@ -17,19 +17,26 @@ class RoomManager {
             case(1): {
                 this.newStage(stage);
                 this.game.startTime = this.game.timer.gameTime;
+                this.game.addEntity(new Cirno(this.game));
+                ASSET_MANAGER.playBGM("CirnoTheme");
+                this.game.uiManager.bgmTitle = "TouhouVania - Cirno Theme"
+                break;
+            }
+            case(2): {
+                this.newStage(stage);
                 this.game.addEntity(new Meiling(this.game));
                 ASSET_MANAGER.playBGM("MeilingTheme");
                 this.game.uiManager.bgmTitle = "Snug Space - Get Up!!"
                 break;
             }
-            case(2): {
+            case(3): {
                 this.newStage(stage);
                 this.game.addEntity(new Tenshi(this.game));
                 ASSET_MANAGER.playBGM("TenshiTheme");
                 this.game.uiManager.bgmTitle = "Tenjou no Tempest - Main Menu"
                 break;
             }
-            case(3): {
+            case(4): {
                 this.newStage(stage);
                 this.game.player.x = 100;
                 this.game.player.y = -200;

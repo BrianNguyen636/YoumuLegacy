@@ -70,7 +70,7 @@ class Tenshi extends Character {
     };
     update() {
         if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
-        if (this.game.roomManager.stage != 2) this.removeFromWorld = true;
+        if (this.game.roomManager.stage != 3) this.removeFromWorld = true;
         this.controller.update();
         this.updateBB();
     }

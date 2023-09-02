@@ -57,6 +57,7 @@ class GameEngine {
 
         //TIMERS
         this.startTime = 0;
+        this.cirnoTime = 0;
         this.meilingTime = 0;
         this.tenshiTime = 0;
         this.okuuTime = 0;

@@ -32,7 +32,7 @@ class MenuController {
     }
 
     stageSelect() {
-        this.optionSelection(5);
+        this.optionSelection(6);
         if (this.game.A && !this.game.AHold && this.selected == 0) { //BOSS RUSH
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");
@@ -41,7 +41,7 @@ class MenuController {
             this.game.bossRush = true;
             this.selected = 0;
         }
-        if (this.game.A && !this.game.AHold && this.selected > 0 && this.selected <= 3) {
+        if (this.game.A && !this.game.AHold && this.selected > 0 && this.selected <= 4) {
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");
             this.game.selectedStage = this.selected;
@@ -49,7 +49,7 @@ class MenuController {
             this.game.bossRush = false;
             this.selected = 0;
         }
-        if (this.game.A && !this.game.AHold && this.selected == 4) { //END
+        if (this.game.A && !this.game.AHold && this.selected == 5) { //END
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Cancel");
             this.game.player.interacting = false;

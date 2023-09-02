@@ -29,6 +29,7 @@ class UIManager {
     drawNextStage(ctx) {
         let stages = [
             "Boss Rush",
+            "Lake",
             "SDM",
             "Heaven",
             "Hell"
@@ -276,6 +277,7 @@ class UIManager {
         ctx.font = "40px serif";
         let options = [
             "On a journey.",
+            "To Misty Lake",
             "To the Scarlet Devil Mansion.",
             "To Bhava-agra.",
             "To the Hell Geyser",

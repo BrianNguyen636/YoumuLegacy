@@ -5,7 +5,7 @@ class MeilingController extends BossController {
     }
 
     setBossTime() {
-        this.game.meilingTime = Math.round((this.game.timer.gameTime - this.game.startTime) * 100) / 100;
+        this.game.meilingTime = Math.round((this.game.timer.gameTime - this.game.startTime - this.game.cirnoTime) * 100) / 100;
     };
 
     behavior() {

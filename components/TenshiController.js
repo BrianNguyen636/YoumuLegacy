@@ -3,7 +3,8 @@ class TenshiController extends BossController {
         super(boss, game, 30);
     }
     setBossTime() {
-        this.game.tenshiTime = Math.round((this.game.timer.gameTime - this.game.startTime - this.game.meilingTime) * 100) / 100;
+        this.game.tenshiTime = Math.round((this.game.timer.gameTime - this.game.startTime - 
+            this.game.meilingTime - this.game.cirnoTime) * 100) / 100;
     };
     facePlayer() {
         if (this.boss.facing == 0 && this.boss.BB.midX > this.player.BB.midX) {
