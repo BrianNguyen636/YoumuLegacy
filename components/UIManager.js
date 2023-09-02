@@ -7,6 +7,9 @@ class UIManager {
         this.healthIcon = ASSET_MANAGER.getAsset("./assets/Health.png");
         this.bgmTitle;
         this.alpha = 0;
+        this.frameTimer = 0;
+        this.fps = 0;
+        this.frameCount = 0;
     }
     update() {
         for (let i = 0; i < this.entities.length; i++) {
@@ -303,9 +306,16 @@ class UIManager {
     }
 
     drawFPS(ctx) {
+        if (this.frameTimer <= 0) {
+            this.fps = this.frameCount;
+            this.frameTimer = 1;
+            this.frameCount = 0;
+        }
+        this.frameTimer -= this.game.clockTick;
+        this.frameCount++;
         ctx.font = "20px Arial";
         ctx.fillStyle = "green";
-        ctx.fillText(Math.round(1 / this.game.clockTick) + "fps", 0, 20);
+        ctx.fillText(this.fps + "fps", 0, 20);
     }
     draw(ctx) {
         this.drawFPS(ctx);

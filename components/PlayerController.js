@@ -17,7 +17,7 @@ class PlayerController {
         this.hurtDuration = 0;
 
         this.speed = 400;
-        this.dashSpeed = 800;
+        this.dashSpeed = 1000;
         this.jumpHeight = 1500;
         this.highJumpBonus = 2000;
         this.gravity = 4200;
@@ -78,11 +78,15 @@ class PlayerController {
             this.dashing = false;
         } else if (this.dashing && this.dashDuration > 0) {
             this.player.state = 4;
-            // if (this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL cancel
-            //     this.dashDuration = 0;
-            //     this.dashing = false;
-            // }
+            if (this.airborne && this.game.down && !this.fastFall && !this.fastFallHold) { //FASTFALL cancel
+                this.dashDuration = 0;
+                this.dashing = false;
+            }
             if (((this.game.A && !this.game.AHold) || (this.game.up && !this.game.upHold)) && this.doublejump) { //Cancel into jump
+                this.dashDuration = 0;
+                this.dashing = false;
+            }
+            if (this.game.B) { //ATTACK cancel
                 this.dashDuration = 0;
                 this.dashing = false;
             }

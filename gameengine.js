@@ -343,8 +343,8 @@ class GameEngine {
                     switch(this.controllerBinds.get(i)) {
                         case "Left": this.left = controller.buttons[i].pressed || controller.axes[0] < -0.25; break;
                         case "Right": this.right = controller.buttons[i].pressed || controller.axes[0] > 0.25; break;
-                        case "Up": this.up = (controller.buttons[i].pressed || controller.axes[1] < -0.4); break;
-                        case "Down": this.down = (controller.buttons[i].pressed || controller.axes[1] > 0.4); break;
+                        case "Up": this.up = (controller.buttons[i].pressed || controller.axes[1] < -0.5); break;
+                        case "Down": this.down = (controller.buttons[i].pressed || controller.axes[1] > 0.5); break;
                         case "Jump": this.A = controller.buttons[i].pressed; break;
                         case "Attack": this.B = controller.buttons[i].pressed; break;
                         case "Dash": this.C = controller.buttons[i].pressed; break;
