@@ -34,7 +34,7 @@ class PlayerController {
     };
 
     knockback(side) {
-        this.hurtDuration = 0.5;
+        this.hurtDuration = 1;
         this.fastFall = false;
         this.yVelocity = -1200;
         this.doublejump = true;
