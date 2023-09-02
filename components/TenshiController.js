@@ -220,6 +220,7 @@ class TenshiController extends BossController {
                 }
                 case(11): { this.attack(12, 0.1); break; }
                 case(12): {
+                    this.effectSpawn = false;
                     this.facePlayer();
                     this.attack(13);
                     break;
