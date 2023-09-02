@@ -22,7 +22,11 @@ class Pillar extends Projectile {
         } else {
             this.timer -= this.game.clockTick;
         }
-        if (this.lifespan <= 0 ) {
+        if (this.lifespan <= 0) {
+            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 2, this.game));
+        }
+        if (!this.game.combat) {
+            this.removeFromWorld = true;
             this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 2, this.game));
         }
     };

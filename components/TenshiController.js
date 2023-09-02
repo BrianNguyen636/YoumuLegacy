@@ -49,6 +49,8 @@ class TenshiController extends BossController {
                     break;
                 }
             }
+
+            // this.attack(22);
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {

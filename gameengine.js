@@ -262,7 +262,12 @@ class GameEngine {
             else {
                 if (this.roomManager.stage == 0) {
                     this.roomManager.stageTransition(this.selectedStage);
-                } else this.reset();
+                } else {
+                    this.roomManager.stageTransition(0);
+                    this.player.x = 0;
+                    this.startTime = 0;
+                    this.timer.gameTime = 0;
+                }
             }
         }
 
