@@ -36,7 +36,8 @@ class CirnoController extends BossController {
             // }
             this.yVelocity = 0;
             // this.attack(1);
-            this.attack(5);
+            // this.attack(5);
+            this.attack(10);
 
  
         }
@@ -70,7 +71,7 @@ class CirnoController extends BossController {
                 case(7): {
                     let projSpeed = 600;
                     if (this.shotTimer <= 0) {
-                        ASSET_MANAGER.playSound("Spray");
+                        ASSET_MANAGER.playSound("Cirno1");
                         let angle = (-1 + this.boss.facing * 2) * 30 * this.shotCount;
                         this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200, 
                             90, 90, 20, 20, projSpeed, 90 + angle, null, "Cirno", 0, this.game));
@@ -91,6 +92,37 @@ class CirnoController extends BossController {
                     }
                     break;
                 }
+                case(12): {
+                    if (this.shotCount == 0 && this.attackDuration < 0.5 * this.boss.animations[0][12].totalTime) {
+                        ASSET_MANAGER.playSound("Cirno1");
+                        let projSpeed = 700;
+                        let angle = this.boss.facing * 180;
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200, 
+                            90, 90, 20, 20, projSpeed, angle - 30, null, "Cirno", 0, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200, 
+                            90, 90, 20, 20, projSpeed, angle + 10, null, "Cirno", 0, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200, 
+                            90, 90, 20, 20, projSpeed, angle - 70, null, "Cirno", 0, this.game));
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 100, this.boss.BB.midY - 100, 200, 200, 
+                            90, 90, 20, 20, projSpeed, angle + 50, null, "Cirno", 0, this.game));
+                        this.shotCount++;
+                        this.xVelocity = (-1 + this.boss.facing * 2) * 200;
+                        this.yVelocity -= 200;
+                    }
+                    break;
+                }
+                case(13): 
+                case(14): {
+                    if (this.boss.y <= this.originY) {
+                        this.yVelocity += 1000 * this.game.clockTick;
+                    } else {
+                        this.boss.y = this.originY;
+                        this.xVelocity = 0;
+                        this.yVelocity = 0;
+                    }
+                    break;
+                }
+                
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -124,6 +156,18 @@ class CirnoController extends BossController {
                     this.boss.y = this.originY;
                     this.attack(9); 
                     break;
+                }
+                case(10): {
+                    this.attack(11, 0.8); break;
+                }
+                case(11): {
+                    this.attack(12); break;
+                }
+                case(12): {
+                    this.attack(13, 0.5); break;
+                }
+                case(13): {
+                    this.attack(14); break;
                 }
                 default: {
                     this.timer =  0.75;

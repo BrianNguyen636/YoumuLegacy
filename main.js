@@ -66,6 +66,8 @@ ASSET_MANAGER.queueDownload("./assets/Audio/Okuu2.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Okuu3.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/HeavySwing.wav");
 
+ASSET_MANAGER.queueDownload("./assets/Audio/Cirno1.wav");
+
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
