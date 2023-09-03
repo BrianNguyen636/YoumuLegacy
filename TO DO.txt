@@ -9,9 +9,7 @@ Reisen Attacks
 - Telegraphed ricochet shot/laser 
 
 Cirno Attacks
-- Walks at you
 - Rush
 - Aimed lobs
 - Spinning bullet spread
 - Aimed spread shot
-- Headbutt

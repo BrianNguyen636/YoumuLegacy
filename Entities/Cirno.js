@@ -4,7 +4,7 @@ class Cirno extends Character {
             200, 200,
             80 * 1.5, 153 * 1.5,
             600, 700 - 153 * 1.5 - 50,
-            1
+            50
         );
         this.setController(new CirnoController(this, game));
         this.facing = 1;
@@ -12,6 +12,18 @@ class Cirno extends Character {
     loadAnimations() {
         //IDLE
         this.makeAnimation(0, 0, 0, 6, 8);
+        //DASH
+        this.makeAnimation(1, 1, 0, 2, 12);
+        this.makeAnimation(2, 1, 1, 1, 1);
+        this.makeAnimation(3, 1, 2, 4, 12);
+        this.makeAnimation(4, 1, 6, 1, 1);
+        //SPIN
+        this.makeAnimation(5, 2, 0, 3, 12);
+        this.makeAnimation(6, 2, 2, 1, 1);
+        this.makeAnimation(7, 2, 3, 2, 12);
+        this.makeAnimation(8, 2, 5, 4, 12);
+        this.makeAnimation(9, 2, 9, 2, 12);
+
 
         //KNOCKBACK
         this.makeAnimation(40, 8, 0, 5, 12);

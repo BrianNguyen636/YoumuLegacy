@@ -53,6 +53,7 @@ class GameEngine {
         this.victory = false;
         this.canInteract = false;
         this.bossRush = true;
+        this.lunatic = false;
         this.selectedStage = 0;
 
         //TIMERS

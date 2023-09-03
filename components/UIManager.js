@@ -193,9 +193,12 @@ class UIManager {
     drawTimer(ctx) {
         let time = this.game.timer.gameTime - this.game.startTime;
         if (this.game.roomManager.stage == 2 && this.game.bossRush) {
-            time = time - this.game.meilingTime;
+            time = time - this.game.cirnoTime;
         }
         if (this.game.roomManager.stage == 3 && this.game.bossRush) {
+            time = time - this.game.meilingTime;
+        }
+        if (this.game.roomManager.stage == 4 && this.game.bossRush) {
             time = time - this.game.tenshiTime - this.game.meilingTime;
         }
         time = Math.round((time) * 100) / 100;

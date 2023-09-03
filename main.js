@@ -7,6 +7,7 @@ ASSET_MANAGER.queueDownload("./assets/YoumuSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/YoumuEffects.png");
 ASSET_MANAGER.queueDownload("./assets/CirnoSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/CirnoSpritesheetFlip.png");
+ASSET_MANAGER.queueDownload("./assets/CirnoProjectiles.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingSpritesheetFlip.png");
 ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");
