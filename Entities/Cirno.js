@@ -3,14 +3,22 @@ class Cirno extends Character {
         super("boss", "Cirno", game,
             200, 200,
             80 * 1.5, 153 * 1.5,
-            600, 700 - 153 * 1.5,
-            50
+            600, 700 - 153 * 1.5 - 50,
+            1
         );
+        this.setController(new CirnoController(this, game));
         this.facing = 1;
     };
     loadAnimations() {
         //IDLE
-        this.makeAnimation(0, 0, 0, 6, 12);
+        this.makeAnimation(0, 0, 0, 6, 8);
+
+        //KNOCKBACK
+        this.makeAnimation(40, 8, 0, 5, 12);
+        this.makeAnimation(41, 8, 5, 2, 12);
+        //DEAD
+        this.makeAnimation(42, 9, 0, 9, 15);
+        this.makeAnimation(43, 9, 8, 1, 1);
     };
 
     updateBB() {
@@ -26,7 +34,7 @@ class Cirno extends Character {
     update() {
         if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
         if (this.game.roomManager.stage != 1) this.removeFromWorld = true;
-        // this.controller.update();
+        this.controller.update();
         this.updateBB();
     }
 }

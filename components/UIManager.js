@@ -128,27 +128,27 @@ class UIManager {
     }
 
     drawTimer(ctx) {
-            let time = this.game.timer.gameTime - this.game.startTime;
-            if (this.game.roomManager.stage == 2 && this.game.bossRush) {
-                time = time - this.game.meilingTime;
-            }
-            if (this.game.roomManager.stage == 3 && this.game.bossRush) {
-                time = time - this.game.tenshiTime - this.game.meilingTime;
-            }
-            time = Math.round((time) * 100) / 100;
-            ctx.font = "40px arial";
-            ctx.fillStyle = "white";
-            ctx.strokeStyle = "black";
-            if ((time * 100) % 100 == 0) {
-                ctx.fillText(time + ".00s", 600, 100);
-                ctx.strokeText(time + ".00s", 600, 100);
-            } else if ((time * 100) % 10 == 0) {
-                ctx.fillText(time + "0s", 600, 100);
-                ctx.strokeText(time + "0s", 600, 100);
-            } else {
-                ctx.fillText(time + "s", 600, 100);
-                ctx.strokeText(time + "s", 600, 100);
-            }
+        let time = this.game.timer.gameTime - this.game.startTime;
+        if (this.game.roomManager.stage == 2 && this.game.bossRush) {
+            time = time - this.game.meilingTime;
+        }
+        if (this.game.roomManager.stage == 3 && this.game.bossRush) {
+            time = time - this.game.tenshiTime - this.game.meilingTime;
+        }
+        time = Math.round((time) * 100) / 100;
+        ctx.font = "40px arial";
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        if ((time * 100) % 100 == 0) {
+            ctx.fillText(time + ".00s", 600, 100);
+            ctx.strokeText(time + ".00s", 600, 100);
+        } else if ((time * 100) % 10 == 0) {
+            ctx.fillText(time + "0s", 600, 100);
+            ctx.strokeText(time + "0s", 600, 100);
+        } else {
+            ctx.fillText(time + "s", 600, 100);
+            ctx.strokeText(time + "s", 600, 100);
+        }
     }
     
     drawBossHealthBar(ctx) {
@@ -160,11 +160,15 @@ class UIManager {
     }
 
     drawBGM(ctx) {
+        ctx.fillStyle = "black";
+        ctx.globalAlpha =  0.5;
+        ctx.fillRect(780, 5, 500, 30);
+        ctx.globalAlpha = 1;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";
         ctx.font = "25px arial";
-        ctx.fillText("BGM: " + this.bgmTitle, 700, 30);
-        ctx.strokeText("BGM: " + this.bgmTitle, 700, 30);
+        ctx.fillText("BGM: " + this.bgmTitle, 800, 30, 470);
+        ctx.strokeText("BGM: " + this.bgmTitle, 800, 30, 470);
     }
 
     drawStartMenu(ctx) {
@@ -309,6 +313,10 @@ class UIManager {
     }
 
     drawFPS(ctx) {
+        ctx.fillStyle = "black";
+        ctx.globalAlpha =  0.5;
+        ctx.fillRect(0, 0, 80, 30);
+        ctx.globalAlpha = 1;
         if (this.frameTimer <= 0) {
             this.fps = this.frameCount;
             this.frameTimer = 1;
@@ -318,7 +326,7 @@ class UIManager {
         this.frameCount++;
         ctx.font = "20px Arial";
         ctx.fillStyle = "green";
-        ctx.fillText(this.fps + "fps", 0, 20);
+        ctx.fillText(this.fps + "fps", 0, 20, 100);
     }
     draw(ctx) {
         this.drawFPS(ctx);
