@@ -61,7 +61,7 @@ class RoomManager {
     newStage(stage) {
         this.game.combat = true;
         this.stage = stage;
-        this.game.player.health = 5;
+        if (!this.game.lunatic) this.game.player.health = 5;
         this.game.player.x = 0;
         this.game.ghost.x = -100;
         this.game.ghost.y = 600;

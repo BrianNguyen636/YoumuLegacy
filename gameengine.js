@@ -115,10 +115,10 @@ class GameEngine {
     };
 
     defaultController() {
-        this.controllerBinds.set(12, "Up");
-        this.controllerBinds.set(13, "Down");
         this.controllerBinds.set(14, "Left");
         this.controllerBinds.set(15, "Right");
+        this.controllerBinds.set(12, "Up");
+        this.controllerBinds.set(13, "Down");
 
         this.controllerBinds.set(0, "Jump");
         this.controllerBinds.set(1, "Dash");
@@ -269,6 +269,7 @@ class GameEngine {
                     this.startTime = 0;
                     this.timer.gameTime = 0;
                     this.ghost.x = 0;
+                    this.player.health = 5;
                 }
             }
         }

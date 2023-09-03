@@ -10,6 +10,7 @@ class UIManager {
         this.frameTimer = 0;
         this.fps = 0;
         this.frameCount = 0;
+        this.tip = "error";
     }
     update() {
         this.bossHealth = undefined;
@@ -29,10 +30,10 @@ class UIManager {
     drawNextStage(ctx) {
         let stages = [
             "Boss Rush",
-            "Lake",
-            "SDM",
-            "Heaven",
-            "Hell"
+            "Stage 1",
+            "Stage 2",
+            "Stage 3",
+            "Stage 4"
         ];
         if (this.game.roomManager.stage == 0) {
             ctx.fillStyle = "yellow";
@@ -85,6 +86,66 @@ class UIManager {
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
         ctx.fillText("Main Menu", 470, 460);
         ctx.strokeText("Main Menu", 470, 460);
+
+        ctx.font = "20px arial";
+
+        if (!this.tipRolled) {
+            this.tip = this.rollTips();
+            this.tipRolled = true;
+        }
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = "black";
+        ctx.fillRect(190, 770, 900, 30);
+        ctx.fillStyle = "white";
+        ctx.globalAlpha = 1;
+        ctx.fillText("Tip: " + this.tip, 200, 790, 900);
+    }
+
+    rollTips() {
+        let text = "error";
+        switch(this.game.roomManager.stage) {
+            case(1): {
+                let tips = [
+                    "Baaaka",
+                    "",
+                    ""
+                ]
+                let roll = Math.floor(Math.random() * 3);
+                text = tips[roll];
+                break; 
+            }
+            case(2): {
+                let tips = [
+                    "Try to watch what attack she's doing before you act.",
+                    "The stomp has a long grounded hitbox. Jump away to avoid both parts of the attack.",
+                    "You can move backwards while attacking to maintain a safe distance with the boss."
+                ]
+                let roll = Math.floor(Math.random() * 3);
+                text = tips[roll];
+                break;
+            }
+            case(3): {
+                let tips = [
+                    "Don't move too fast when dodging the pillars or else you will trap yourself.",
+                    "Listen for the audio ques to dodge the full-screen slash.",
+                    "When you see her preparing to summon the pillars, make sure you have enough space to walk."
+                ]
+                let roll = Math.floor(Math.random() * 3);
+                text = tips[roll];
+                break;
+            }
+            case(4): {
+                let tips = [
+                    "Fast-falling can make the flying tackle easier to dodge.",
+                    "The carpet bomb attack is easier to dodge the longer she flies.",
+                    "Avoid putting yourself between the boss and the corner."
+                ]
+                let roll = Math.floor(Math.random() * 3);
+                text = tips[roll];
+                break;
+            }
+        }
+        return text;
     }
 
     drawPlayerHealth(ctx) {
@@ -104,15 +165,17 @@ class UIManager {
         ctx.font = "50px serif";
         ctx.fillStyle = "white"
         ctx.fillText("Times", 470, 280);
-        let sum = this.game.meilingTime + this.game.tenshiTime + this.game.okuuTime;
+        let sum = this.game.cirnoTime + this.game.meilingTime + this.game.tenshiTime + this.game.okuuTime;
 
-        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 470, 300 + 45 * 1);
+        ctx.fillText("Cirno: " + this.game.cirnoTime + "s", 470, 300 + 45 * 1);
 
-        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 45 * 2);
+        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 470, 300 + 45 * 2);
 
-        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 45 * 3);
+        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 45 * 3);
 
-        ctx.fillText("Total: " + sum + "s", 470, 300 + 45 * 4);
+        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 45 * 4);
+
+        ctx.fillText("Total: " + sum + "s", 470, 300 + 45 * 5);
 
         ctx.font = "60px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
@@ -178,6 +241,7 @@ class UIManager {
             "All credit to Team Shanghai Alice for the Touhou Project.",
             "Credit to Twilight Frontier for the sprites and sfx.",
             "Credits to the various artists for the soundtrack.",
+            "Thanks to Chris Marriot for \"How To Make A Web Game\"",
             "Programming by me.",
             "Main menu art by me."
         ];
@@ -209,15 +273,6 @@ class UIManager {
         ctx.fillStyle = "green";
         ctx.fillText("Youmu", 50, 100, 400);
         ctx.fillText("Legacy", 50, 180, 400);
-
-        // ctx.font = "50px serif"
-        // ctx.fillStyle = "white";
-        // ctx.fillText("-Default Controls-", 800, 350);
-        // ctx.fillText("Z - Jump", 800, 400);
-        // ctx.fillText("X - Attack", 800, 450);
-        // ctx.fillText("C - Dash", 800, 500);
-        // ctx.fillText("Arrows to Move", 800, 550);
-        // ctx.fillText("Jump to Confirm", 800, 660);
     }
 
     drawOptions(ctx) {
@@ -301,6 +356,7 @@ class UIManager {
             ctx.fillText("--- " + x[0], 900, 100 + 40 * i);
             i++;
         }
+        ctx.fillText("*Analog stick is always bound to movement", 650, 100 + 40 * 9);
     }
 
     drawDialog(ctx) {
@@ -309,10 +365,10 @@ class UIManager {
         ctx.font = "40px serif";
         let options = [
             "On a journey.",
-            "To Misty Lake",
+            "To Misty Lake.",
             "To the Scarlet Devil Mansion.",
             "To Bhava-agra.",
-            "To the Hell Geyser",
+            "To the Hell Geyser.",
             "I'll stay here for now."
         ];
         ctx.strokeStyle = "black";

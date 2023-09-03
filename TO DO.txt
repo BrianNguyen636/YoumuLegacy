@@ -1,6 +1,5 @@
 IMPLEMENT
 - Add lifetime to Effects
-- Make selected option more apparent (indistinct with only two options)
 
 Reisen Attacks
 - Teleport punch / divekick
