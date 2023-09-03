@@ -25,7 +25,7 @@ ASSET_MANAGER.queueDownload("./assets/YuyukoPortrait.png");
 ASSET_MANAGER.queueDownload("./assets/Stages.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Ghost.png");
-ASSET_MANAGER.queueDownload("./assets/StartMenu.jpg");
+ASSET_MANAGER.queueDownload("./assets/StartMenu.png");
 
 
 ASSET_MANAGER.queueDownload("./assets/Audio/StartTheme.mp3");

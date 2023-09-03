@@ -305,6 +305,8 @@ class GameEngine {
                 this.menuController.controllerControlsMenu();
             } else if (this.menuController.options) {
                 this.menuController.optionsMenu();
+            } else if (this.menuController.credits) {
+                this.menuController.creditsPage();  
             } else this.menuController.startMenu();
         } else if (this.paused) {//IF PAUSED
             if (this.victory) { //VICTORY

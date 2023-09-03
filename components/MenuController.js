@@ -56,11 +56,20 @@ class MenuController {
             this.selected = 0;
         }
     }
+    creditsPage() {
+        this.credits = true;
+        this.game.uiManager.drawCredits(this.game.ctx);
+        if (this.game.A && !this.game.AHold) {
+            ASSET_MANAGER.playSound("Cancel");
+            this.game.AHold = true;
+            this.credits = false;
+        }
+    }
 
     startMenu() {
         ASSET_MANAGER.pauseBGM();
         this.game.uiManager.drawStartMenu(this.game.ctx);
-        this.optionSelection(2);
+        this.optionSelection(3);
         if (this.game.A && !this.game.AHold && this.selected == 0) { //END START MENU
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");
@@ -71,6 +80,12 @@ class MenuController {
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");
             this.optionsMenu();
+            this.selected = 0;
+        }
+        if (this.game.A && !this.game.AHold && this.selected == 2) {
+            this.game.AHold = true;
+            ASSET_MANAGER.playSound("Select");
+            this.creditsPage();
             this.selected = 0;
         }
     }

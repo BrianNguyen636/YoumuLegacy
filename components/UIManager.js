@@ -170,26 +170,54 @@ class UIManager {
         ctx.fillText("BGM: " + this.bgmTitle, 800, 30, 470);
         ctx.strokeText("BGM: " + this.bgmTitle, 800, 30, 470);
     }
-
+    drawCredits(ctx) {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.font = "40px serif";
+        ctx.fillStyle = "white";
+        let text = [
+            "All credit to Team Shanghai Alice for the Touhou Project.",
+            "Credit to Twilight Frontier for the sprites and sfx.",
+            "Credits to the various artists for the soundtrack.",
+            "Programming by me.",
+            "Main menu art by me."
+        ];
+        for (let i = 0; i < text.length; i++) {
+            ctx.fillText(text[i], 100, 100 + 80 * i);
+        }
+        ctx.font = "100px serif";
+        ctx.fillStyle = "green";
+        ctx.fillText("Return", 540, 700);
+    };
+    
     drawStartMenu(ctx) {
         let selected = this.game.menuController.selected;
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        let screen = ASSET_MANAGER.getAsset("./assets/StartMenu.jpg");
+        let screen = ASSET_MANAGER.getAsset("./assets/StartMenu.png");
         ctx.drawImage(screen, 0, 0);
-        ctx.font = "bold 100px serif"
+        ctx.font = "bold 100px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Start", 20, 600);
+        ctx.fillText("Start", 20, 400);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
-        ctx.fillText("Options", 20, 700);
+        ctx.fillText("Options", 20, 500);
+        if (selected == 2) {ctx.fillStyle = "green";} else ctx.fillStyle = "white"
+        ctx.fillText("Credits", 20, 600);
 
-        ctx.font = "50px serif"
-        ctx.fillStyle = "white";
-        ctx.fillText("-Default Controls-", 800, 350);
-        ctx.fillText("Z - Jump", 800, 400);
-        ctx.fillText("X - Attack", 800, 450);
-        ctx.fillText("C - Dash", 800, 500);
-        ctx.fillText("Arrows to Move", 800, 550);
-        ctx.fillText("Jump to Confirm", 800, 660);
+        ctx.strokeStyle = "white";
+        ctx.strokeRect(30, 10, 400, 200);
+
+        ctx.font = "bold 100px serif";
+        ctx.fillStyle = "green";
+        ctx.fillText("Youmu", 50, 100, 400);
+        ctx.fillText("Legacy", 50, 180, 400);
+
+        // ctx.font = "50px serif"
+        // ctx.fillStyle = "white";
+        // ctx.fillText("-Default Controls-", 800, 350);
+        // ctx.fillText("Z - Jump", 800, 400);
+        // ctx.fillText("X - Attack", 800, 450);
+        // ctx.fillText("C - Dash", 800, 500);
+        // ctx.fillText("Arrows to Move", 800, 550);
+        // ctx.fillText("Jump to Confirm", 800, 660);
     }
 
     drawOptions(ctx) {
