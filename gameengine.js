@@ -66,7 +66,7 @@ class GameEngine {
         this.options = options || {
             debugging: false,
         };
-        this.boxView = true;
+        this.boxView = false;
     };
 
     init(ctx, player) {
@@ -268,6 +268,7 @@ class GameEngine {
                     this.player.x = 0;
                     this.startTime = 0;
                     this.timer.gameTime = 0;
+                    this.ghost.x = 0;
                 }
             }
         }

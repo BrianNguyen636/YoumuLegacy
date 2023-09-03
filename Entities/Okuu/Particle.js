@@ -25,6 +25,7 @@ class Particle extends Projectile {
     };
     behavior() {
         if (Math.abs(this.getXTarget() - this.x) <= 5 && Math.abs(this.getYTarget() - this.y) <= 5) this.removeFromWorld = true;
+        if (!this.game.combat) this.removeFromWorld = true;
     }
 
 }
