@@ -110,7 +110,7 @@ class AssetManager {
         audio.currentTime = 0;
     }
     adjustVolume(volume) {
-        this.volume = volume;
+        this.volume = Math.round(volume * 10) / 10;
         for (let key in this.cache) {
             let asset = this.cache[key];
             if (asset instanceof Audio) {
