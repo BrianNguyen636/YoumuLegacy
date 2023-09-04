@@ -18,7 +18,7 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 | Arrow Left/Right | Move left / right |
 | Arrow Up | Jump |
 | Arrow Down | Fast Fall |
-| Z | Jump |
+| Z | Jump / Confirm |
 | X | Attack |
 | C | Dash |
 | Esc | Pause |
@@ -30,7 +30,7 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 | D-pad/Analog Left/Right | Move left / right |
 | D-pad/Analog Up | Jump |
 | D-pad/Analog Down | Fast Fall |
-| (A) | Jump |
+| (A) | Jump / Confirm|
 | (X) | Attack |
 | (B) | Dash |
 | Options | Pause |
