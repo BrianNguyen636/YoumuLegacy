@@ -7,14 +7,14 @@ class MenuController {
         this.binding = -1;
     }
     goToMainMenu() {
-        this.restart();
         this.game.startMenu = true;
-        ASSET_MANAGER.pauseBGM();
+        this.restart();
     }
     restart() {
         ASSET_MANAGER.pauseBGM();
         ASSET_MANAGER.playSound("Select");
         this.game.reset();
+        if (!this.game.startMenu) this.game.roomManager.stageTransition(0);
     }
     optionSelection(optionCount) {
         if (this.game.up && !this.game.upHold) {
@@ -79,13 +79,12 @@ class MenuController {
     }
 
     startMenu() {
-        ASSET_MANAGER.pauseBGM();
         this.game.uiManager.drawStartMenu(this.game.ctx);
         this.optionSelection(3);
         if (this.game.A && !this.game.AHold && this.selected == 0) { //END START MENU
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");
-            ASSET_MANAGER.playBGM("StartTheme");
+            this.game.roomManager.stageTransition(0);
             this.game.startMenu = false;
         }
         if (this.game.A && !this.game.AHold && this.selected == 1) {

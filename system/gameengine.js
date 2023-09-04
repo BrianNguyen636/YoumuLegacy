@@ -47,7 +47,7 @@ class GameEngine {
         this.keyPress = false;
 
         //FLAGS
-        this.startMenu = true;
+        this.startMenu = null;
         this.paused = false;
         this.combat = false;
         this.victory = false;
@@ -70,6 +70,16 @@ class GameEngine {
         this.boxView = false;
     };
 
+    startScreen(ctx, player) {
+        ctx.canvas.addEventListener("click", e => {
+            if (this.startMenu == null) {
+                this.startMenu = true;
+                this.init(ctx, player);
+                this.start();
+            }
+        });
+    }
+
     init(ctx, player) {
         this.ctx = ctx;
         this.startInput();
@@ -82,7 +92,7 @@ class GameEngine {
         this.uiManager = new UIManager(this);
         this.menuController = new MenuController(this);
         this.roomManager = new RoomManager(this);
-        this.roomManager.stageTransition(0);
+        if (this.startMenu) ASSET_MANAGER.playBGM("MenuTheme");
     };
 
     start() {
