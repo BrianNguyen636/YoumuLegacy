@@ -1,9 +1,0 @@
-IMPLEMENT
-- Add lifetime to Effects
-
-Reisen Attacks
-- Teleport punch / divekick
-- Midscreen rotating bullet stream
-- Midscreen 360 bullet spreads
-- Aimed shots
-- Telegraphed ricochet shot/laser 
