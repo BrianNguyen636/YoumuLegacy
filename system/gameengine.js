@@ -92,7 +92,9 @@ class GameEngine {
         this.uiManager = new UIManager(this);
         this.menuController = new MenuController(this);
         this.roomManager = new RoomManager(this);
-        if (this.startMenu) ASSET_MANAGER.playBGM("MenuTheme");
+        if (this.startMenu)  {
+            ASSET_MANAGER.playBGM("MenuTheme");
+        }
     };
 
     start() {
