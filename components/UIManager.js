@@ -413,12 +413,15 @@ class UIManager {
         ctx.fillRect(140, 600, 1000, 200);
         ctx.globalAlpha = this.alpha;
 
-        ctx.font = "bold 80px serif";
+        ctx.font = "bold 40px Arial";
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";
+        ctx.fillText("Yuyuko", 140 + 50, 640, 900);
+        ctx.strokeText("Yuyuko", 140 + 50, 640, 900);
+        ctx.font = "bold 80px serif";
         let dialog = "Hello Youmu, where would you like to go?";
-        ctx.fillText(dialog, 140 + 50, 600 + 100, 900);
-        ctx.strokeText(dialog, 140 + 50, 600 + 100, 900);
+        ctx.fillText(dialog, 140 + 50, 630 + 100, 900);
+        ctx.strokeText(dialog, 140 + 50, 630 + 100, 900);
 
         ctx.globalAlpha = 1;
     }

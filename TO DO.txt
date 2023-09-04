@@ -7,9 +7,3 @@ Reisen Attacks
 - Midscreen 360 bullet spreads
 - Aimed shots
 - Telegraphed ricochet shot/laser 
-
-Cirno Attacks
-- Rush
-- Aimed lobs
-- Spinning bullet spread
-- Aimed spread shot
