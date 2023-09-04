@@ -250,13 +250,13 @@ class MenuController {
         }
         if (this.selected == 2) { //VOLUME
             if(this.game.left && !this.game.leftHold) {
-                console.log(ASSET_MANAGER.volume);
+                // console.log(ASSET_MANAGER.volume);
                 this.game.leftHold = true;
                 if (ASSET_MANAGER.volume >= 0.1) ASSET_MANAGER.adjustVolume(ASSET_MANAGER.volume - 0.1);
                 ASSET_MANAGER.playSound("Select");
             }
             if (this.game.right && !this.game.rightHold) {
-                console.log(ASSET_MANAGER.volume);
+                // console.log(ASSET_MANAGER.volume);
                 this.game.rightHold = true;
                 if (ASSET_MANAGER.volume <= 0.9) ASSET_MANAGER.adjustVolume(ASSET_MANAGER.volume + 0.1);
                 ASSET_MANAGER.playSound("Select");
