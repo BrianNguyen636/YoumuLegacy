@@ -27,6 +27,7 @@ ASSET_MANAGER.queueDownload("./assets/Stages.png");
 ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Ghost.png");
 ASSET_MANAGER.queueDownload("./assets/StartMenu.png");
+ASSET_MANAGER.queueDownload("./assets/StartScreen.png");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/MenuTheme.mp3");
 ASSET_MANAGER.queueDownload("./assets/Audio/StartTheme.mp3");
@@ -75,8 +76,6 @@ ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
 	const player = new Player(gameEngine);
-	ctx.fillStyle = "white";
-	ctx.font = "bold 100px serif"
-	ctx.fillText("Click to start!", 440, 400, 400);
+	ctx.drawImage(ASSET_MANAGER.getAsset("./assets/StartScreen.png"), 0, 0);
 	gameEngine.startScreen(ctx, player);
 });

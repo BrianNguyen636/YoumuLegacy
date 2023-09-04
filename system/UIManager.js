@@ -296,7 +296,7 @@ class UIManager {
         
         ctx.fillStyle = "white";
         ctx.font = "20px serif";
-        ctx.fillText("Press [Jump] to confirm. Default: Z or (A)", 10, 770);
+        // ctx.fillText("Press [Jump] to confirm. Default: Z or (A)", 10, 770);
         ctx.fillText("BGM: Kuroneko Lounge - Ancient Temple", 1000, 20, 270);
     }
 
