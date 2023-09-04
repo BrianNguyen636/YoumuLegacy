@@ -4,7 +4,7 @@
 
 ## Description
 
-Youmu Legacy is a 2D Action Game about defeating various challenging boss fights.
+Youmu Legacy is a 2D Action Game inspired by Rogue Legacy and Hollow Knight about defeating various challenging boss fights.
 
 Take on characters from the Touhou Project and prove your skills.
 
