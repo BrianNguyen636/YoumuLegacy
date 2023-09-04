@@ -170,10 +170,10 @@ class TenshiController extends BossController {
                         ASSET_MANAGER.playSound("Rock");
                     }
                     if (!this.effectSpawn && (this.attackDuration < 1 && this.attackDuration > 0)) {
-                        for (let i = 0; i < 2; i++) {
-                            let stoneR = new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90 - 120 * i, this.game);
+                        for (let i = 0; i < 3; i++) {
+                            let stoneR = new Keystone(this.boss.BB.midX - 22 - 48 + 125 + 125 * i, -90 - 100 * i, this.game);
                             stoneR.gravity = 5000;
-                            let stoneL = new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 125 * i, -90 - 120 * i, this.game);
+                            let stoneL = new Keystone(this.boss.BB.midX - 22 - 48 - 125 - 125 * i, -90 - 100 * i, this.game);
                             stoneL.gravity = 5000;
                             this.game.addEntity(stoneR);
                             this.game.addEntity(stoneL);
