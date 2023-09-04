@@ -293,6 +293,10 @@ class UIManager {
         ctx.fillStyle = "green";
         ctx.fillText("Youmu", 50, 100, 400);
         ctx.fillText("Legacy", 50, 180, 400);
+        
+        ctx.fillStyle = "white";
+        ctx.font = "20px serif";
+        ctx.fillText("Press [Jump] to confirm. Default: Z or (X)", 10, 770);
     }
 
     drawOptions(ctx) {
