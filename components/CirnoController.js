@@ -37,7 +37,8 @@ class CirnoController extends BossController {
             this.yVelocity = 0;
             // this.attack(1);
             // this.attack(5);
-            this.attack(10);
+            // this.attack(10);
+            // this.attack(15);
 
  
         }
@@ -122,7 +123,19 @@ class CirnoController extends BossController {
                     }
                     break;
                 }
-                
+                case(15):
+                case(16): {
+                    this.yVelocity += 500 * this.game.clockTick; break;
+                }
+                case(17): {
+                    this.yVelocity += 1000 * this.game.clockTick;
+                    if (this.boss.y >= this.originY && this.yVelocity > 0) {
+                        this.yVelocity = 0;
+                        this.xVelocity = 0;
+                    }
+                    break;
+                }
+
             }
         }
         if (this.attackDuration <= 0 && this.boss.state > 0) { //AFTER STATE
@@ -169,6 +182,26 @@ class CirnoController extends BossController {
                 case(13): {
                     this.attack(14); break;
                 }
+                case(15): {
+                    let delay = 1.25;
+                    ASSET_MANAGER.playSound("Cirno2");
+                    this.game.addEntity(new Lob(this.boss.BB.midX - 100, this.boss.BB.y - 100, 
+                        delay, 0, this));
+                    this.game.addEntity(new Lob(this.boss.BB.midX - 100, this.boss.BB.y - 100, 
+                        delay, 300, this));
+                    this.game.addEntity(new Lob(this.boss.BB.midX - 100, this.boss.BB.y - 100, 
+                        delay, -300, this));
+                    this.attack(16, delay); break;
+                }
+                case(16): {
+                    ASSET_MANAGER.playSound("Spray");
+                    this.facePlayer();
+                    this.xVelocity = -(-1 + this.boss.facing * 2) * 50;
+                    this.yVelocity = -400;
+                    this.attack(17, 0.7);
+                    break;
+                }
+                case(17): this.attack(18); break;
                 default: {
                     this.timer =  0.75;
                     this.boss.state = 0;
