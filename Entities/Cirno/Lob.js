@@ -7,6 +7,7 @@ class Lob extends Projectile {
         this.timer = 0;
         this.shot = false;
         this.airTime = 1.5;
+        this.radians = 0;
     };
 
     updateHitbox(){
@@ -26,22 +27,40 @@ class Lob extends Projectile {
         if (this.launchTime > 0) this.launchTime -= this.game.clockTick;
         else {
             this.timer += this.game.clockTick;
+            
             if (!this.shot) {
                 this.yVelocity -= 900;
                 let xDiff = this.game.player.BB.midX - (this.x + 100) + this.offset;
                 this.xVelocity = xDiff / this.airTime;
                 this.shot = true;
+
+                if (xDiff > 0) this.facing = 1;
+                else this.facing = -1;
             }
+            this.radians += this.facing * 2.5 * this.game.clockTick;
             this.yVelocity += 1200 * this.game.clockTick;
         }
     };
     draw(ctx) {
         if (!this.removeFromWorld) {
-            ctx.drawImage(this.spritesheet,
-                0, this.height * this.number,
-                this.width, this.height,
-                this.x + 100 * (1-this.scale), this.y + 100 * (1-this.scale), 
-                this.width * this.scale, this.height * this.scale);
+            if (this.launchTime > 0) {
+                ctx.drawImage(this.spritesheet,
+                    0, this.height * this.number,
+                    this.width, this.height,
+                    this.x + 100 * (1-this.scale), this.y + 100 * (1-this.scale), 
+                    this.width * this.scale, this.height * this.scale);
+            } else {
+                ctx.save();
+                ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+                ctx.rotate(this.radians);
+                ctx.drawImage(this.spritesheet,
+                    0, this.height * this.number,
+                    this.width, this.height,
+                    -this.width / 2,  -this.height / 2, 
+                    this.width, this.height,
+                );
+                ctx.restore();
+            }
         }
     }
 }

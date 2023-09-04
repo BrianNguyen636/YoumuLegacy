@@ -34,6 +34,12 @@ class Cirno extends Character {
         this.makeAnimation(16, 4, 2, 2, 12);
         this.makeAnimation(17, 4, 4, 3, 12);
         this.makeAnimation(18, 4, 7, 1, 12);
+        //BURST
+        this.makeAnimation(19, 5, 0, 3, 12);
+        this.makeAnimation(20, 5, 2, 1, 1);
+        this.makeAnimation(21, 5, 3, 1, 12);
+        this.makeAnimation(22, 5, 4, 2, 12);
+        this.makeAnimation(23, 5, 6, 1, 12);
 
         //KNOCKBACK
         this.makeAnimation(40, 8, 0, 5, 12);

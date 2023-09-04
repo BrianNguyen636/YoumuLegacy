@@ -11,7 +11,7 @@ class MeilingController extends BossController {
     behavior() {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
             this.boss.state = 1;
-            this.timer =  0.5 + 0.4 * Math.floor(Math.random() * 4);
+            this.timer =  0.3 + 0.3 * Math.floor(Math.random() * 3);
         }
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
             this.facePlayer();
@@ -29,11 +29,11 @@ class MeilingController extends BossController {
             switch(this.boss.state) {
                 case(1): { //Walking
                     this.facePlayer();
-                    this.boss.x -= (-1 + this.boss.facing * 2) * 120 * this.game.clockTick; 
+                    this.boss.x -= (-1 + this.boss.facing * 2) * 150 * this.game.clockTick; 
                     break;
                 }
                 case(3): { //Flurry
-                    this.boss.x -= (-1 + this.boss.facing * 2) * 300 * this.game.clockTick; 
+                    this.boss.x -= (-1 + this.boss.facing * 2) * 350 * this.game.clockTick; 
                     if (this.boss.facing == 0) {
                         this.game.addEntity(new Hitbox(this.boss.x + 120* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));
                     } else this.game.addEntity(new Hitbox(this.boss.x + 30* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));

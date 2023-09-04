@@ -41,6 +41,18 @@ class MenuController {
             this.game.bossRush = true;
             this.selected = 0;
         }
+        if (this.selected == 0 && this.game.left && !this.game.leftHold) { //BOSS RUSH DIFFICULTY
+            this.game.leftHold = true;
+            ASSET_MANAGER.playSound("Select");
+            if (!this.game.lunatic) this.game.lunatic = true;
+            else this.game.lunatic = false;
+        }
+        if (this.selected == 0 && this.game.right && !this.game.rightHold) { //BOSS RUSH DIFFICULTY
+            this.game.rightHold = true;
+            ASSET_MANAGER.playSound("Select");
+            if (!this.game.lunatic) this.game.lunatic = true;
+            else this.game.lunatic = false;
+        }
         if (this.game.A && !this.game.AHold && this.selected > 0 && this.selected <= 4) {
             this.game.AHold = true;
             ASSET_MANAGER.playSound("Select");

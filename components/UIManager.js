@@ -21,6 +21,8 @@ class UIManager {
                     this.playerHealth = entity.health;
                 }
                 if (entity.id == "boss") {
+                    this.bossName = entity.name;
+                    if (this.bossName == "Okuu") this.bossName = "Utsuho";
                     this.bossHealth = entity.health;
                 }
             }
@@ -106,9 +108,9 @@ class UIManager {
         switch(this.game.roomManager.stage) {
             case(1): {
                 let tips = [
-                    "Baaaka",
-                    "",
-                    ""
+                    "Her spinning blizzard has safe spots where you can stand to be safe.",
+                    "Making distance can give you more time to react to attacks.",
+                    "Attacks keep you from dashing. Don't overextend!"
                 ]
                 let roll = Math.floor(Math.random() * 3);
                 text = tips[roll];
@@ -116,7 +118,7 @@ class UIManager {
             }
             case(2): {
                 let tips = [
-                    "Try to watch what attack she's doing before you act.",
+                    "She can follow-up her flurry punches with any other attack, watch out!",
                     "The stomp has a long grounded hitbox. Jump away to avoid both parts of the attack.",
                     "You can move backwards while attacking to maintain a safe distance with the boss."
                 ]
@@ -164,26 +166,29 @@ class UIManager {
 
         ctx.font = "50px serif";
         ctx.fillStyle = "white"
-        ctx.fillText("Times", 470, 280);
+        let difficulty;
+        if (this.game.lunatic) difficulty = "Lunatic";
+        else difficulty = "Normal";
+        ctx.fillText("Difficulty: " + difficulty, 450, 280);
         let sum = this.game.cirnoTime + this.game.meilingTime + this.game.tenshiTime + this.game.okuuTime;
 
-        ctx.fillText("Cirno: " + this.game.cirnoTime + "s", 470, 300 + 45 * 1);
+        ctx.fillText("Cirno: " + this.game.cirnoTime + "s", 450, 300 + 50 * 1);
 
-        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 470, 300 + 45 * 2);
+        ctx.fillText("Meiling: " + this.game.meilingTime + "s", 450, 300 + 50 * 2);
 
-        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 470, 300 + 45 * 3);
+        ctx.fillText("Tenshi: " + this.game.tenshiTime + "s", 450, 300 + 50 * 3);
 
-        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 470, 300 + 45 * 4);
+        ctx.fillText("Utsuho: " + this.game.okuuTime + "s", 450, 300 + 50 * 4);
 
-        ctx.fillText("Total: " + sum + "s", 470, 300 + 45 * 5);
+        ctx.fillText("Total: " + Math.round(sum * 100) / 100 + "s", 450, 300 + 50 * 5);
 
         ctx.font = "60px serif";
         if (selected == 0) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
-        ctx.fillText("Restart", 470, 600);
-        ctx.strokeText("Restart", 470, 600);
+        ctx.fillText("Restart", 470, 660);
+        ctx.strokeText("Restart", 470, 660);
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
-        ctx.fillText("Main Menu", 470, 660);
-        ctx.strokeText("Main Menu", 470, 660);
+        ctx.fillText("Main Menu", 470, 720);
+        ctx.strokeText("Main Menu", 470, 720);
 
         this.drawBGM(ctx);
 
@@ -196,11 +201,16 @@ class UIManager {
             time = time - this.game.cirnoTime;
         }
         if (this.game.roomManager.stage == 3 && this.game.bossRush) {
-            time = time - this.game.meilingTime;
+            time = time - this.game.meilingTime - this.game.cirnoTime;
         }
         if (this.game.roomManager.stage == 4 && this.game.bossRush) {
-            time = time - this.game.tenshiTime - this.game.meilingTime;
+            time = time - this.game.tenshiTime - this.game.meilingTime - this.game.cirnoTime;
         }
+
+        // ctx.fillStyle = "black";
+        // ctx.globalAlpha = 0.6;
+        // ctx.fillRect(580, 65, 140, 40);
+        // ctx.globalAlpha = 1;
         time = Math.round((time) * 100) / 100;
         ctx.font = "40px arial";
         ctx.fillStyle = "white";
@@ -219,10 +229,17 @@ class UIManager {
     
     drawBossHealthBar(ctx) {
         const healthPercent = this.bossHealth / 50;
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "Black";
+        ctx.globalAlpha = 0.6;
+        ctx.fillRect(240, 720, 100, 50);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "White";
+        ctx.fillText(this.bossName, 250, 750, 80);
         ctx.fillStyle = "Green";
-        ctx.fillRect(240, 740, 800, 20);
+        ctx.fillRect(240, 760, 800, 20);
         ctx.fillStyle = "Red";
-        ctx.fillRect(1040 - 800*(1 - healthPercent), 740, 800*(1 - healthPercent), 20);
+        ctx.fillRect(1040 - 800*(1 - healthPercent), 760, 800*(1 - healthPercent), 20);
     }
 
     drawBGM(ctx) {
@@ -364,10 +381,13 @@ class UIManager {
 
     drawDialog(ctx) {
         let selected = this.game.menuController.selected;
+        let difficulty;
+        if (this.game.lunatic) difficulty = "Lunatic";
+        else difficulty = "Normal";
         ctx.globalAlpha = this.alpha;
         ctx.font = "40px serif";
         let options = [
-            "On a journey.",
+            "On a journey. " + "["+ difficulty +"]",
             "To Misty Lake.",
             "To the Scarlet Devil Mansion.",
             "To Bhava-agra.",

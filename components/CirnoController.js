@@ -1,7 +1,7 @@
 class CirnoController extends BossController {
     constructor(boss, game) {
         super(boss, game, 40);
-        this.timer = 0.5;
+        this.timer = 0.7;
         this.antiGrav = true;
         this.idleTimer = 0;
         this.originY = 700 - 50 - 153 * 1.5;
@@ -31,16 +31,16 @@ class CirnoController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            // let roll = this.rollForAttack(5);
-            // switch(roll) {
-            // }
+            let roll = this.rollForAttack(5);
+            switch(roll) {
+                case(0):this.attack(1); break;
+                case(1):this.attack(5); break;
+                case(2):this.attack(10); break;
+                case(3):this.attack(15); break;
+                case(4):this.attack(19); break;
+            }
             this.yVelocity = 0;
-            // this.attack(1);
-            // this.attack(5);
-            // this.attack(10);
-            // this.attack(15);
 
- 
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -202,6 +202,17 @@ class CirnoController extends BossController {
                     break;
                 }
                 case(17): this.attack(18); break;
+                
+                case(19): this.attack(20, 0.7); break;
+                case(20): this.attack(21); break;
+                case(21): {
+                    let time = 1;
+                    ASSET_MANAGER.playSound("Cirno3");
+                    this.game.addEntity(new Snowflake(this.boss.BB.midX - 100, this.boss.BB.midY - 100, this.boss.facing, time, this));
+                    this.attack(22, time); 
+                    break;
+                }
+                case(22): this.attack(23); break;
                 default: {
                     this.timer =  0.75;
                     this.boss.state = 0;

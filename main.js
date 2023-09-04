@@ -68,6 +68,7 @@ ASSET_MANAGER.queueDownload("./assets/Audio/HeavySwing.wav");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Cirno1.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Cirno2.wav");
+ASSET_MANAGER.queueDownload("./assets/Audio/Cirno3.wav");
 
 
 ASSET_MANAGER.downloadAll(() => {
