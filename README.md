@@ -48,4 +48,6 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Version History
 
+### v1.01 (9/4/2023)
+- Added extra start menu and Main Menu music
 ### v1.0 (9/3/2023)
