@@ -129,7 +129,7 @@ class MeilingController extends BossController {
                 }
                 case(7): { this.attack(8, 0.3); break; }
                 case(8): { this.attack(9); break; }
-                case(10): { this.attack(11, 0.3); break; }
+                case(10): { this.attack(11, 0.4); break; }
                 case(11): { this.attack(12); break; }
                 case(12): { //DRAGONKICK
                     this.attack(13, 0.5);
