@@ -35,6 +35,12 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 | (B) | Dash |
 | Options | Pause |
 
+###Movement
+
+- You have one double-jump and one air-dash
+- Dash can be cancelled early by jumping, attacking, or fast-falling
+- You can move and jump while attacking, but you can't dash.
+- You can jump out of getting hit after a certain period of time to recover faster.
 
 ## Authors
 
