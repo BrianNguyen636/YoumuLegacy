@@ -25,19 +25,26 @@ class Meiling extends Character {
         this.makeAnimation(8, 3, 4, 1, 1);
         this.makeAnimation(9, 3, 5, 1, 1);
         this.makeAnimation(10, 3, 6, 3, 12);
-        // //STOMP
-        // this.makeAnimation(7, 4, 0, 3, 15);
-        // this.makeAnimation(8, 4, 2, 1, 1);
-        // this.makeAnimation(9, 4, 2, 7, 15);
-        // //DRAGONKICK
-        // this.makeAnimation(10, 5, 0, 2, 10);
-        // this.makeAnimation(11, 5, 1, 1, 1);
-        // this.makeAnimation(12, 5, 2, 1, 10);
-        // this.makeAnimation(13, 5, 4, 2, 10);
-        // this.makeAnimation(14, 5, 6, 2, 10);
-        // this.makeAnimation(15, 5, 8, 2, 10);
-        //PROJECTILE
-        // this.makeAnimation(16, 6, 0, 8, 10);
+        //STOMP
+        this.makeAnimation(11, 5, 0, 2, 12);
+        this.makeAnimation(12, 4, 0, 1, 1);
+        this.makeAnimation(13, 4, 1, 2, 12);
+        this.makeAnimation(14, 4, 3, 1, 1);
+        this.makeAnimation(15, 4, 4, 1, 1);
+        this.makeAnimation(16, 4, 4, 4, 12);
+        //DRAGONKICK
+        this.makeAnimation(17, 5, 0, 2, 12);
+        this.makeAnimation(18, 5, 1, 1, 1);
+        this.makeAnimation(19, 5, 2, 1, 10);
+        this.makeAnimation(20, 5, 4, 2, 12);
+        this.makeAnimation(21, 5, 6, 2, 12);
+        this.makeAnimation(22, 5, 8, 2, 12);
+        //PALMS
+        this.makeAnimation(23, 6, 0, 3, 12);
+        this.makeAnimation(24, 6, 2, 1, 1);
+        this.makeAnimation(25, 6, 3, 3, 12);
+        this.makeAnimation(26, 6, 6, 1, 1);
+        this.makeAnimation(27, 6, 6, 3, 12);
         //KNOCKBACK
         this.makeAnimation(40, 7, 0, 8, 15);
         this.makeAnimation(41, 7, 6, 2, 10);

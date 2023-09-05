@@ -51,7 +51,7 @@ ASSET_MANAGER.queueDownload("./assets/Audio/Slash.wav");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Stomp.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Spray.wav");
-ASSET_MANAGER.queueDownload("./assets/Audio/Flurry.wav");
+ASSET_MANAGER.queueDownload("./assets/Audio/Meiling1.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Fly.wav");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Shing.wav");
