@@ -57,6 +57,8 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Version History
 
+### v1.1 (9/5/2023)
+- Meiling fight rework
 ### v1.01 (9/4/2023)
 - Added extra start menu and Main Menu music
 ### v1.0 (9/3/2023)
