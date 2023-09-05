@@ -73,6 +73,7 @@ class GameEngine {
     startScreen(ctx, player) {
         ctx.canvas.addEventListener("click", e => {
             if (this.startMenu == null) {
+                ASSET_MANAGER.playSound("Pause");
                 this.startMenu = true;
                 this.init(ctx, player);
                 this.start();

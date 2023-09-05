@@ -46,6 +46,15 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 - [Brian Nguyen](https://github.com/BrianNguyen636)
 
+## Acknowledgements
+
+    All credit to Team Shanghai Alice for the Touhou Project.
+    Credit to Twilight Frontier for the sprites and sfx.
+    Credits to the various artists for the soundtrack.
+    Thanks to Chris Marriot for "[How To Make A Web Game](https://www.youtube.com/playlist?list=PLRgsEjJNLnh7fqP4mVqP-h6fAnuOdx3l4)"
+    Programming by me.
+    Main menu art by me.
+
 ## Version History
 
 ### v1.01 (9/4/2023)

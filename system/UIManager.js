@@ -295,9 +295,9 @@ class UIManager {
         ctx.fillText("Legacy", 50, 180, 400);
         
         ctx.fillStyle = "white";
-        ctx.font = "20px serif";
+        ctx.font = "25px serif";
         // ctx.fillText("Press [Jump] to confirm. Default: Z or (A)", 10, 770);
-        ctx.fillText("BGM: Kuroneko Lounge - Ancient Temple", 1000, 20, 270);
+        ctx.fillText("BGM: Kuroneko Lounge - Ancient Temple", 900, 25, 370);
     }
 
     drawOptions(ctx) {
