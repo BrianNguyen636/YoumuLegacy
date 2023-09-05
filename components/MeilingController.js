@@ -1,6 +1,6 @@
 class MeilingController extends BossController {
     constructor(boss, game) {
-        super(boss, game, 17);
+        super(boss, game, 40);
         this.timer = 0.5;
     }
 
@@ -10,21 +10,24 @@ class MeilingController extends BossController {
 
     behavior() {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
-            this.boss.state = 1;
-            this.timer =  0.3 + 0.3 * Math.floor(Math.random() * 3);
-        }
-        if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
+            // this.boss.state = 1;
+            // this.timer =  0.3 + 0.3 * Math.floor(Math.random() * 3);
             this.facePlayer();
-            let roll = this.rollForAttack(5);
-
-            switch(roll) {
-                case(0): this.attack(2, 0.3); break;
-                case(1): this.attack(4); break;
-                case(2): this.attack(7); break;
-                case(3): this.attack(10); break;
-                case(4): this.attack(16); break;
-            }
+            this.attack(2, 0.6);
         }
+        // if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
+        //     this.facePlayer();
+        //     let roll = this.rollForAttack(5);
+
+        //     switch(roll) {
+        //         case(0): this.attack(2, 0.3); break;
+        //         case(1): this.attack(4); break;
+        //         case(2): this.attack(7); break;
+        //         case(3): this.attack(10); break;
+        //         case(4): this.attack(16); break;
+        //     }
+
+        // }
         if (this.attackDuration > 0 || this.timer > 0) { //What happens during an attack
             switch(this.boss.state) {
                 case(1): { //Walking
@@ -32,23 +35,40 @@ class MeilingController extends BossController {
                     this.boss.x -= (-1 + this.boss.facing * 2) * 150 * this.game.clockTick; 
                     break;
                 }
-                case(3): { //Flurry
-                    this.boss.x -= (-1 + this.boss.facing * 2) * 350 * this.game.clockTick; 
-                    if (this.boss.facing == 0) {
-                        this.game.addEntity(new Hitbox(this.boss.x + 120* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));
-                    } else this.game.addEntity(new Hitbox(this.boss.x + 30* 1.5, this.boss.y + 30* 1.5, 50* 1.5, 80* 1.5, 0, this.game));
+                case(4): { //Flurry
+                    let projSpeed = 600;
+                    let angle;
+                    let shotColor = this.shotCount;
+                    if (this.shotCount >= 5) shotColor = this.shotCount - 5;
+                    if (this.shotCount >= 10) shotColor = this.shotCount - 10;
+                    if (this.shotCount < 5) {
+                        angle = 60 - 30 * this.shotCount; 
+                    } else if (this.shotCount < 10) {
+                        angle = -45 + 30 * (this.shotCount - 5);
+                    } else {
+                        angle = 60 - 30 * (this.shotCount - 9); 
+                    }
+                    if (this.shotTimer <= 0 && this.shotCount < 14) {
+                        ASSET_MANAGER.playSound("Spray");
+                        this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY - 16, 64, 32, 16, 0, 32, 32, projSpeed, 
+                            this.boss.facing * 180 + angle * this.forwards(), null, "Meiling", shotColor, this.game));
+                        this.shotCount++;
+                        this.shotTimer = 0.08;
+                    }
+                    this.shotTimer -= this.game.clockTick;
                     break;
                 }
-                case(5): { //Tetsuzanko
-                    if (this.attackDuration < 0.3) {
-                        this.xVelocity -= (-1 + this.boss.facing * 2) * 10000 * this.game.clockTick;
-                    }
-                    if (!this.effectSpawn && this.attackDuration < 0.28) {
-                        ASSET_MANAGER.playSound("Swish");
-                        this.effectSpawn = true;
-                    }
-                    break;
-                }
+
+                // case(5): { //Tetsuzanko
+                //     if (this.attackDuration < 0.3) {
+                //         this.xVelocity -= (-1 + this.boss.facing * 2) * 10000 * this.game.clockTick;
+                //     }
+                //     if (!this.effectSpawn && this.attackDuration < 0.28) {
+                //         ASSET_MANAGER.playSound("Swish");
+                //         this.effectSpawn = true;
+                //     }
+                //     break;
+                // }
                 case(6): { //Tetsuzanko
                     if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime)
                         this.xVelocity = 0;
@@ -110,23 +130,27 @@ class MeilingController extends BossController {
         }
         if (this.attackDuration <= 0 && this.boss.state > 1) { //What happens after attack
             switch(this.boss.state) {
-                case(2): {
-                    ASSET_MANAGER.playSound("Flurry");
-                    this.attack(3);
-                    break;
-                }
+                case(2): this.attack(3); break;
                 case(3): {
-                    this.facePlayer();
-                    this.boss.state = 1;
-                    this.timer = 0;
+
+                    this.attack(4, 1.2);
                     break;
                 }
-                case(4): { this.attack(5, 0.6); break; }
-                case(5): {
-                    ASSET_MANAGER.playSound("Whoosh");
-                    this.attack(6);
-                    break;
+                case(4): {
+                    this.attack(5); break;
                 }
+                // case(3): {
+                //     this.facePlayer();
+                //     this.boss.state = 1;
+                //     this.timer = 0;
+                //     break;
+                // }
+                // case(4): { this.attack(5, 0.6); break; }
+                // case(5): {
+                //     ASSET_MANAGER.playSound("Whoosh");
+                //     this.attack(6);
+                //     break;
+                // }
                 case(7): { this.attack(8, 0.3); break; }
                 case(8): { this.attack(9); break; }
                 case(10): { this.attack(11, 0.4); break; }
@@ -146,7 +170,9 @@ class MeilingController extends BossController {
                 case(14): { this.attack(15, 10); break; }
                 default: {
                     this.effectSpawn = false;
-                    this.timer = 0.4;
+                    this.shotTimer = 0;
+                    this.shotCount = 0;
+                    this.timer = 0.6;
                     this.boss.state = 0;
                     this.xVelocity = 0;
                     break;

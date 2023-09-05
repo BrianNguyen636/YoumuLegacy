@@ -20,6 +20,9 @@ class BossController {
         console.log("SET BOSS TIME");
     }; 
 
+    forwards() {
+        return -(-1 + this.boss.facing * 2);
+    }
     rollForAttack(attacks) {
         if (attacks < 3) throw new Error("Not enough attacks!");
         let roll = this.lastRoll;

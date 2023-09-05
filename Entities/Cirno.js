@@ -3,7 +3,7 @@ class Cirno extends Character {
         super("boss", "Cirno", game,
             200, 200,
             80 * 1.5, 153 * 1.5,
-            600, 700 - 153 * 1.5 - 50,
+            700, 700 - 153 * 1.5 - 50,
             50
         );
         this.setController(new CirnoController(this, game));
