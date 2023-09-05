@@ -19,14 +19,12 @@ class Meiling extends Character {
         this.makeAnimation(3, 2, 0, 2, 12);
         this.makeAnimation(4, 2, 2, 3, 12);
         this.makeAnimation(5, 2, 5, 1, 10);
-
-
-
-
-        // //TETSUZANKO
-        // this.makeAnimation(4, 3, 0, 4, 15);
-        // this.makeAnimation(5, 3, 4, 1, 1);
-        // this.makeAnimation(6, 3, 4, 7, 10);
+        //TETSUZANKO
+        this.makeAnimation(6, 3, 0, 4, 12);
+        this.makeAnimation(7, 3, 3, 1, 1);
+        this.makeAnimation(8, 3, 4, 1, 1);
+        this.makeAnimation(9, 3, 5, 1, 1);
+        this.makeAnimation(10, 3, 6, 3, 12);
         // //STOMP
         // this.makeAnimation(7, 4, 0, 3, 15);
         // this.makeAnimation(8, 4, 2, 1, 1);
@@ -39,7 +37,7 @@ class Meiling extends Character {
         // this.makeAnimation(14, 5, 6, 2, 10);
         // this.makeAnimation(15, 5, 8, 2, 10);
         //PROJECTILE
-        this.makeAnimation(16, 6, 0, 8, 10);
+        // this.makeAnimation(16, 6, 0, 8, 10);
         //KNOCKBACK
         this.makeAnimation(40, 7, 0, 8, 15);
         this.makeAnimation(41, 7, 6, 2, 10);

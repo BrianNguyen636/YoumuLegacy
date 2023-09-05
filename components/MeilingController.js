@@ -13,7 +13,7 @@ class MeilingController extends BossController {
             // this.boss.state = 1;
             // this.timer =  0.3 + 0.3 * Math.floor(Math.random() * 3);
             this.facePlayer();
-            this.attack(2, 0.6);
+            this.attack(6);
         }
         // if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
         //     this.facePlayer();
@@ -69,38 +69,54 @@ class MeilingController extends BossController {
                 //     }
                 //     break;
                 // }
-                case(6): { //Tetsuzanko
-                    if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime)
+                // case(6): { //Tetsuzanko
+                //     if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][6].totalTime)
+                //         this.xVelocity = 0;
+                //     break;
+                // }
+                case(8):
+                case(9): {
+                    if (Math.abs(this.xVelocity) >= 0) {
+                        this.xVelocity += 5000 * -this.forwards() * this.game.clockTick;
+                    }
+                    if (this.xVelocity * this.forwards() <= 0) {
                         this.xVelocity = 0;
+                    }
+                    if (this.shotTimer <= 0) {
+                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 1, this.game));
+                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 2, this.game));
+                        this.shotTimer = 0.033;
+                    }
+                    this.shotTimer -= this.game.clockTick;
                     break;
                 }
-                case(9): {//STOMP
-                    if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][9].totalTime &&
-                    this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][9].totalTime) { //Hitbox spawns
-                        if (!this.effectSpawn) {
-                            if (this.boss.facing == 0) {
-                                this.game.addEntity(new Hitbox(this.boss.x + 86 , this.boss.y - 478, 142, 478, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x + 13, this.boss.y - 307, 289, 307, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y - 109, 400, 300, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 238, this.boss.y, "Meiling", 1, this.game));
+                // case(9): {//STOMP
+                //     if (this.attackDuration < (5/7) * this.boss.animations[this.boss.facing][9].totalTime &&
+                //     this.attackDuration > (3/7) * this.boss.animations[this.boss.facing][9].totalTime) { //Hitbox spawns
+                //         if (!this.effectSpawn) {
+                //             if (this.boss.facing == 0) {
+                //                 this.game.addEntity(new Hitbox(this.boss.x + 86 , this.boss.y - 478, 142, 478, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x + 13, this.boss.y - 307, 289, 307, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y - 109, 400, 300, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
+                //                 this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 0, this.game));
+                //                 this.game.addEntity(new Effect(this.boss.x - 238, this.boss.y, "Meiling", 1, this.game));
                                 
-                            } else {
-                                this.game.addEntity(new Hitbox(this.boss.x + 66 , this.boss.y - 478, 142, 478, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x - 7, this.boss.y - 307, 289, 307, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x - 68, this.boss.y - 109, 400, 300, 0, this.game));
-                                this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 258, this.boss.y, "Meiling", 1, this.game));
-                            }
-                            ASSET_MANAGER.playSound("Stomp");
-                            this.effectSpawn = true;
-                        }
-                    } else this.effectSpawn = false;
+                //             } else {
+                //                 this.game.addEntity(new Hitbox(this.boss.x + 66 , this.boss.y - 478, 142, 478, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x - 7, this.boss.y - 307, 289, 307, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x - 68, this.boss.y - 109, 400, 300, 0, this.game));
+                //                 this.game.addEntity(new Hitbox(this.boss.x - 258, this.boss.y + this.boss.yBoxOffset - 10, 800, 10, 0, this.game));
+                //                 this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0, this.game));
+                //                 this.game.addEntity(new Effect(this.boss.x - 258, this.boss.y, "Meiling", 1, this.game));
+                //             }
+                //             ASSET_MANAGER.playSound("Stomp");
+                //             this.effectSpawn = true;
+                //         }
+                //     } else this.effectSpawn = false;
 
-                    break;
-                }
+                //     break;
+                // }
                 case(14,15): {
                     if (this.yVelocity == 0) this.attackDuration = 0;
                     break;
@@ -139,21 +155,30 @@ class MeilingController extends BossController {
                 case(4): {
                     this.attack(5); break;
                 }
-                // case(3): {
-                //     this.facePlayer();
-                //     this.boss.state = 1;
-                //     this.timer = 0;
-                //     break;
-                // }
+                case(6): {
+                    this.attack(7, 0.3);
+                    break;
+                }
+                case(7): {
+                    ASSET_MANAGER.playSound("Whoosh");
+                    this.xVelocity = this.forwards() * 3000;
+                    this.attack(8, 0.3); break;
+                }
+                case(8): {
+                    ASSET_MANAGER.playSound("HeavySwing");
+                    this.attack(9, 0.5); break;
+                }
+                case(9): this.attack(10); break;
+
                 // case(4): { this.attack(5, 0.6); break; }
                 // case(5): {
                 //     ASSET_MANAGER.playSound("Whoosh");
                 //     this.attack(6);
                 //     break;
                 // }
-                case(7): { this.attack(8, 0.3); break; }
-                case(8): { this.attack(9); break; }
-                case(10): { this.attack(11, 0.4); break; }
+                // case(7): { this.attack(8, 0.3); break; }
+                // case(8): { this.attack(9); break; }
+                // case(10): { this.attack(11, 0.4); break; }
                 case(11): { this.attack(12); break; }
                 case(12): { //DRAGONKICK
                     this.attack(13, 0.5);
