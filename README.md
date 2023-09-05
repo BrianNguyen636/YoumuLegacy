@@ -6,11 +6,12 @@
 
 Youmu Legacy is a 2D Action Game inspired by Rogue Legacy and Hollow Knight about defeating various challenging boss fights.
 
-Take on characters from the Touhou Project and prove your skills.
+Take on characters from the Touhou Project and prove your skills in the boss rush mode.
 
 ## Getting Started
 
 ### Controls
+Menu navigation is done with the movement keys and Jump button.
 All controls are remappable in-game. Supports both Keyboard and Controller.
 ### Keyboard
 | Input | Action |
@@ -40,7 +41,7 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 - You have one double-jump and one air-dash
 - Dash can be cancelled early by jumping, attacking, or fast-falling
 - You can move and jump while attacking, but you can't dash.
-- You can jump out of getting hit after a certain period of time to recover faster.
+- While being knocked back from damage, after a certain time has passed you can jump to recover faster.
 
 ## Authors
 
@@ -48,12 +49,12 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Acknowledgements
 
-    All credit to Team Shanghai Alice for the Touhou Project.
-    Credit to Twilight Frontier for the sprites and sfx.
-    Credits to the various artists for the soundtrack.
-    Thanks to Chris Marriot for "[How To Make A Web Game](https://www.youtube.com/playlist?list=PLRgsEjJNLnh7fqP4mVqP-h6fAnuOdx3l4)"
-    Programming by me.
-    Main menu art by me.
+- All credit to Team Shanghai Alice for the Touhou Project.
+- Credit to Twilight Frontier for the sprites and sfx.
+- Credits to the various artists for the soundtrack.
+- Thanks to Chris Marriot for "[How To Make A Web Game](https://www.youtube.com/playlist?list=PLRgsEjJNLnh7fqP4mVqP-h6fAnuOdx3l4)"
+- Programming by me.
+- Main menu art by me.
 
 ## Version History
 
