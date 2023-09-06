@@ -165,12 +165,7 @@ class PlayerController {
                 this.player.x -= this.dashSpeed * this.game.clockTick;
             } 
             if (this.afterimageTimer <= 0) {//AFTER IMAGE
-                let image;
-                if (this.player.facing == 0) {
-                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 2, this.game);
-                } else {
-                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 3, this.game);
-                }
+                let image = new Effect(this.player.x, this.player.y, "Youmu", 300, this.player.facing + 2, this.game);
                 image.fadeSpeed = 3;
                 this.game.addEntity(image);
                 this.afterimageTimer = 0.05;
@@ -212,12 +207,7 @@ class PlayerController {
                     this.player.y += 1300 * this.game.clockTick;
                     this.yVelocity = 0;
                     if (this.afterimageTimer <= 0) {//AFTER IMAGE
-                        let image;
-                        if (this.player.facing == 0) {
-                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 4, this.game);
-                        } else {
-                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 5, this.game);
-                        }
+                        let image = new Effect(this.player.x, this.player.y, "Youmu", 300, this.player.facing + 4, this.game);
                         image.fadeSpeed = 3;
                         this.game.addEntity(image);
                         this.afterimageTimer = 0.05;

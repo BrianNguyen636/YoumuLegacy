@@ -202,6 +202,13 @@ class TenshiController extends BossController {
                     this.attack(3);
                     break;
                 }
+                case(3): {
+                    this.timer = 0.1;
+                    this.boss.state = 0;
+                    this.xVelocity = 0;
+                    this.effectSpawn = false;
+                    break;
+                }
                 case(4): {
                     this.attack(5);
                     ASSET_MANAGER.playSound("HisouSlash");
@@ -256,7 +263,7 @@ class TenshiController extends BossController {
                 }
                 case(25): { this.attack(26); break; }
                 default: {
-                    this.timer =  0.5;
+                    this.timer =  0.4;
                     this.boss.state = 0;
                     this.xVelocity = 0;
                     this.effectSpawn = false;

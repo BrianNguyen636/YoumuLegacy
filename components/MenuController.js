@@ -83,6 +83,7 @@ class MenuController {
         this.optionSelection(3);
         if (this.game.A && !this.game.AHold && this.selected == 0) { //END START MENU
             this.game.AHold = true;
+            this.game.paused = false;
             ASSET_MANAGER.playSound("Select");
             this.game.roomManager.stageTransition(0);
             this.game.startMenu = false;

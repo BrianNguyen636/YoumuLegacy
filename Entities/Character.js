@@ -13,7 +13,8 @@ class Character {
         this.updateBB();
         this.state = 0; 
         this.facing = 1;
-        this.invuln = 0; 
+        this.invuln = 0;
+        this.hitTimer = 0;
     };
     setController(controller) {this.controller = controller};
 
@@ -24,8 +25,10 @@ class Character {
             this.health -= 1;
             this.invuln = this.game.player.getAttackDuration();
             ASSET_MANAGER.playSound("Slash");
-            if (this.game.player.facing == 0) this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 300, 0, this.game));
-            else this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 300, 1, this.game));
+            let effect = new Effect(this.BB.midX - 150, this.BB.midY - 150, "Youmu", 300, this.game.player.facing, this.game);
+            effect.fadeSpeed = 3.0;
+            this.game.addEntity(effect);
+            // this.hitTimer = 0.1;
         }
         
     }
@@ -62,7 +65,9 @@ class Character {
     draw(ctx) {
         this.drawShadow(ctx);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
-
+        // if (this.hitTimer >= 0) {
+        //     this.hitTimer -= this.game.clockTick;
+        // }
         if (this.game.boxView) {
             ctx.beginPath();
             ctx.rect(this.BB.x, this.BB.y, this.BB.width, this.BB.height)

@@ -158,9 +158,8 @@ class OkuuController extends BossController {
 
                     if (this.afterimageTimer <= 0) {
                         let frame = this.boss.animations[0][17].currentFrame();
-                        if (this.boss.facing == 1) frame = frame + 4;
-                        let image = new Effect(this.boss.x, this.boss.y, "Okuu", 400, frame + 1, this.game)
-                        image.fadeSpeed = 3;
+                        let image = new Effect(this.boss.x, this.boss.y, "Okuu", 400, frame + this.boss.facing * 4 + 1, this.game)
+                        image.fadeSpeed = 4.5;
                         this.game.addEntity(image);
                         this.afterimageTimer = 0.05;
                     }

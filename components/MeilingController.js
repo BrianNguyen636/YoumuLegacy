@@ -70,8 +70,7 @@ class MeilingController extends BossController {
                         this.xVelocity = 0;
                     }
                     if (this.shotTimer <= 0) {
-                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 1, this.game));
-                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 2, this.game));
+                        this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, this.boss.facing + 1, this.game));
                         this.shotTimer = 0.033;
                     }
                     this.shotTimer -= this.game.clockTick;
@@ -96,8 +95,7 @@ class MeilingController extends BossController {
                 }
                 case(20):
                     if (this.shotTimer <= 0) {
-                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 3, this.game));
-                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 4, this.game));
+                        this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, this.boss.facing + 3, this.game));
                         this.shotTimer = 0.05;
                     }
                     this.shotTimer -= this.game.clockTick;
