@@ -30,8 +30,8 @@ class Character {
             this.game.addEntity(effect);
             // this.hitTimer = 0.1;
         }
-        
-    }
+    };
+    
     updateBB() {
         console.log("Update BB");
     };

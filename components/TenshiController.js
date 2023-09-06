@@ -5,6 +5,7 @@ class TenshiController extends BossController {
     setBossTime() {
         this.game.tenshiTime = Math.round((this.game.timer.gameTime - this.game.startTime - 
             this.game.meilingTime - this.game.cirnoTime) * 100) / 100;
+        this.game.addEntity(new Hisou(this.boss.x, this.boss.y, this.forwards() * 60, -1200, this.game));
     };
     facePlayer() {
         if (this.boss.facing == 0 && this.boss.BB.midX > this.player.BB.midX) {

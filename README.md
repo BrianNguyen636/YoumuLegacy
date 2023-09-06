@@ -76,6 +76,8 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 - After-image refactoring
 - Asset load refactoring
 - Game border changed to dark mode
+- Fixed Youmu's eye color
+- Added new effect on Tenshi defeat
 ### v1.16 (9/5/2023)
 - After-image and effects update
 - Meiling fight rework
