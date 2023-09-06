@@ -21,6 +21,8 @@ Bosses (stages) can be selected individually by interacting with the NPC in the 
 Menu navigation is done with the movement keys and Jump button.
 
 All controls are remappable in-game. Supports both Keyboard and Controller.
+
+!!! Make sure to have the game screen focused when playing on keyboard. The game will auto-pause if unfocused.!!!
 ### Keyboard
 | Input | Action |
 | -------- | ------- |
@@ -68,10 +70,12 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Version History
 
-### v1.7 (9/6/2023)
+### v1.17 (9/6/2023)
 - Changed hit effect
 - Tenshi slightly less recovery on attacks
 - After-image refactoring
+- Asset load refactoring
+- Game border changed to dark mode
 ### v1.16 (9/5/2023)
 - After-image and effects update
 - Meiling fight rework

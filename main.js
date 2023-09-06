@@ -17,19 +17,6 @@ projectiles.forEach((e) => {ASSET_MANAGER.queueDownload("./assets/" + e + "Proje
 let themes = ["Menu", "Start", "Cirno", "Meiling", "Tenshi", "Okuu", "End"];
 themes.forEach((e) => {ASSET_MANAGER.queueDownload("./assets/Audio/" + e + "Theme.mp3");});
 
-// ASSET_MANAGER.queueDownload("./assets/YoumuEffects.png");
-
-// ASSET_MANAGER.queueDownload("./assets/CirnoProjectiles.png");
-
-// ASSET_MANAGER.queueDownload("./assets/MeilingProjectiles.png");
-// ASSET_MANAGER.queueDownload("./assets/MeilingEffects.png");
-
-// ASSET_MANAGER.queueDownload("./assets/TenshiProjectiles.png");
-// ASSET_MANAGER.queueDownload("./assets/TenshiEffects.png");
-
-// ASSET_MANAGER.queueDownload("./assets/OkuuProjectiles.png");
-// ASSET_MANAGER.queueDownload("./assets/OkuuEffects.png");
-
 ASSET_MANAGER.queueDownload("./assets/YuyukoSpritesheet.png");
 ASSET_MANAGER.queueDownload("./assets/YuyukoPortrait.png");
 ASSET_MANAGER.queueDownload("./assets/Stages.png");
@@ -37,14 +24,6 @@ ASSET_MANAGER.queueDownload("./assets/Health.png");
 ASSET_MANAGER.queueDownload("./assets/Ghost.png");
 ASSET_MANAGER.queueDownload("./assets/StartMenu.png");
 ASSET_MANAGER.queueDownload("./assets/StartScreen.png");
-
-// ASSET_MANAGER.queueDownload("./assets/Audio/MenuTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/StartTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/CirnoTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/MeilingTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/TenshiTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/OkuuTheme.mp3");
-// ASSET_MANAGER.queueDownload("./assets/Audio/EndTheme.mp3");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Select.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Cancel.wav");
