@@ -10,8 +10,16 @@ Take on characters from the Touhou Project and prove your skills in the boss rus
 
 ## Getting Started
 
+### Game modes 
+Players can choose between challenging the boss rush, or practicing individual bosses.
+
+Boss Rush has two difficulties, Normal or Lunatic. On Lunatic difficulty, you do not heal between bosses. 
+
+Bosses (stages) can be selected individually by interacting with the NPC in the hub.
+
 ### Controls
 Menu navigation is done with the movement keys and Jump button.
+
 All controls are remappable in-game. Supports both Keyboard and Controller.
 ### Keyboard
 | Input | Action |
@@ -38,10 +46,12 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ### Movement
 
-- You have one double-jump and one air-dash
-- Dash can be cancelled early by jumping, attacking, or fast-falling
+- Dash is NOT invincible.
+- You have one double-jump and one air-dash.
+- Dash can be cancelled early by jumping, attacking, or fast-falling.
 - You can move and jump while attacking, but you can't dash.
 - While being knocked back from damage, after a certain time has passed you can jump to recover faster.
+
 
 ## Authors
 
