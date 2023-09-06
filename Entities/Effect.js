@@ -1,12 +1,12 @@
 class Effect {
-    constructor(x, y, name, number, game) {
-        Object.assign(this, {x,y, name, number, game});
+    constructor(x, y, name, squareSize, number, game) {
+        Object.assign(this, {x,y, name, squareSize, number, game});
         this.id = "effect";
         this.spritesheet = ASSET_MANAGER.getAsset("./assets/" + this.name + "Effects.png");
         this.removeFromWorld = false;
         this.alpha = 1;
-        this.width = 800;
-        this.height = 800;
+        this.width = this.squareSize;
+        this.height = this.squareSize;
         this.fadeSpeed = 1.5;
     };
 

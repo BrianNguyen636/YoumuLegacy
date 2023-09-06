@@ -167,9 +167,9 @@ class PlayerController {
             if (this.afterimageTimer <= 0) {//AFTER IMAGE
                 let image;
                 if (this.player.facing == 0) {
-                    image = new Effect(this.player.x, this.player.y, "Youmu", 2, this.game);
+                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 2, this.game);
                 } else {
-                    image = new Effect(this.player.x, this.player.y, "Youmu", 3, this.game);
+                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 3, this.game);
                 }
                 image.fadeSpeed = 3;
                 this.game.addEntity(image);
@@ -214,9 +214,9 @@ class PlayerController {
                     if (this.afterimageTimer <= 0) {//AFTER IMAGE
                         let image;
                         if (this.player.facing == 0) {
-                            image = new Effect(this.player.x, this.player.y, "Youmu", 4, this.game);
+                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 4, this.game);
                         } else {
-                            image = new Effect(this.player.x, this.player.y, "Youmu", 5, this.game);
+                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 5, this.game);
                         }
                         image.fadeSpeed = 3;
                         this.game.addEntity(image);

@@ -29,7 +29,7 @@ class Okuu extends Character {
         //RUSH
         this.makeAnimation(14, 4, 0, 3, 15);
         this.makeAnimation(15, 4, 2, 1, 1);
-        this.makeAnimation(16, 4, 3, 5, 12);
+        this.makeAnimation(16, 4, 3, 1, 12);
         this.makeAnimation(17, 4, 4, 4, 12);
         //NOVA
         this.makeAnimation(18, 5, 0, 2, 15);

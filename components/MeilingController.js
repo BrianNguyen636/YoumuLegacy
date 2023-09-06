@@ -81,8 +81,8 @@ class MeilingController extends BossController {
                         this.xVelocity = 0;
                     }
                     if (this.shotTimer <= 0) {
-                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 1, this.game));
-                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 2, this.game));
+                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 1, this.game));
+                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 2, this.game));
                         this.shotTimer = 0.033;
                     }
                     this.shotTimer -= this.game.clockTick;
@@ -106,8 +106,8 @@ class MeilingController extends BossController {
                 }
                 case(20):
                     if (this.shotTimer <= 0) {
-                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 3, this.game));
-                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 4, this.game));
+                        if (this.boss.facing == 0) this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 3, this.game));
+                        else this.game.addEntity(new Effect(this.boss.x, this.boss.y, "Meiling", 800, 4, this.game));
                         this.shotTimer = 0.05;
                     }
                     this.shotTimer -= this.game.clockTick;
@@ -186,13 +186,13 @@ class MeilingController extends BossController {
                                 this.game.addEntity(new Hitbox(this.boss.x + 86 , this.boss.y - 478, 142, 478, 0, this.game));
                                 this.game.addEntity(new Hitbox(this.boss.x + 13, this.boss.y - 307, 289, 307, 0, this.game));
                                 this.game.addEntity(new Hitbox(this.boss.x - 48, this.boss.y - 109, 400, 300, 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 0, this.game));
+                                this.game.addEntity(new Effect(this.boss.x - 80, this.boss.y - 500, "Meiling", 800, 0, this.game));
                                 
                             } else {
                                 this.game.addEntity(new Hitbox(this.boss.x + 66 , this.boss.y - 478, 142, 478, 0, this.game));
                                 this.game.addEntity(new Hitbox(this.boss.x - 7, this.boss.y - 307, 289, 307, 0, this.game));
                                 this.game.addEntity(new Hitbox(this.boss.x - 68, this.boss.y - 109, 400, 300, 0, this.game));
-                                this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 0, this.game));
+                                this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 800, 0, this.game));
                             }
                     this.attack(15, 0.2); break;
                 }

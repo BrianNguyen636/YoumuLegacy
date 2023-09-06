@@ -67,8 +67,8 @@ class TenshiController extends BossController {
                         if (!this.effectSpawn) {
                             this.effectSpawn = true;
                             let y = this.boss.y + 160;
-                            this.game.addEntity(new Effect(0, y, "Tenshi", 0, this.game));
-                            this.game.addEntity(new Effect(800, y, "Tenshi", 0, this.game));
+                            this.game.addEntity(new Effect(0, y, "Tenshi", 800, 0, this.game));
+                            this.game.addEntity(new Effect(800, y, "Tenshi", 800, 0, this.game));
                             this.game.addEntity(new Hitbox(this.boss.BB.midX - 1280, y, 2560, 66, 0, this.game));
                         }
                     } else this.effectSpawn = false;
