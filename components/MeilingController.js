@@ -10,8 +10,6 @@ class MeilingController extends BossController {
 
     behavior() {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //Walk from Idle timer
-            // this.boss.state = 1;
-            // this.timer =  0.3 + 0.3 * Math.floor(Math.random() * 3);
             this.facePlayer();
 
             let roll = this.rollForAttack(5);
@@ -29,19 +27,7 @@ class MeilingController extends BossController {
             // this.attack(17);
             // this.attack(23);
         }
-        // if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 1) { //Choose attack from Walk
-        //     this.facePlayer();
-        //     let roll = this.rollForAttack(5);
 
-        //     switch(roll) {
-        //         case(0): this.attack(2, 0.3); break;
-        //         case(1): this.attack(4); break;
-        //         case(2): this.attack(7); break;
-        //         case(3): this.attack(10); break;
-        //         case(4): this.attack(16); break;
-        //     }
-
-        // }
         if (this.attackDuration > 0 || this.timer > 0) { //What happens during an attack
             switch(this.boss.state) {
                 case(1): { //Walking
@@ -58,11 +44,11 @@ class MeilingController extends BossController {
                     if (this.shotCount < 5) {
                         angle = 60 - 30 * this.shotCount; 
                     } else if (this.shotCount < 10) {
-                        angle = -45 + 30 * (this.shotCount - 5);
+                        angle = -75 + 30 * (this.shotCount - 5);
                     } else {
-                        angle = 60 - 30 * (this.shotCount - 9); 
+                        angle = 60 - 30 * (this.shotCount - 10); 
                     }
-                    if (this.shotTimer <= 0 && this.shotCount < 14) {
+                    if (this.shotTimer <= 0 && this.shotCount < 15) {
                         ASSET_MANAGER.playSound("Spray");
                         this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY - 16, 64, 32, 16, 0, 32, 32, projSpeed, 
                             this.boss.facing * 180 + angle * this.forwards(), null, "Meiling", shotColor, this.game));
