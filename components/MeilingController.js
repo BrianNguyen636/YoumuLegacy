@@ -36,24 +36,27 @@ class MeilingController extends BossController {
                     break;
                 }
                 case(4): { //Flurry
-                    let projSpeed = 600;
+                    let projSpeed = 750;
                     let angle;
                     let shotColor = this.shotCount;
                     if (this.shotCount >= 5) shotColor = this.shotCount - 5;
                     if (this.shotCount >= 10) shotColor = this.shotCount - 10;
-                    if (this.shotCount < 5) {
+                    if (this.shotCount < 4) {
                         angle = 60 - 30 * this.shotCount; 
-                    } else if (this.shotCount < 10) {
-                        angle = -75 + 30 * (this.shotCount - 5);
+                    } 
+                    else if (this.shotCount < 8) {
+                        angle = -63 + 30 * (this.shotCount - 4);
+                    } else if (this.shotCount < 12) {
+                        angle = 63 - 30 * (this.shotCount - 8); 
                     } else {
-                        angle = 60 - 30 * (this.shotCount - 10); 
+                        angle = -60 + 30 * (this.shotCount - 12);
                     }
-                    if (this.shotTimer <= 0 && this.shotCount < 15) {
+                    if (this.shotTimer <= 0 && this.shotCount < 16) {
                         ASSET_MANAGER.playSound("Spray");
                         this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY - 16, 64, 32, 16, 0, 32, 32, projSpeed, 
                             this.boss.facing * 180 + angle * this.forwards(), null, "Meiling", shotColor, this.game));
                         this.shotCount++;
-                        this.shotTimer = 0.075;
+                        this.shotTimer = 0.05;
                     }
                     this.shotTimer -= this.game.clockTick;
                     break;
@@ -75,10 +78,11 @@ class MeilingController extends BossController {
                     break;
                 }
 
-                case(12): {
+                case(12):
+                case(13): {
                     //diff * forwards is negative if in front, positive if past
                     let xDiff = this.boss.BB.midX - this.game.player.BB.midX;
-                    if (xDiff * this.forwards() > 0) {
+                    if (xDiff * this.forwards() > 0 || xDiff * this.forwards() > -20) {
                         this.xVelocity = 0;
                     }
                     break;
@@ -162,6 +166,7 @@ class MeilingController extends BossController {
                     this.attack(13); break;
                 }
                 case(13): {
+                    this.xVelocity = 0;
                     this.yVelocity += 2000;
                     this.attack(14, 1); break;
                 }

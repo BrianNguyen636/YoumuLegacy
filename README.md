@@ -58,6 +58,8 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Version History
 
+### v1.16 (9/5/2023)
+- Meiling balance adjustments
 ### v1.15 (9/5/2023)
 - After-image and effects update
 ### v1.1 (9/5/2023)

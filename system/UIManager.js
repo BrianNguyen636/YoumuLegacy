@@ -190,6 +190,10 @@ class UIManager {
         ctx.fillText("Main Menu", 470, 720);
         ctx.strokeText("Main Menu", 470, 720);
 
+        ctx.font = "30px arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("v" + this.game.version, 10, 780);
+
         this.drawBGM(ctx);
 
 
@@ -298,6 +302,9 @@ class UIManager {
         ctx.font = "25px serif";
         // ctx.fillText("Press [Jump] to confirm. Default: Z or (A)", 10, 770);
         ctx.fillText("BGM: Kuroneko Lounge - Ancient Temple", 900, 25, 370);
+        ctx.font = "30px arial";
+        ctx.fillStyle = "white";
+        ctx.fillText("v" + this.game.version, 10, 780);
     }
 
     drawOptions(ctx) {

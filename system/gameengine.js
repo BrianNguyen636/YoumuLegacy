@@ -68,6 +68,7 @@ class GameEngine {
             debugging: false,
         };
         this.boxView = false;
+        this.version = "1.16";
     };
 
     startScreen(ctx, player) {
