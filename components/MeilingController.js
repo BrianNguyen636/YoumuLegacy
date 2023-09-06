@@ -113,7 +113,7 @@ class MeilingController extends BossController {
                         let projSpeed = 900;
                         ASSET_MANAGER.playSound("Meiling1");
                         for (let i = 0; i < 10; i++) {
-                            let angle = 25 - 5 * i;
+                            let angle = 20 - 4 * i;
                             let shotColor = i;
                             if (i >= 5) shotColor -= 5;
                             this.game.addEntity(new Projectile(this.boss.BB.midX - 32, this.boss.BB.midY - 16, 64, 32, 16, 0, 32, 32, projSpeed, 
