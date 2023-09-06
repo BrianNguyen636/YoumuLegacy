@@ -31,7 +31,7 @@ class Meiling extends Character {
         this.makeAnimation(13, 4, 1, 2, 12);
         this.makeAnimation(14, 4, 3, 1, 1);
         this.makeAnimation(15, 4, 4, 1, 1);
-        this.makeAnimation(16, 4, 4, 4, 12);
+        this.makeAnimation(16, 4, 4, 4, 10);
         //DRAGONKICK
         this.makeAnimation(17, 5, 0, 2, 12);
         this.makeAnimation(18, 5, 1, 1, 1);

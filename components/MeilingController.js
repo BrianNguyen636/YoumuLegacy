@@ -180,7 +180,7 @@ class MeilingController extends BossController {
                                 this.game.addEntity(new Hitbox(this.boss.x - 68, this.boss.y - 109, 400, 300, 0, this.game));
                                 this.game.addEntity(new Effect(this.boss.x - 100, this.boss.y - 500, "Meiling", 800, 0, this.game));
                             }
-                    this.attack(15, 0.2); break;
+                    this.attack(15, 0.3); break;
                 }
                 case(15): this.attack(16); break;
 
@@ -199,17 +199,17 @@ class MeilingController extends BossController {
                 case(20): {this.attack(21); break;}
                 case(21): {this.attack(22, 2); break;}
                
-                case(23): this.attack(24,0.5); break;
+                case(23): this.attack(24, 0.5); break;
                 case(24): {this.attack(25); break;}
                 case(25): {
-                    this.attack(26, 0.3); break;
+                    this.attack(26, 0.5); break;
                 }
                 case(26): this.attack(27); break;
                 default: {
                     this.effectSpawn = false;
                     this.shotTimer = 0;
                     this.shotCount = 0;
-                    this.timer = 0.6;
+                    this.timer = 0.8;
                     this.boss.state = 0;
                     this.xVelocity = 0;
                     break;
