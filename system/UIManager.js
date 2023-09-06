@@ -118,9 +118,9 @@ class UIManager {
             }
             case(2): {
                 let tips = [
-                    "She can follow-up her flurry punches with any other attack, watch out!",
-                    "The stomp has a long grounded hitbox. Jump away to avoid both parts of the attack.",
-                    "You can move backwards while attacking to maintain a safe distance with the boss."
+                    "Her double palm-blast has a dead-zone above her. Get ready to jump when you see it.",
+                    "Dodging towards her when she jumps makes it easier to avoid the stomp attack.",
+                    "Flurry can be avoided if you can manage to get behind her during the startup."
                 ]
                 let roll = Math.floor(Math.random() * 3);
                 text = tips[roll];
