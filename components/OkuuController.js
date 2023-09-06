@@ -4,6 +4,7 @@ class OkuuController extends BossController {
         this.timer = 1;
         this.antiCollision = false;
         // this.gravity = 2000;
+        this.afterimageTimer = 0;
     };
     setBossTime() {
         this.game.okuuTime = Math.round((this.game.timer.gameTime - this.game.startTime - 
@@ -13,10 +14,10 @@ class OkuuController extends BossController {
         if (this.shotTimer <= 0) {
             ASSET_MANAGER.playSound("Boom");
             if (this.boss.facing == 0) {
-                this.game.addEntity(new Effect(this.boss.BB.midX - 97 + 100 + 80 * this.shotCount, this.boss.y - 45, "Okuu", 0, this.game));
+                this.game.addEntity(new Effect(this.boss.BB.midX - 97 + 100 + 80 * this.shotCount, this.boss.y - 45, "Okuu", 400, 0, this.game));
                 this.game.addEntity(new Hitbox(this.boss.BB.midX - 97 + 100 + 68 + 80 * this.shotCount, this.boss.y - 45, 57, 312, 0, this.game));
             } else {
-                this.game.addEntity(new Effect(this.boss.BB.midX - 97 - 100 - 80 * this.shotCount, this.boss.y - 45, "Okuu", 0, this.game));
+                this.game.addEntity(new Effect(this.boss.BB.midX - 97 - 100 - 80 * this.shotCount, this.boss.y - 45, "Okuu", 400, 0, this.game));
                 this.game.addEntity(new Hitbox(this.boss.BB.midX - 97 - 100 + 68 - 80 * this.shotCount, this.boss.y - 45, 57, 312, 0, this.game));
             }
             this.shotCount++;
@@ -154,6 +155,16 @@ class OkuuController extends BossController {
                     this.shotTimer -= this.game.clockTick;
 
                     if (this.shotCount > 2 && this.shotTimer <= -0.75) this.attackDuration = 0;
+
+                    if (this.afterimageTimer <= 0) {
+                        let frame = this.boss.animations[0][17].currentFrame();
+                        if (this.boss.facing == 1) frame = frame + 4;
+                        let image = new Effect(this.boss.x, this.boss.y, "Okuu", 400, frame + 1, this.game)
+                        image.fadeSpeed = 3;
+                        this.game.addEntity(image);
+                        this.afterimageTimer = 0.05;
+                    }
+                    this.afterimageTimer -= this.game.clockTick;
                     break;
                 }
                 case(19): {

@@ -17,7 +17,7 @@ class Keystone extends Projectile {
                 ASSET_MANAGER.playSound("Rock");
                 Keystone.setSfxPlayed(true);
             }
-            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 1, this.game));
+            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 800, 1, this.game));
             this.removeFromWorld = true;
         } 
     };

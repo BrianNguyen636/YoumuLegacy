@@ -273,6 +273,14 @@ class GameEngine {
 
     checkPlayerCollisions(player) {
         if (this.player.x + this.player.xBoxOffset + this.player.BB.width >= 1280 && !this.combat) { //RIGHT COLLISION
+
+            for (let i = 0; i < this.entities.length; i++) {
+                let entity = this.entities[i];
+                if (entity.id != "player" && entity.id != "ghost") {
+                    entity.removeFromWorld = true;
+                }
+            }
+
             if (this.bossRush) this.roomManager.stageTransition(this.roomManager.stage + 1);
             else {
                 if (this.roomManager.stage == 0) {
@@ -286,6 +294,7 @@ class GameEngine {
                     this.player.health = 5;
                 }
             }
+
         }
 
         for (let i = 0; i < this.entities.length; i++) {

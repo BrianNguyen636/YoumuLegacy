@@ -24,8 +24,8 @@ class Character {
             this.health -= 1;
             this.invuln = this.game.player.getAttackDuration();
             ASSET_MANAGER.playSound("Slash");
-            if (this.game.player.facing == 0) this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 0, this.game));
-            else this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 1, this.game));
+            if (this.game.player.facing == 0) this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 300, 0, this.game));
+            else this.game.addEntity(new Effect(this.BB.midX - 70, this.BB.midY - 120, "Youmu", 300, 1, this.game));
         }
         
     }
@@ -52,6 +52,11 @@ class Character {
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.restore();
+    }
+    update() {
+        if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
+        this.controller.update();
+        this.updateBB();
     }
 
     draw(ctx) {

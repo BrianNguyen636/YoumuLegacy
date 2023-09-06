@@ -29,7 +29,7 @@ class Okuu extends Character {
         //RUSH
         this.makeAnimation(14, 4, 0, 3, 15);
         this.makeAnimation(15, 4, 2, 1, 1);
-        this.makeAnimation(16, 4, 3, 5, 12);
+        this.makeAnimation(16, 4, 3, 1, 12);
         this.makeAnimation(17, 4, 4, 4, 12);
         //NOVA
         this.makeAnimation(18, 5, 0, 2, 15);
@@ -84,11 +84,5 @@ class Okuu extends Character {
                     this.BB = new BoundingBox(this.x + 99* 1.5, this.y + 59* 1.5, 60* 1.5, 108* 1.5); break;
                 }
         }
-    };
-    update() {
-        if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
-        if (this.game.roomManager.stage != 4) this.removeFromWorld = true;
-        this.controller.update();
-        this.updateBB();
     };
 }

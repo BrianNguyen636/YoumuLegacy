@@ -9,7 +9,7 @@ class Pillar extends Projectile {
 
     behavior() {
         if (this.timer == 0) {
-            this.game.addEntity(new Effect(this.x - 12, this.y - 60, "Tenshi", 3, this.game));
+            this.game.addEntity(new Effect(this.x - 12, this.y - 60, "Tenshi", 800, 3, this.game));
             this.timer = 0.7;
         } else if (this.timer < 0 && this.y > 700 - 583) {
             if (this.yVelocity == 0) ASSET_MANAGER.playSound("Pillar");
@@ -23,11 +23,11 @@ class Pillar extends Projectile {
             this.timer -= this.game.clockTick;
         }
         if (this.lifespan <= 0) {
-            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 2, this.game));
+            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 800, 2, this.game));
         }
         if (!this.game.combat) {
             this.removeFromWorld = true;
-            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 2, this.game));
+            this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 800, 2, this.game));
         }
     };
 

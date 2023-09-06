@@ -15,6 +15,7 @@ class PlayerController {
         this.dashDuration = 0;
         this.attackDuration = 0;
         this.hurtDuration = 0;
+        this.afterimageTimer = 0;
 
         this.speed = 400;
         this.dashSpeed = 1000;
@@ -93,7 +94,7 @@ class PlayerController {
         } else if (this.player.state < 7) {
             this.dashing = false;
 
-            if (this.game.C && !this.game.CHold) {
+            if (this.game.C && !this.game.CHold) { //DASH
                 if (this.airdash || !this.airborne) {
                     this.game.CHold = true;
                     this.airdash = false;
@@ -125,6 +126,7 @@ class PlayerController {
                 if (this.game.down && !this.fastFall && !this.game.downHold) { //FASTFALL
                     this.fastFall = true;
                     this.game.downHold = true;
+                    this.jumpDuration = 0;
                     ASSET_MANAGER.playSound("Swish");
                     // this.game.addEntity(new Effect(this.player.BB.midX - 75, this.player.BB.y, "Youmu", 2, this.game));
                 }
@@ -159,7 +161,21 @@ class PlayerController {
             this.yVelocity = 0;
             if (this.player.facing == 0) {
                 this.player.x += this.dashSpeed * this.game.clockTick;
-            } else this.player.x -= this.dashSpeed * this.game.clockTick;
+            } else {
+                this.player.x -= this.dashSpeed * this.game.clockTick;
+            } 
+            if (this.afterimageTimer <= 0) {//AFTER IMAGE
+                let image;
+                if (this.player.facing == 0) {
+                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 2, this.game);
+                } else {
+                    image = new Effect(this.player.x, this.player.y, "Youmu", 300, 3, this.game);
+                }
+                image.fadeSpeed = 3;
+                this.game.addEntity(image);
+                this.afterimageTimer = 0.05;
+            }
+            this.afterimageTimer -= this.game.clockTick;
         } else if (this.player.state < 6) {
             if (!this.game.right || !this.game.left) {
                 if (this.game.right) {
@@ -195,6 +211,18 @@ class PlayerController {
                 if (this.fastFall) { //FASTFALLING
                     this.player.y += 1300 * this.game.clockTick;
                     this.yVelocity = 0;
+                    if (this.afterimageTimer <= 0) {//AFTER IMAGE
+                        let image;
+                        if (this.player.facing == 0) {
+                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 4, this.game);
+                        } else {
+                            image = new Effect(this.player.x, this.player.y, "Youmu", 300, 5, this.game);
+                        }
+                        image.fadeSpeed = 3;
+                        this.game.addEntity(image);
+                        this.afterimageTimer = 0.05;
+                    }
+                    this.afterimageTimer -= this.game.clockTick;
                 }
                 if (this.yVelocity < 0 && (this.game.AHold || this.game.upHold)) { //High jump gravity
                     this.yVelocity -= this.highJumpBonus * this.game.clockTick;
