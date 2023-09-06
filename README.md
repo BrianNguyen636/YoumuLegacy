@@ -68,6 +68,10 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 
 ## Version History
 
+### v1.7 (9/6/2023)
+- Changed hit effect
+- Tenshi slightly less recovery on attacks
+- After-image refactoring
 ### v1.16 (9/5/2023)
 - After-image and effects update
 - Meiling fight rework
