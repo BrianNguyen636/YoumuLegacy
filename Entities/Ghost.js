@@ -1,6 +1,7 @@
 class Ghost {
     constructor(game) {
         Object.assign(this, {game});
+        this.id = "ghost";
         this.x = 400;
         this.y = 600; 
         this.speed = 300;

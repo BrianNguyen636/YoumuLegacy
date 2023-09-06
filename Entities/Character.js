@@ -53,6 +53,11 @@ class Character {
         ctx.fill();
         ctx.restore();
     }
+    update() {
+        if (this.invuln > 0 && !this.dead()) this.invuln -= this.game.clockTick;
+        this.controller.update();
+        this.updateBB();
+    }
 
     draw(ctx) {
         this.drawShadow(ctx);

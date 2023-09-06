@@ -7,13 +7,14 @@ class Effect {
         this.alpha = 1;
         this.width = 800;
         this.height = 800;
+        this.fadeSpeed = 1.5;
     };
 
     update() {
-        this.alpha -= 1.5 * this.game.clockTick;
+        this.alpha -= this.fadeSpeed * this.game.clockTick;
         if (this.alpha <= 0) {
             this.removeFromWorld = true;
-        } 
+        }
     };
 
     draw(ctx) {

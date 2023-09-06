@@ -14,7 +14,7 @@ class Yuyuko {
         this.BB = new BoundingBox(this.x + 50 * 1.5, this.y + 155 * 1.5, 97 * 1.5, 2 * 1.5);
     };
     update() {
-        if (this.game.roomManager.stage != 0) this.removeFromWorld = true;
+        // if (this.game.roomManager.stage != 0) this.removeFromWorld = true;
         this.y += this.yVelocity;
         if (this.timer <= 0.5 * this.animator.totalTime) {
             if (this.yVelocity < 0) this.yVelocity = 0;
