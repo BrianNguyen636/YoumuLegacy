@@ -30,12 +30,19 @@ class OkuuController extends BossController {
         let yTarget = this.boss.BB.bottom;
         let xDiff = xTarget - this.game.player.x;
         let yDiff = yTarget - this.game.player.y;
-        let distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-        this.xTrajectory = xDiff / distance;
-        this.yTrajectory = yDiff / distance;
-        this.game.player.x += this.xTrajectory * speed * this.game.clockTick;
-        if (!this.game.player.dead() && !this.game.player.controller.dashing)
-        this.game.player.y += this.yTrajectory * speed * this.game.clockTick / 2;
+        // let distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+        // this.xTrajectory = xDiff / distance;
+        // this.yTrajectory = yDiff / distance;
+        if (xDiff > 0) {
+            this.game.player.x += speed * this.game.clockTick;
+        } else {
+            this.game.player.x -= speed * this.game.clockTick;
+        }
+        // this.game.player.x += this.xTrajectory * speed * this.game.clockTick;
+        if (!this.game.player.dead() && !this.game.player.controller.dashing) {
+            this.game.player.y += speed / 2 * this.game.clockTick;
+        }
+        // this.game.player.y += this.yTrajectory * speed * this.game.clockTick / 2;
     }
     flightShots() {
         let projSpeed = 700;
@@ -63,20 +70,20 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            let roll = this.rollForAttack(6);
-            switch(roll) {
-                case(0): {this.attack(4); break; }
-                case(1): {this.attack(9); break; }
-                case(2): {this.attack(14); break; }
-                case(3): {this.attack(18); break; }
-                case(4): {
-                    this.attack(23, 0.5);
-                    this.antiGrav = true;
-                    break;
-                }
-                case(5): this.attack(27); break;
-            }
-            // this.attack(9);
+            // let roll = this.rollForAttack(6);
+            // switch(roll) {
+            //     case(0): {this.attack(4); break; }
+            //     case(1): {this.attack(9); break; }
+            //     case(2): {this.attack(14); break; }
+            //     case(3): {this.attack(18); break; }
+            //     case(4): {
+            //         this.attack(23, 0.5);
+            //         this.antiGrav = true;
+            //         break;
+            //     }
+            //     case(5): this.attack(27); break;
+            // }
+            this.attack(9);
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -115,7 +122,7 @@ class OkuuController extends BossController {
                         this.shotCount++;
                     }
                     this.shotTimer -= this.game.clockTick;
-                    this.magnetize(400);
+                    this.magnetize(320);
 
                     if (this.attackDuration < 3.3 && !this.effectSpawn) {
                         this.game.addEntity(new Klaxon(120, 2.3, this.game));
