@@ -115,7 +115,7 @@ class OkuuController extends BossController {
                         this.shotCount++;
                     }
                     this.shotTimer -= this.game.clockTick;
-                    this.magnetize(300);
+                    this.magnetize(400);
 
                     if (this.attackDuration < 3.3 && !this.effectSpawn) {
                         this.game.addEntity(new Klaxon(120, 2.3, this.game));

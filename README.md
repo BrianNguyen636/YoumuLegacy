@@ -79,6 +79,7 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 - Fixed Youmu's eye color
 - Added new effect on Tenshi defeat
 - Made Okuu even cooler
+- Increased Okuu's vacuum effect
 ### v1.16 (9/5/2023)
 - After-image and effects update
 - Meiling fight rework
