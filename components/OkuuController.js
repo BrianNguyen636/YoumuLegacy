@@ -70,20 +70,20 @@ class OkuuController extends BossController {
         if (this.timer <= 0 && this.attackDuration <= 0 && this.boss.state == 0) { //ATTACKS FROM IDLE
             this.facePlayer();
 
-            // let roll = this.rollForAttack(6);
-            // switch(roll) {
-            //     case(0): {this.attack(4); break; }
-            //     case(1): {this.attack(9); break; }
-            //     case(2): {this.attack(14); break; }
-            //     case(3): {this.attack(18); break; }
-            //     case(4): {
-            //         this.attack(23, 0.5);
-            //         this.antiGrav = true;
-            //         break;
-            //     }
-            //     case(5): this.attack(27); break;
-            // }
-            this.attack(9);
+            let roll = this.rollForAttack(6);
+            switch(roll) {
+                case(0): {this.attack(4); break; }
+                case(1): {this.attack(9); break; }
+                case(2): {this.attack(14); break; }
+                case(3): {this.attack(18); break; }
+                case(4): {
+                    this.attack(23, 0.5);
+                    this.antiGrav = true;
+                    break;
+                }
+                case(5): this.attack(27); break;
+            }
+            // this.attack(9);
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
