@@ -8,7 +8,7 @@ characters.forEach((e) => {
 	ASSET_MANAGER.queueDownload("./assets/" + e + "SpritesheetFlip.png");
 });
 
-let effects = ["Youmu", "Meiling", "Tenshi", "Okuu"];
+let effects = ["Youmu", "Meiling", "Tenshi", "Okuu", "Klaxon"];
 effects.forEach((e) => {ASSET_MANAGER.queueDownload("./assets/" + e + "Effects.png");});
 
 let projectiles = ["Cirno", "Meiling", "Tenshi", "Okuu"];
@@ -54,6 +54,7 @@ ASSET_MANAGER.queueDownload("./assets/Audio/Okuu1.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Okuu2.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Okuu3.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/HeavySwing.wav");
+ASSET_MANAGER.queueDownload("./assets/Audio/Caution.wav");
 
 ASSET_MANAGER.queueDownload("./assets/Audio/Cirno1.wav");
 ASSET_MANAGER.queueDownload("./assets/Audio/Cirno2.wav");

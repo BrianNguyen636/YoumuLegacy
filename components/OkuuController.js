@@ -76,7 +76,7 @@ class OkuuController extends BossController {
                 }
                 case(5): this.attack(27); break;
             }
-            // this.attack(27);
+            // this.attack(9);
         }
         if (this.attackDuration > 0 || this.timer > 0) { //DURING STATE
             switch(this.boss.state) {
@@ -116,6 +116,11 @@ class OkuuController extends BossController {
                     }
                     this.shotTimer -= this.game.clockTick;
                     this.magnetize(300);
+
+                    if (this.attackDuration < 3.3 && !this.effectSpawn) {
+                        this.game.addEntity(new Klaxon(120, 2.3, this.game));
+                        this.effectSpawn = true;
+                    }
                     break;
                 }
                 case(12): {
@@ -165,6 +170,12 @@ class OkuuController extends BossController {
                     }
                     this.afterimageTimer -= this.game.clockTick;
                     break;
+                }
+                case(18): {
+                    if (this.attackDuration < 1 && !this.effectSpawn) {
+                        this.game.addEntity(new Klaxon(120, 1.5, this.game));
+                        this.effectSpawn = true;
+                    }
                 }
                 case(19): {
                     if (this.attackDuration < 1) this.yVelocity -= 800 * this.game.clockTick;
@@ -309,6 +320,7 @@ class OkuuController extends BossController {
 
                 case(18): { //NOVA
                     this.antiGrav = true;
+
                     this.attack(19, 1.3);
                     break;
                 }
