@@ -68,7 +68,7 @@ class GameEngine {
             debugging: false,
         };
         this.boxView = false;
-        this.version = "1.17";
+        this.version = "1.18";
     };
 
     startScreen(ctx, player) {
@@ -283,6 +283,12 @@ class GameEngine {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.roomManager.draw(this.ctx);
 
+        this.entities.forEach((e) => { //DRAW ALL SHADOWS IN THE BACK
+            if (["player", "npc", "boss"].includes(e.id)) {
+                e.drawShadow(this.ctx);
+            }
+        });
+
         // Draw latest things first
         for (let i = this.entities.length - 1; i >= 0; i--) {
             let entity = this.entities[i];
@@ -300,6 +306,7 @@ class GameEngine {
         }
         this.uiManager.update();
         let entitiesCount = this.entities.length;
+        
         for (let i = 0; i < entitiesCount; i++) {
             let entity = this.entities[i];
             if (!entity.removeFromWorld) {
@@ -378,6 +385,7 @@ class GameEngine {
         if (this.controllerIndex != null) this.controllerButtons();
         this.buttonHolds();
         if (this.startMenu) { //START MENU
+
             if (this.menuController.controls) {
                 this.menuController.controlsMenu();
             } else if (this.menuController.controllerControls) {
@@ -387,12 +395,15 @@ class GameEngine {
             } else if (this.menuController.credits) {
                 this.menuController.creditsPage();  
             } else this.menuController.startMenu();
+
         } else if (this.paused) {//IF PAUSED
+
             if (this.victory) { //VICTORY
                 this.menuController.victory();
             } else if (this.player.health > 0) {  //PAUSE MENU
                 this.menuController.pauseMenu();
             } else this.menuController.gameOver(); //IF GAME OVER
+
         } else { //NORMAL GAMELOOP
             this.clockTick = this.timer.tick();
             this.update();

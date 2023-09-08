@@ -68,7 +68,7 @@ class Player extends Character{
     };
 
     draw(ctx) {
-        this.drawShadow(ctx);
+        // this.drawShadow(ctx);
         if (this.invuln > 0 && !this.dead()) ctx.globalAlpha = 0.5;
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         ctx.globalAlpha = 1;

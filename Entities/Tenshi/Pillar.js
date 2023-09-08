@@ -1,7 +1,7 @@
 class Pillar extends Projectile {
     constructor(x, lifespan, game) {
         super(x, 700, 200, 200, 
-            3, 17, 130, 583, 0, 0, lifespan, "Tenshi", 1, game);
+            3, 583, 130, 583, 0, 0, lifespan, "Tenshi", 1, game);
         this.bottom = this.y - 583;
         this.timer = 0;
         this.elevation = 0;
@@ -15,6 +15,7 @@ class Pillar extends Projectile {
             if (this.yVelocity == 0) ASSET_MANAGER.playSound("Pillar");
             this.yVelocity = -500000 * this.game.clockTick;
             this.elevation = (700 - this.y) / 583; 
+            this.hitboxY = 17;
         } else if (this.y <= 700 - 583) {
             this.y = 700 - 583;
             this.yVelocity = 0;
@@ -22,6 +23,8 @@ class Pillar extends Projectile {
         } else {
             this.timer -= this.game.clockTick;
         }
+
+
         if (this.lifespan <= 0) {
             this.game.addEntity(new Effect(this.x, this.y, "Tenshi", 800, 2, this.game));
         }

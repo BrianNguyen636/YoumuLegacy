@@ -9,7 +9,7 @@ class AssetManager {
     };
 
     queueDownload(path) {
-        console.log("Queueing " + path);
+        if (gameEngine.debugging) console.log("Queueing " + path);
         this.downloadQueue.push(path);
     };
 
@@ -21,7 +21,7 @@ class AssetManager {
         if (this.downloadQueue.length === 0) setTimeout(callback, 10);
         for (let i = 0; i < this.downloadQueue.length; i++) {
             const path = this.downloadQueue[i];
-            console.log(path);
+            if (gameEngine.debugging) console.log(path);
 
             let extension = path.substring(path.length-3);
             switch(extension) {
@@ -29,7 +29,7 @@ class AssetManager {
                 case 'jpg':
                     const img = new Image();
                     img.addEventListener("load", () => {
-                        console.log("Loaded " + img.src);
+                        if (gameEngine.debugging) console.log("Loaded " + img.src);
                         this.successCount++;
                         if (this.isDone()) callback();
                     });
@@ -47,7 +47,7 @@ class AssetManager {
                 case 'mp3':
                     const audio = new Audio();
                     audio.addEventListener("loadeddata", () => {
-                        console.log("Loaded " + audio.src);
+                        if (gameEngine.debugging) console.log("Loaded " + audio.src);
                         this.successCount++;
                         if (this.isDone()) callback();
                     });

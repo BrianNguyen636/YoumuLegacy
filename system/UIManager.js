@@ -41,10 +41,21 @@ class UIManager {
             ctx.fillStyle = "yellow";
             ctx.strokeStyle = "black";
             ctx.font = "30px arial";
-            ctx.fillText("To " + stages[this.game.selectedStage], 1100, 500, 150);
-            ctx.strokeText("To " + stages[this.game.selectedStage], 1100, 500, 150);
+            if (this.game.selectedStage == 0) {
+                ctx.fillText("To " + stages[this.game.selectedStage], 1100, 470, 150);
+                ctx.strokeText("To " + stages[this.game.selectedStage], 1100, 470, 150);
+                let diff = "Normal";
+                if (this.game.lunatic) diff = "Lunatic";
+                ctx.fillText("[" + diff + "]", 1120, 500, 100);
+                ctx.strokeText("[" + diff + "]", 1120, 500, 100);
+            } else {
+                ctx.fillText("To " + stages[this.game.selectedStage], 1100, 500, 150);
+                ctx.strokeText("To " + stages[this.game.selectedStage], 1100, 500, 150);
+            }
+
             ctx.fillText("->", 1150, 530);
             ctx.strokeText("->", 1150, 530);
+
         } else if (!this.game.combat){
             ctx.fillStyle = "yellow";
             ctx.strokeStyle = "black";

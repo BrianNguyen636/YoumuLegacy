@@ -27,6 +27,7 @@ class PlayerController {
     jump() {
         this.yVelocity = -this.jumpHeight;
         this.airborne = true;
+        this.fastFall = false;
         if (this.game.up) this.game.upHold = true;
         if (this.game.A) this.game.AHold = true;
         this.player.animations[0][2].resetFrames();

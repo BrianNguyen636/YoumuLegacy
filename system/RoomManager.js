@@ -6,6 +6,7 @@ class RoomManager {
     };
 
     stageTransition(stage) {
+
         switch(stage) {
             case(0): {
                 this.stage = stage;

@@ -69,7 +69,11 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 - Main menu art by me.
 
 ## Version History
-
+### v1.18 (9/7/2023)
+- Fixed Pillars doing damage before they rise when you fastfall.
+- Made shadows draw behind all characters.
+- Allows double-jump cancel fast-fall.
+- Now shows difficulty in hub.
 ### v1.17 (9/6/2023)
 - Changed hit effect
 - Tenshi slightly less recovery on attacks

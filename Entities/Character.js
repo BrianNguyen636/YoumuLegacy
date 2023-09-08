@@ -63,7 +63,7 @@ class Character {
     }
 
     draw(ctx) {
-        this.drawShadow(ctx);
+        // this.drawShadow(ctx);
         this.animations[this.facing][this.state].drawFrame(this.game.clockTick, ctx, this.x, this.y);
         // if (this.hitTimer >= 0) {
         //     this.hitTimer -= this.game.clockTick;
