@@ -99,6 +99,7 @@ class UIManager {
         if (selected == 1) {ctx.fillStyle = "green";} else ctx.fillStyle = "white";
         ctx.fillText("Main Menu", 470, 460);
         ctx.strokeText("Main Menu", 470, 460);
+        
 
         ctx.font = "20px arial";
 
@@ -131,7 +132,7 @@ class UIManager {
                 let tips = [
                     "Her double palm-blast has a dead-zone above her. Get ready to jump when you see it.",
                     "Dodging towards her when she jumps makes it easier to avoid the stomp attack.",
-                    "Flurry can be avoided if you can manage to get behind her during the startup."
+                    "Making distance can make her Flurry Shots easier to dodge."
                 ]
                 let roll = Math.floor(Math.random() * 3);
                 text = tips[roll];

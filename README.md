@@ -69,6 +69,10 @@ All controls are remappable in-game. Supports both Keyboard and Controller.
 - Main menu art by me.
 
 ## Version History
+
+### v1.19 (9/11/2023)
+- Fixed center of gravity for Okuu's vaccuum attack.
+- Adjusted a tip for Meiling
 ### v1.18 (9/7/2023)
 - Fixed Pillars doing damage before they rise when you fastfall.
 - Made shadows draw behind all characters.

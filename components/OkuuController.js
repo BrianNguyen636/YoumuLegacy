@@ -28,8 +28,8 @@ class OkuuController extends BossController {
     magnetize(speed) {
         let xTarget = this.boss.BB.midX;
         let yTarget = this.boss.BB.bottom;
-        let xDiff = xTarget - this.game.player.x;
-        let yDiff = yTarget - this.game.player.y;
+        let xDiff = xTarget - this.game.player.BB.midX;
+        let yDiff = yTarget - this.game.player.BB.midY;
         // let distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
         // this.xTrajectory = xDiff / distance;
         // this.yTrajectory = yDiff / distance;
